@@ -1,5 +1,5 @@
 {
-   "id": "copy-user-roles",
+   "id": "HSG-Library/alma-copy-user-roles",
    "title": "Copy User Roles",
    "subtitle": [
       {
@@ -22,7 +22,7 @@
          "text": "Diese App erlaubt es, Benutzerrollen von einem Benutzer auf einen anderen zu kopieren. Dies erleichtert in erster Linie das Erstellen von neuen Benutzer für Bibliotheksmitarbeiter. "
       }
    ],
-   "license": "https://license.example.com",
+   "license": "https://raw.githubusercontent.com/HSG-Library/alma-copy-user-roles/main/LICENSE",
    "icon": {
       "type": "url",
       "value": "/assets/app-icon.png"
