@@ -18,7 +18,6 @@ import { ValidationDialog } from '../validationDialog/validationDialog.component
 export class MainComponent implements OnInit, OnDestroy {
 
   loading: boolean = false
-  loadUsers: boolean = false
   currentUserEntity: Entity
   replaceExistingRoles: boolean = false
   resultEntites: UserSummaryEnriched[]
@@ -58,13 +57,13 @@ export class MainComponent implements OnInit, OnDestroy {
 
   findUser() {
     if (this.searchTerm && this.searchTerm.length >= 2) {
-      this.loadUsers = true
+      this.loading = true
 
       this.userService.findUser(this.searchTerm.trim()).subscribe(
         (userResponse) => {
           this.resultCount = userResponse.total_record_count
           this.resultEntites = userResponse.user
-          this.loadUsers = false
+          this.loading = false
           if (userResponse.total_record_count <= 0) {
             return
           }
@@ -86,7 +85,7 @@ export class MainComponent implements OnInit, OnDestroy {
                 })
                 this.alert.error(alertMsg, { autoClose: true })
                 console.error('Error in findUser()', error)
-                this.loadUsers = false
+                this.loading = false
               })
           })
         },
@@ -96,7 +95,7 @@ export class MainComponent implements OnInit, OnDestroy {
           })
           this.alert.error(alertMsg, { autoClose: true })
           console.error('Error in findUser()', error)
-          this.loadUsers = false
+          this.loading = false
         })
     }
   }
