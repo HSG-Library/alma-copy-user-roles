@@ -1,11 +1,14 @@
-import { Observable } from 'rxjs'
-import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core'
-import { CloudAppEventsService, Entity, AlertService, EntityType } from '@exlibris/exl-cloudapp-angular-lib'
-import { UserService } from '../../services/user.service'
-import { UserSummaryEnriched } from '../../types/userSummaryEnriched.type'
-import { AppConfig } from '../../app.config'
-import { CopyUserRolesService } from '../../services/copyUserRoles.service'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
+import { AlertService, CloudAppEventsService, Entity, EntityType } from '@exlibris/exl-cloudapp-angular-lib'
 import { TranslateService } from '@ngx-translate/core'
+import { Observable } from 'rxjs'
+import { AppConfig } from '../../app.config'
+import { ValidationInfo } from '../../models/validationInfo'
+import { UserService } from '../../services/user.service'
+import { UserRolesService } from '../../services/userRoles.service'
+import { UserSummaryEnriched } from '../../types/userSummaryEnriched.type'
+import { ValidationDialog } from '../validationDialog/validationDialog.component'
 
 @Component({
   selector: 'app-main',
@@ -28,11 +31,12 @@ export class MainComponent implements OnInit, OnDestroy {
   entities$: Observable<Entity[]> = this.eventsService.entities$
 
   constructor(
+    private dialog: MatDialog,
     private eventsService: CloudAppEventsService,
     private alert: AlertService,
     private translate: TranslateService,
     private userService: UserService,
-    private copyUserRoleService: CopyUserRolesService,
+    private userRoleService: UserRolesService,
   ) { }
 
   ngOnInit() {
@@ -98,13 +102,37 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   selectSourceUser(event: UserSummaryEnriched[]) {
-    this.sourceUser = event[0]
+    let user: UserSummaryEnriched = event[0]
+    this.loading = true
+    this.userRoleService.validate(user)
+      .subscribe((validationInfo: ValidationInfo) => {
+        user.rolesChecked = true
+        if (validationInfo.valid) {
+          this.sourceUser = user
+          user.rolesValid = true
+        } else {
+          this.sourceUser = null
+          this.dialog.open(ValidationDialog, { autoFocus: false, data: validationInfo });
+          user.rolesValid = false
+        }
+      },
+        (error) => {
+          let alertMsg = this.translate.instant('main.error.validationAlert', {
+            status: error.status
+          })
+          this.alert.error(alertMsg, { autoClose: true })
+          console.error('Error while validating in selectSourceUser()', error)
+        },
+        () => {
+          this.loading = false
+        }
+      )
   }
 
   copyUserRoles() {
     this.userService.getUserDetailsFromEntity(this.currentUserEntity)
       .subscribe(userDetails => {
-        this.copyUserRoleService.copy(this.sourceUser, userDetails, this.replaceExistingRoles)
+        this.userRoleService.copy(this.sourceUser, userDetails, this.replaceExistingRoles)
           .subscribe(
             () => {
               this.eventsService.refreshPage().subscribe(
