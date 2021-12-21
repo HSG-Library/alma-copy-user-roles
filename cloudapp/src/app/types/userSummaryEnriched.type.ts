@@ -5,4 +5,7 @@ import { UserRole } from './usrRole.type'
 export type UserSummaryEnriched = UserSummary & {
 	user_group?: ResponseValue
 	user_role?: UserRole[]
+	
+	rolesChecked?: boolean
+	rolesValid?: boolean
 }

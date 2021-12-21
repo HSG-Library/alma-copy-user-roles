@@ -7,19 +7,27 @@
 			"userDetailAlert": "Could not get user details for user {{primaryId}}, Alma responded with status: {{status}}"
 		},
 		"findUserLabel": "Find user",
-		"replaceExistingRolesCheckboxLabel": "Relpace existing role",
+		"replaceExistingRolesCheckboxLabel": "Replace existing roles",
 		"resetButton": "Reset",
 		"resultCountInfo": "(only {{pageSize}} displayed, please refine search)",
 		"resultCountLabel": "Results: {{resultCount}}",
 		"role": "role",
 		"roles": "roles",
-		"rolesCopyToTargetInfo": "Roles will copied to this user",
+		"rolesCopyToTargetInfo": "Roles will be copied to this user",
+		"rolesNotValid": "Not all roles valid",
+		"rolesValid": "All roles valid",
 		"searchUserInfo": "Search for a user",
 		"selectTargetFirstInfo": "Select a target user first.",
 		"selectTargetUserInfo": "Select the target user by navigating to a user record in Alma.",
 		"selectUserFromListInfo": "Select a user from the list:",
-		"sourcUserTitle": "Copy roles form this user",
+		"sourcUserTitle": "Copy roles from this user",
 		"successAlert": "Successfully copied user roles",
 		"targetUserTitle": "Copy roles to this user"
+	},
+	"validationDialog": {
+		"introText": "Validation of roles failed: Not all roles of this user are valid. Message from Alma:",
+		"okButtonLabel": "Close",
+		"outroText": "",
+		"title": "Cannot copy roles from this user"
 	}
 }

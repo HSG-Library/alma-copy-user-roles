@@ -9,11 +9,16 @@ import { MaterialModule, CloudAppTranslateModule, AlertModule } from '@exlibris/
 import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
 import { MainComponent } from './components/main/main.component'
+import { ValidationDialog } from './components/validationDialog/validationDialog.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
+    ValidationDialog,
+  ],
+  entryComponents: [
+    ValidationDialog,
   ],
   imports: [
     MaterialModule,
