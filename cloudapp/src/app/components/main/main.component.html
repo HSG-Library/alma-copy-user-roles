@@ -66,21 +66,22 @@
     <div>
       <mat-selection-list #sourceUserList [multiple]="false" [(ngModel)]="sourceUserOptions"
         (ngModelChange)="selectSourceUser($event)">
-        <mat-list-option class="cur-list-option" mat-tool-tip="resultEntity.primary_id"
-          *ngFor="let resultEntity of resultEntites" [value]="resultEntity">
-          <div [ngPlural]="resultEntity?.user_role?.length">
+        <mat-list-option class="cur-list-option" *ngFor="let resultEntity of resultEntites" [value]="resultEntity">
+          <div>
             <span class="uxf-icon uxf-user cur-leading-icon"></span>
             {{resultEntity.last_name}}, {{resultEntity.first_name}} -
             {{resultEntity?.user_group?.desc.trim()}}&nbsp;[{{resultEntity?.user_group?.value}}] -
-            {{resultEntity?.user_role?.length}}&nbsp;<ng-template ngPluralCase="=1">{{ 'main.role' | translate }}
-            </ng-template>
-            <ng-template ngPluralCase="other">{{ 'main.roles' | translate }}</ng-template>
+            <span *ngIf="resultEntity?.user_role" [ngPlural]="resultEntity?.user_role?.length">
+              {{resultEntity?.user_role?.length}}&nbsp;<ng-template ngPluralCase="=1">{{ 'main.role' | translate }}
+              </ng-template>
+              <ng-template ngPluralCase="other">{{ 'main.roles' | translate }}</ng-template>
+            </span>
             <br>
             <span class="cur-roles-valid" *ngIf="resultEntity.rolesChecked">
               <span *ngIf="resultEntity.rolesChecked && resultEntity.rolesValid"><span
                   class="uxf-icon uxf-check"></span>&nbsp;{{ 'main.rolesValid' | translate }}</span>
               <span *ngIf="resultEntity.rolesChecked && !resultEntity.rolesValid"><span
-                  class="uxf-icon uxf-flash"></span>&nbsp;{{ 'main.rolesNotValid' | translate }}</span>
+                  class="uxf-icon uxf-flash"></span>&nbsp;{{ 'main.rolesValid' | translate }}</span>
             </span>
           </div>
         </mat-list-option>
