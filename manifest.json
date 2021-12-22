@@ -23,6 +23,9 @@
       }
    ],
    "license": "https://raw.githubusercontent.com/HSG-Library/alma-copy-user-roles/main/LICENSE",
+   "pages": {
+      "help": "https://github.com/HSG-Library/alma-copy-user-roles/blob/main/README.md"
+   },
    "icon": {
       "type": "url",
       "value": "/assets/app-icon.png"
