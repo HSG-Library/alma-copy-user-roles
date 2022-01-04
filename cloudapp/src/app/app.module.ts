@@ -28,7 +28,7 @@ import { ValidationDialog } from './components/validationDialog/validationDialog
     HttpClientModule,
     AlertModule,
     FormsModule,
-    ReactiveFormsModule,     
+    ReactiveFormsModule,
     CloudAppTranslateModule.forRoot(),
   ],
   providers: [
