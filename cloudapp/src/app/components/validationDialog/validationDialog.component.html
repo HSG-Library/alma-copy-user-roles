@@ -1,9 +1,12 @@
 <h2 mat-dialog-title translate>validationDialog.title</h2>
 <mat-dialog-content>
-	<p translate>validationDialog.introText<p>
+	<p translate>validationDialog.introText
+	<p>
 	<pre class="cur-validation-message">{{data.message}}</pre>
-	<p translate>validationDialog.outroText<p>
+	<p translate>validationDialog.outroText
+	<p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-	<button mat-flat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>{{ 'validationDialog.okButtonLabel' | translate }}</button>
+	<button mat-flat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>{{
+		'validationDialog.okButtonLabel' | translate }}</button>
 </mat-dialog-actions>
