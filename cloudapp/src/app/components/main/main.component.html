@@ -1,9 +1,9 @@
 <!-- action buttons -->
 <div class="eca-actions">
   <button mat-flat-button color="secondary" (click)="reset()"
-    [disabled]="(!sourceUser && !searchTerm) || loading || loadUsers">{{ 'main.resetButton' | translate }}</button>
+    [disabled]="(!sourceUser && !searchTerm) || loading">{{ 'main.resetButton' | translate }}</button>
   <button mat-flat-button color="primary" (click)="copyUserRoles()"
-    [disabled]="(!currentUserEntity || !sourceUser) || loading || loadUsers">{{ 'main.copyUserRolesButton' | translate
+    [disabled]="(!currentUserEntity || !sourceUser) || loading">{{ 'main.copyUserRolesButton' | translate
     }}
   </button>
 </div>
@@ -49,7 +49,7 @@
     <mat-form-field class="cur-full-width" appearance="fill">
       <mat-label translate>main.findUserLabel</mat-label>
       <input matInput type="text" #searchTermInput id="searchTerm" name="searchTerm" (keydown.enter)="findUser()"
-        [(ngModel)]="searchTerm" [disabled]='loadUsers'>
+        [(ngModel)]="searchTerm" [disabled]='loading  '>
       <button matSuffix mat-icon-button aria-label="Search" (click)="findUser()">
         <mat-icon>search</mat-icon>
       </button>
