@@ -1,25 +1,32 @@
 {
+	"findUser": {
+		"error": {
+			"findUserAlert": "Benutzer suchen fehlgeschlagen, Alma antwortet mit Status: '{{status}}'",
+			"userDetailAlert": "Benutzerdetails für Benutzer '{{primaryId}}' fehlgeschlagen, Alma antwortet mit Status: '{{status}}'"
+		},
+		"findUserLabel": "Suchen",
+		"resultCountInfo": "(nur {{pageSize}} Einträge sichtbar, bitte Suche verfeinern)",
+		"resultCountLabel": "Resultate: {{resultCount}}",
+		"rolesNotValid": "Nicht alle Rollen gültig",
+		"rolesValid": "Alle Rollen gültig",
+		"selectUserFromListInfo": "Benutzer aus Liste wählen:"
+	},
+	"global": {
+		"role": "Rolle",
+		"roles": "Rollen"
+	},
 	"main": {
 		"copyUserRolesButton": "Rollen kopieren",
 		"error": {
-			"copyUserRolesAlert": "Rollen kopieren fehlgeschlagen, Alma antwortet mit Status: {{status}}",
-			"findUserAlert": "Benutzer suchen fehlgeschlagen, Alma antwortet mit Status: {{status}}",
-			"userDetailAlert": "Benutzerdetails für Benutzer '{{primaryId}}' fehlgeschlagen, Alma antwortet mit Status: {{status}}"
+			"copyUserRolesAlert": "Rollen kopieren fehlgeschlagen, Alma antwortet mit Status: '{{status}}'",
+			"validationAlert": "Validieren des Benutzers fehlgeschlagen, Alma antwortet mit Status: '{{status}}'"
 		},
-		"findUserLabel": "Suchen",
 		"replaceExistingRolesCheckboxLabel": "Bestehende Rollen ersetzen",
 		"resetButton": "Zurücksetzen",
-		"resultCountInfo": "(nur {{pageSize}} Einträge sichtbar, bitte Suche verfeinern)",
-		"resultCountLabel": "Resultate: {{resultCount}}",
-		"role": "Rolle",
-		"roles": "Rollen",
 		"rolesCopyToTargetInfo": "Rollen werden auf diesen Benutzer kopiert",
-		"rolesNotValid": "Nicht alle Rollen gültig",
-		"rolesValid": "Alle Rollen gültig",
 		"searchUserInfo": "Benutzer Suchen",
 		"selectTargetFirstInfo": "Bitte zuerst einen Ziel-Benutzer wählen",
 		"selectTargetUserInfo": "Ziel-Benutzer wählen indem Benutzerdetails eines Benutzers in Alma geöffnet werden ",
-		"selectUserFromListInfo": "Benutzer aus Liste wählen:",
 		"sourcUserTitle": "Rollen von diesem Benutzer kopieren",
 		"successAlert": "Rollen erfolgreich kopiert",
 		"targetUserTitle": "Rollen auf diesen Benutzer kopieren"

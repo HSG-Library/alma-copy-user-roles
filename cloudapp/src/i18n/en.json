@@ -1,25 +1,35 @@
 {
+	"findUser ": {
+		"resultCountLabel": ""
+	},
+	"findUser": {
+		"error": {
+			"findUserAlert": "Could not search for user, Alma responded with status: '{{status}}'",
+			"userDetailAlert": "Could not get user details for user {{primaryId}}, Alma responded with status: '{{status}}'"
+		},
+		"findUserLabel": "Find user",
+		"resultCountInfo": "(only {{pageSize}} displayed, please refine search)",
+		"resultCountLabel": "Results: {{resultCount}}",
+		"rolesNotValid": "Not all roles valid",
+		"rolesValid": "All roles valid",
+		"selectUserFromListInfo": "Select a user from the list:"
+	},
+	"global": {
+		"role": "role",
+		"roles": "roles"
+	},
 	"main": {
 		"copyUserRolesButton": "Copy User Roles",
 		"error": {
-			"copyUserRolesAlert": "Could not copy user roles, Alma responded with status: {{status}}",
-			"findUserAlert": "Could not search for user, Alma responded with status: {{status}}",
-			"userDetailAlert": "Could not get user details for user {{primaryId}}, Alma responded with status: {{status}}"
+			"copyUserRolesAlert": "Could not copy user roles, Alma responded with status: '{{status}}'",
+			"validationAlert": "Could not validate user, Alma respondend with status: '{{status}}'"
 		},
-		"findUserLabel": "Find user",
 		"replaceExistingRolesCheckboxLabel": "Replace existing roles",
 		"resetButton": "Reset",
-		"resultCountInfo": "(only {{pageSize}} displayed, please refine search)",
-		"resultCountLabel": "Results: {{resultCount}}",
-		"role": "role",
-		"roles": "roles",
 		"rolesCopyToTargetInfo": "Roles will be copied to this user",
-		"rolesNotValid": "Not all roles valid",
-		"rolesValid": "All roles valid",
 		"searchUserInfo": "Search for a user",
 		"selectTargetFirstInfo": "Select a target user first.",
 		"selectTargetUserInfo": "Select the target user by navigating to a user record in Alma.",
-		"selectUserFromListInfo": "Select a user from the list:",
 		"sourcUserTitle": "Copy roles from this user",
 		"successAlert": "Successfully copied user roles",
 		"targetUserTitle": "Copy roles to this user"

@@ -7,7 +7,7 @@
     }}
   </button>
 </div>
-<!-- action buttons -->
+<!-- /action buttons -->
 
 <!-- target user -->
 <mat-card>
@@ -39,56 +39,17 @@
   <mat-card-content [style.display]="!currentUserEntity ? 'none' : 'block'">
     <p class="cur-username" *ngIf="sourceUser" [ngPlural]="sourceUser.user_role?.length">
       <span class="uxf-icon uxf-user cur-leading-icon"></span> {{sourceUser.last_name}}, {{sourceUser.first_name}} -
-      {{sourceUser.user_role?.length}} <ng-template ngPluralCase="=1">{{ 'main.role' | translate }}</ng-template>
-      <ng-template ngPluralCase="other">{{ 'main.roles' | translate }}</ng-template>
+      {{sourceUser.user_role?.length}} <ng-template ngPluralCase="=1">{{ 'global.role' | translate }}</ng-template>
+      <ng-template ngPluralCase="other">{{ 'global.roles' | translate }}</ng-template>
     </p>
     <p class="cur-bold" *ngIf="!sourceUser" translate>
       main.searchUserInfo
     </p>
-    <!-- search input -->
-    <mat-form-field class="cur-full-width" appearance="fill">
-      <mat-label translate>main.findUserLabel</mat-label>
-      <input matInput type="text" #searchTermInput id="searchTerm" name="searchTerm" (keydown.enter)="findUser()"
-        [(ngModel)]="searchTerm" [disabled]='loading'>
-      <button matSuffix mat-icon-button aria-label="Search" (click)="findUser()">
-        <mat-icon>search</mat-icon>
-      </button>
-    </mat-form-field>
-    <!-- /search input -->
-    <p *ngIf="resultCount >= 0" translate [translateParams]="{ resultCount: resultCount }">
-      main.resultCountLabel <span *ngIf="resultCount > pageSize" translate
-        [translateParams]="{ pageSize: pageSize }">main.resultCountInfo</span>
-    </p>
-    <p class="cur-bold" *ngIf="resultCount > 0" translate>
-      main.selectUserFromListInfo
-    </p>
-    <!-- search result list -->
-    <div>
-      <mat-selection-list #sourceUserList [multiple]="false" [(ngModel)]="sourceUserOptions"
-        (ngModelChange)="selectSourceUser($event)">
-        <mat-list-option class="cur-list-option" matTooltip="{{resultEntity.primary_id}}"
-          *ngFor="let resultEntity of resultEntites" [value]="resultEntity">
-          <div>
-            <span class="uxf-icon uxf-user cur-leading-icon"></span>
-            {{resultEntity.last_name}}, {{resultEntity.first_name}} -
-            {{resultEntity?.user_group?.desc.trim()}}&nbsp;[{{resultEntity?.user_group?.value}}] -
-            <span *ngIf="resultEntity?.user_role" [ngPlural]="resultEntity?.user_role?.length">
-              {{resultEntity?.user_role?.length}}&nbsp;<ng-template ngPluralCase="=1">{{ 'main.role' | translate }}
-              </ng-template>
-              <ng-template ngPluralCase="other">{{ 'main.roles' | translate }}</ng-template>
-            </span>
-            <br>
-            <span class="cur-roles-valid" *ngIf="resultEntity.rolesChecked">
-              <span *ngIf="resultEntity.rolesChecked && resultEntity.rolesValid"><span
-                  class="uxf-icon uxf-check"></span>&nbsp;{{ 'main.rolesValid' | translate }}</span>
-              <span *ngIf="resultEntity.rolesChecked && !resultEntity.rolesValid"><span
-                  class="uxf-icon uxf-flash"></span>&nbsp;{{ 'main.rolesNotValid' | translate }}</span>
-            </span>
-          </div>
-        </mat-list-option>
-      </mat-selection-list>
-    </div>
-    <!-- /search result list -->
+
+    <app-find-user [resetEventObservable$]="resetEventSubject.asObservable()"
+      (selectedUserOutput)="selectSourceUser($event)">
+    </app-find-user>
+
   </mat-card-content>
 </mat-card>
 <!-- /source user -->
