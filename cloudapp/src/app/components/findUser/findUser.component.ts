@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter, Input, OnInit, OnDestroy } from '@angu
 import { AlertService } from '@exlibris/exl-cloudapp-angular-lib'
 import { TranslateService } from '@ngx-translate/core'
 import { Observable, Subscription } from 'rxjs'
+import { AppConfig } from '../../app.config'
 import { UserService } from '../../services/user.service'
 import { UserListResponse } from '../../types/userResponse.type'
 import { UserSummaryEnriched } from '../../types/userSummaryEnriched.type'
@@ -18,6 +19,8 @@ export class FindUserComponent implements OnInit, OnDestroy {
 	resultEntites: UserSummaryEnriched[]
 	resultCount: number = -1
 	userOptions: UserSummaryEnriched[]
+	pageSize: number = AppConfig.pageSize
+
 
 	@Input()
 	resetEventObservable$: Observable<void>

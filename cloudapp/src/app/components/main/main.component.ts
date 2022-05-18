@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog'
 import { AlertService, CloudAppEventsService, Entity, EntityType } from '@exlibris/exl-cloudapp-angular-lib'
 import { TranslateService } from '@ngx-translate/core'
 import { Observable, Subject } from 'rxjs'
-import { AppConfig } from '../../app.config'
 import { ValidationInfo } from '../../models/validationInfo'
 import { UserService } from '../../services/user.service'
 import { UserRolesService } from '../../services/userRoles.service'
@@ -20,7 +19,6 @@ export class MainComponent implements OnInit, OnDestroy {
   loading: boolean = false
   currentUserEntity: Entity
   replaceExistingRoles: boolean = false
-  pageSize: number = AppConfig.pageSize
   sourceUserOptions: UserSummaryEnriched[]
   sourceUser: UserSummaryEnriched
 
