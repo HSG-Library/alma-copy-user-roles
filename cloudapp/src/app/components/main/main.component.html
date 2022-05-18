@@ -54,6 +54,4 @@
 </mat-card>
 <!-- /source user -->
 
-<div class="loading-shade" *ngIf="loading">
-  <mat-spinner diameter="50"></mat-spinner>
-</div>
+<app-loader [loading]="loading"></app-loader>
