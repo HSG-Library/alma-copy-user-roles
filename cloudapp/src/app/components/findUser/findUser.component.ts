@@ -36,11 +36,11 @@ export class FindUserComponent implements OnInit, OnDestroy {
 	) { }
 
 	ngOnInit(): void {
-		this.resetEventSubscription = this.resetEventObservable$.subscribe(() => this.reset())
+		this.resetEventSubscription = this.resetEventObservable$?.subscribe(() => this.reset())
 	}
 
 	ngOnDestroy(): void {
-		this.resetEventSubscription.unsubscribe()
+		this.resetEventSubscription?.unsubscribe()
 	}
 
 	findUser(): void {
@@ -68,8 +68,9 @@ export class FindUserComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	selectSourceUser(event: UserSummaryEnriched[]) {
+	selectUser(event: UserSummaryEnriched[]) {
 		let user: UserSummaryEnriched = event[0]
+		this.userOptions = []
 		this.selectedUserOutput.emit(user)
 	}
 
