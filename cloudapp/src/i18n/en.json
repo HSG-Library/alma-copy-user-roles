@@ -1,6 +1,12 @@
 {
-	"findUser ": {
-		"resultCountLabel": ""
+	"config": {
+		"allowByUser": "Allow by user",
+		"allowedUsers": "Allowed users:",
+		"backButton": "Back",
+		"confirmUnsaved": "Unsaved data, proceed anyway?",
+		"saveButton": "Save",
+		"searchForUser": "Search",
+		"userAlreadyInList": "'{{user}}' is already on the list"
 	},
 	"findUser": {
 		"error": {

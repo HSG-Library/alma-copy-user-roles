@@ -10,15 +10,23 @@ import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
 import { MainComponent } from './components/main/main.component'
 import { ValidationDialog } from './components/validationDialog/validationDialog.component'
+import { ConfigurationComponent } from './components/configuration/configuration.component'
+import { FindUserComponent } from './components/findUser/findUser.component'
+import { LoaderComponent } from './components/loader/loader.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
+    ConfigurationComponent,
     ValidationDialog,
+    FindUserComponent,
+    LoaderComponent,
   ],
   entryComponents: [
     ValidationDialog,
+    FindUserComponent,
+    LoaderComponent,
   ],
   imports: [
     MaterialModule,

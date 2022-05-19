@@ -23,8 +23,14 @@
       }
    ],
    "license": "https://raw.githubusercontent.com/HSG-Library/alma-copy-user-roles/main/LICENSE",
+   "contentSecurity": {
+      "sandbox": {
+         "modals": true
+      }
+   },
    "pages": {
-      "help": "https://github.com/HSG-Library/alma-copy-user-roles/blob/main/README.md"
+      "help": "https://github.com/HSG-Library/alma-copy-user-roles/blob/main/README.md",
+      "config": "/#/config"
    },
    "icon": {
       "type": "url",

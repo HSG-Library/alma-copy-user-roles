@@ -1,4 +1,13 @@
 {
+	"config": {
+		"allowByUser": "Erlaubte Benutzende verwalten",
+		"allowedUsers": "Erlaubte Benutzende:",
+		"backButton": "Zurück",
+		"confirmUnsaved": "Ungespeicherte Daten, trotzdem Seite verlassen?",
+		"saveButton": "Speichern",
+		"searchForUser": "Suchen",
+		"userAlreadyInList": "'{{user}}' hat bereits Zugriff"
+	},
 	"findUser": {
 		"error": {
 			"findUserAlert": "Benutzer suchen fehlgeschlagen, Alma antwortet mit Status: '{{status}}'",

@@ -1,10 +1,10 @@
 <!-- action buttons -->
 <div class="eca-actions">
-  <button mat-flat-button color="secondary" (click)="reset()" [disabled]="(!sourceUser && !searchTerm) || loading">{{
-    'main.resetButton' | translate }}</button>
-  <button mat-flat-button color="primary" (click)="copyUserRoles()"
-    [disabled]="(!currentUserEntity || !sourceUser) || loading">{{ 'main.copyUserRolesButton' | translate
-    }}
+  <button mat-flat-button color="secondary" (click)="reset()" [disabled]="(!sourceUser && !searchTerm) || loading">
+    {{'main.resetButton' | translate }}
+  </button>
+  <button mat-flat-button color="primary" (click)="copyUserRoles()" [disabled]="(!currentUserEntity || !sourceUser) || loading">
+    {{'main.copyUserRolesButton' | translate }}
   </button>
 </div>
 <!-- /action buttons -->
@@ -22,8 +22,7 @@
     <p class="cur-username">
       <span class="uxf-icon uxf-user cur-leading-icon"></span> {{currentUserEntity.description}}
     </p>
-    <mat-checkbox [(ngModel)]="replaceExistingRoles">{{ 'main.replaceExistingRolesCheckboxLabel' | translate }}
-    </mat-checkbox>
+    <mat-checkbox [(ngModel)]="replaceExistingRoles">{{ 'main.replaceExistingRolesCheckboxLabel' | translate }}</mat-checkbox>
   </mat-card-content>
 </mat-card>
 <!-- /target user -->
@@ -38,8 +37,8 @@
   </mat-card-content>
   <mat-card-content [style.display]="!currentUserEntity ? 'none' : 'block'">
     <p class="cur-username" *ngIf="sourceUser" [ngPlural]="sourceUser.user_role?.length">
-      <span class="uxf-icon uxf-user cur-leading-icon"></span> {{sourceUser.last_name}}, {{sourceUser.first_name}} -
-      {{sourceUser.user_role?.length}} <ng-template ngPluralCase="=1">{{ 'global.role' | translate }}</ng-template>
+      <span class="uxf-icon uxf-user cur-leading-icon"></span> {{sourceUser.last_name}}, {{sourceUser.first_name}} - {{sourceUser.user_role?.length}}
+      <ng-template ngPluralCase="=1">{{ 'global.role' | translate }}</ng-template>
       <ng-template ngPluralCase="other">{{ 'global.roles' | translate }}</ng-template>
     </p>
     <p class="cur-bold" *ngIf="!sourceUser" translate>
@@ -47,7 +46,7 @@
     </p>
 
     <app-find-user [resetEventObservable$]="resetEventSubject.asObservable()"
-      (selectedUserOutput)="selectSourceUser($event)">
+                   (selectedUserOutput)="selectSourceUser($event)">
     </app-find-user>
 
   </mat-card-content>

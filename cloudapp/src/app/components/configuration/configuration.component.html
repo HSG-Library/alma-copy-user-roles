@@ -1,0 +1,60 @@
+<!-- action buttons -->
+<div class="eca-actions">
+	<button mat-flat-button color="secondary" (click)="back()">
+		<mat-icon>arrow_back</mat-icon> {{'config.backButton' | translate }}
+	</button>
+	<button mat-flat-button color="primary" (click)="save()" [disabled]="saving || !dirty">{{'config.saveButton' | translate}}</button>
+</div>
+<!-- action buttons -->
+
+<!-- allow usage for user -->
+<mat-card>
+	<h1 translate>config.allowByUser</h1>
+	<div *ngIf="allowedUsers.size > 0">
+		<p class="cur-bold" translate>
+			config.allowedUsers
+		</p>
+		<mat-selection-list class="cur-allowed-users-list"
+							[multiple]=" true"
+							[(ngModel)]="allowedUsersSelection"
+							(ngModelChange)="selectAllowedUsers($event)">
+			<mat-list-option class="cur-list-option"
+							 *ngFor="let allowedUser of allowedUsers"
+							 [value]="allowedUser">
+				<div matLine>
+					<span class="uxf-icon uxf-user cur-leading-icon"></span>
+					{{allowedUser.last_name}}, {{allowedUser.first_name}} - {{allowedUser?.user_group?.desc.trim()}}&nbsp;
+					[{{allowedUser?.user_group?.value}}]
+				</div>
+			</mat-list-option>
+		</mat-selection-list>
+
+		<mat-list class="cur-allowed-users-toolbar">
+			<mat-list-item>
+				<button mat-icon-button [disabled]="allowedUsersSelection.length == allowedUsers.size" (click)="selectAll()">
+					<mat-icon>done_all</mat-icon>
+				</button>
+			</mat-list-item>
+			<mat-list-item>
+				<button mat-icon-button [disabled]="allowedUsersSelection.length == 0" (click)="deselectAll()">
+					<mat-icon>remove_done</mat-icon>
+				</button>
+			</mat-list-item>
+			<mat-list-item>
+				<button mat-icon-button [disabled]="allowedUsersSelection.length == 0" (click)="removeAllowedUsers()">
+					<mat-icon>delete</mat-icon>
+				</button>
+			</mat-list-item>
+		</mat-list>
+	</div>
+
+	<p class="cur-bold" translate>
+		config.searchForUser
+	</p>
+	<app-find-user (selectedUserOutput)="addAllowedUser($event)"></app-find-user>
+
+
+</mat-card>
+<!-- /allow usage for user -->
+
+<app-loader [loading]="loading"></app-loader>
