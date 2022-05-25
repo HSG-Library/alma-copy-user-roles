@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core'
 import { Observable, Subject } from 'rxjs'
 import { ValidationInfo } from '../../models/validationInfo'
 import { UserService } from '../../services/user.service'
+import { UserAccessService } from '../../services/userAccess.service'
 import { UserRolesService } from '../../services/userRoles.service'
 import { UserSummaryEnriched } from '../../types/userSummaryEnriched.type'
 import { ValidationDialog } from '../validationDialog/validationDialog.component'
@@ -17,6 +18,11 @@ import { ValidationDialog } from '../validationDialog/validationDialog.component
 export class MainComponent implements OnInit, OnDestroy {
 
   loading: boolean = false
+  checkingUser: boolean = false;
+  isUserAllowed: boolean = false
+
+  permissionError: string
+
   currentUserEntity: Entity
   replaceExistingRoles: boolean = false
   sourceUserOptions: UserSummaryEnriched[]
@@ -33,10 +39,30 @@ export class MainComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private userService: UserService,
     private userRoleService: UserRolesService,
+    private userAccessService: UserAccessService,
   ) { }
 
   ngOnInit(): void {
     this.entities$.subscribe(entities => this.selectUserFromCurrentPage(entities))
+    this.checkingUser = true
+    this.loading = true
+    this.userAccessService.isUserAllowed()
+      .subscribe(
+        (allowed) => {
+          this.isUserAllowed = allowed
+          this.checkingUser = false
+          this.loading = false
+        },
+        (error) => {
+          let alertMsg = this.translate.instant('main.error.permissionCheck', {
+            status: error.status
+          })
+          this.alert.error(alertMsg, { autoClose: true })
+          console.error('Error while checking permissions in ngOnInit()', error)
+          this.permissionError = `Permission denied: ${error.message}`
+          this.loading = false
+        }
+      )
   }
 
   ngOnDestroy(): void { }

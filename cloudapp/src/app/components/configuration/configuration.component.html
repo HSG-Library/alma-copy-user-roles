@@ -5,56 +5,72 @@
 	</button>
 	<button mat-flat-button color="primary" (click)="save()" [disabled]="saving || !dirty">{{'config.saveButton' | translate}}</button>
 </div>
-<!-- action buttons -->
-
-<!-- allow usage for user -->
+<!-- /action buttons -->
 <mat-card>
-	<h1 translate>config.allowByUser</h1>
-	<div *ngIf="allowedUsers.size > 0">
+	<h1 translate>config.allowUsage</h1>
+	<p translate>config.allowUsageExplanation</p>
+
+	<!-- allow usage for user -->
+	<mat-card>
+		<h1 translate>config.allowByUser</h1>
+		<div *ngIf="allowedUsers.size > 0">
+			<p class="cur-bold" translate>
+				config.allowedUsers
+			</p>
+			<mat-selection-list class="cur-allowed-users-list"
+								[multiple]=" true"
+								[(ngModel)]="allowedUsersSelection"
+								(ngModelChange)="selectAllowedUsers($event)">
+				<mat-list-option class="cur-list-option"
+								 *ngFor="let allowedUser of allowedUsers"
+								 [value]="allowedUser">
+					<div matLine>
+						<span class="uxf-icon uxf-user cur-leading-icon"></span>
+						{{allowedUser.last_name}}, {{allowedUser.first_name}} - {{allowedUser?.user_group?.desc.trim()}}&nbsp;
+						[{{allowedUser?.user_group?.value}}]
+					</div>
+				</mat-list-option>
+			</mat-selection-list>
+
+			<mat-list class="cur-allowed-users-toolbar">
+				<mat-list-item>
+					<button mat-icon-button [disabled]="allowedUsersSelection.length == allowedUsers.size" (click)="selectAll()">
+						<mat-icon>done_all</mat-icon>
+					</button>
+				</mat-list-item>
+				<mat-list-item>
+					<button mat-icon-button [disabled]="allowedUsersSelection.length == 0" (click)="deselectAll()">
+						<mat-icon>remove_done</mat-icon>
+					</button>
+				</mat-list-item>
+				<mat-list-item>
+					<button mat-icon-button [disabled]="allowedUsersSelection.length == 0" (click)="removeAllowedUsers()">
+						<mat-icon>delete</mat-icon>
+					</button>
+				</mat-list-item>
+			</mat-list>
+		</div>
+
 		<p class="cur-bold" translate>
-			config.allowedUsers
+			config.searchForUser
 		</p>
-		<mat-selection-list class="cur-allowed-users-list"
+		<app-find-user (selectedUserOutput)="addAllowedUser($event)"></app-find-user>
+	</mat-card>
+	<!-- /allow usage for user -->
+	<!-- allow usage for role -->
+	<mat-card>
+		<h1 translate>config.allowByRole</h1>
+		<p *ngIf="allowedUsers.size > 0"><b translate>config.rolesAndUsersAreExclusive</b></p>
+		<p translate>config.allowUsersWithRoleText</p>
+		<mat-selection-list [disabled]="allowedUsers.size > 0"
 							[multiple]=" true"
-							[(ngModel)]="allowedUsersSelection"
-							(ngModelChange)="selectAllowedUsers($event)">
-			<mat-list-option class="cur-list-option"
-							 *ngFor="let allowedUser of allowedUsers"
-							 [value]="allowedUser">
-				<div matLine>
-					<span class="uxf-icon uxf-user cur-leading-icon"></span>
-					{{allowedUser.last_name}}, {{allowedUser.first_name}} - {{allowedUser?.user_group?.desc.trim()}}&nbsp;
-					[{{allowedUser?.user_group?.value}}]
-				</div>
-			</mat-list-option>
+							[(ngModel)]="allowedRolesSelection"
+							(ngModelChange)="selectAllowedRole($event)">
+			<mat-list-option class="cur-list-option" [value]="0" [disabled]="allowedRolesSelection.length > 0 && !allowedRolesSelection.includes(0)">{{'config.allowAnyRole' | translate }}</mat-list-option>
+			<mat-list-option class="cur-list-option" [value]="26" [disabled]="allowedRolesSelection.includes(0)">{{'config.allowForGeneralAdministrator' | translate }}</mat-list-option>
+			<mat-list-option class="cur-list-option" [value]="50" [disabled]="allowedRolesSelection.includes(0)">{{'config.allowForUserAdministrator' | translate }}</mat-list-option>
 		</mat-selection-list>
-
-		<mat-list class="cur-allowed-users-toolbar">
-			<mat-list-item>
-				<button mat-icon-button [disabled]="allowedUsersSelection.length == allowedUsers.size" (click)="selectAll()">
-					<mat-icon>done_all</mat-icon>
-				</button>
-			</mat-list-item>
-			<mat-list-item>
-				<button mat-icon-button [disabled]="allowedUsersSelection.length == 0" (click)="deselectAll()">
-					<mat-icon>remove_done</mat-icon>
-				</button>
-			</mat-list-item>
-			<mat-list-item>
-				<button mat-icon-button [disabled]="allowedUsersSelection.length == 0" (click)="removeAllowedUsers()">
-					<mat-icon>delete</mat-icon>
-				</button>
-			</mat-list-item>
-		</mat-list>
-	</div>
-
-	<p class="cur-bold" translate>
-		config.searchForUser
-	</p>
-	<app-find-user (selectedUserOutput)="addAllowedUser($event)"></app-find-user>
-
-
+	</mat-card>
+	<!-- /allow usage for role -->
 </mat-card>
-<!-- /allow usage for user -->
-
 <app-loader [loading]="loading"></app-loader>

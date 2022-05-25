@@ -1,11 +1,19 @@
 {
 	"config": {
+		"allowAnyRole": "No restrictions by role",
+		"allowByRole": "Allow by role",
 		"allowByUser": "Allow by user",
+		"allowForGeneralAdministrator": "General Administrator",
+		"allowForUserAdministrator": "User Administrator",
+		"allowUsage": "Manage app usage for users",
+		"allowUsageExplanation": "The following settings can be used to manage the use of the app. If no configuration is made, all users are allowed. An explicit entry in the list of allowed users always has access, regardless of the roles.",
+		"allowUsersWithRoleText": "Allow usage for users with the following roles:",
 		"allowedUsers": "Allowed users:",
 		"backButton": "Back",
 		"confirmUnsaved": "Unsaved data, proceed anyway?",
+		"rolesAndUsersAreExclusive": "If there are users in the allow list, roles will not be checked",
 		"saveButton": "Save",
-		"searchForUser": "Search",
+		"searchForUser": "Search user:",
 		"userAlreadyInList": "'{{user}}' is already on the list"
 	},
 	"findUser": {
@@ -25,11 +33,14 @@
 		"roles": "roles"
 	},
 	"main": {
+		"checkingPermissions": "Checking permissions...",
 		"copyUserRolesButton": "Copy User Roles",
 		"error": {
 			"copyUserRolesAlert": "Could not copy user roles, Alma responded with status: '{{status}}'",
+			"permissionCheck": "Could not check permissions, Alma responded with status: '{{status}}'",
 			"validationAlert": "Could not validate user, Alma respondend with status: '{{status}}'"
 		},
+		"needsAtLeastUserManager": "To use this app, you need at least the 'User Manager' role.",
 		"replaceExistingRolesCheckboxLabel": "Replace existing roles",
 		"resetButton": "Reset",
 		"rolesCopyToTargetInfo": "Roles will be copied to this user",
@@ -38,7 +49,9 @@
 		"selectTargetUserInfo": "Select the target user by navigating to a user record in Alma.",
 		"sourcUserTitle": "Copy roles from this user",
 		"successAlert": "Successfully copied user roles",
-		"targetUserTitle": "Copy roles to this user"
+		"targetUserTitle": "Copy roles to this user",
+		"userIsNotAllowed": "Permission denied",
+		"userIsNotAllowedInfo": "You don't have the permission to use this app."
 	},
 	"validationDialog": {
 		"introText": "Validation of roles failed: Not all roles of this user are valid. Message from Alma:",

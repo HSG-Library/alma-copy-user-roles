@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { AlertService, CloudAppConfigService } from '@exlibris/exl-cloudapp-angular-lib'
 import { TranslateService } from '@ngx-translate/core'
+import { Configuration } from '../../types/configuration.type'
 import { UserSummaryEnriched } from '../../types/userSummaryEnriched.type'
+
 
 @Component({
   selector: 'app-configuration',
@@ -19,6 +21,8 @@ export class ConfigurationComponent implements OnInit {
   allowedUsers: Set<UserSummaryEnriched> = new Set<UserSummaryEnriched>()
   allowedUsersSelection: UserSummaryEnriched[] = []
 
+  allowedRolesSelection: number[] = [0]
+
   constructor(
     private configService: CloudAppConfigService,
     private router: Router,
@@ -30,6 +34,9 @@ export class ConfigurationComponent implements OnInit {
     this.configService.get().subscribe(config => {
       this.config = config
       this.allowedUsers = new Set<UserSummaryEnriched>(this.config.allowedUsers)
+      if (this.config.allowedRoles?.length > 0) {
+        this.allowedRolesSelection = this.config.allowedRoles
+      }
     })
   }
 
@@ -47,7 +54,11 @@ export class ConfigurationComponent implements OnInit {
 
   save(): void {
     this.saving = true
+    if (this.allowedRolesSelection.length == 0) {
+      this.allowedRolesSelection = [0]
+    }
     let config: Configuration = {
+      allowedRoles: this.allowedRolesSelection,
       allowedUsers: Array.from(this.allowedUsers)
     }
     this.configService.set(config).subscribe(() => {
@@ -59,6 +70,7 @@ export class ConfigurationComponent implements OnInit {
   back(): void {
     if (!this.dirty) {
       this.router.navigate(['/'])
+      return
     }
     let confirmMsg = this.translate.instant('config.confirmUnsaved')
     if (confirm(confirmMsg)) {
@@ -70,26 +82,25 @@ export class ConfigurationComponent implements OnInit {
     this.allowedUsersSelection = $event
   }
 
-  removeAllowedUsers() {
+  selectAllowedRole($event: number[]): void {
+    this.dirty = true
+  }
+
+  removeAllowedUsers(): void {
     this.allowedUsersSelection.forEach(user => this.allowedUsers.delete(user))
     this.deselectAll()
     this.dirty = true
   }
 
-  selectAll() {
+  selectAll(): void {
     this.allowedUsersSelection = Array.from(this.allowedUsers)
   }
 
-  deselectAll() {
+  deselectAll(): void {
     this.allowedUsersSelection = []
   }
 
   private isAlreadyAllowed(user: UserSummaryEnriched): boolean {
     return Array.from(this.allowedUsers).some((userInList) => userInList.primary_id == user.primary_id)
   }
-
-}
-
-type Configuration = {
-  allowedUsers: UserSummaryEnriched[]
 }
