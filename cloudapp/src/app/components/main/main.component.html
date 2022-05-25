@@ -1,6 +1,6 @@
 <!-- action buttons -->
 <div class="eca-actions">
-  <button mat-flat-button color="secondary" (click)="reset()" [disabled]="(!sourceUser && !searchTerm) || loading">
+  <button mat-flat-button color="secondary" (click)="reset()" [disabled]="(!sourceUser) || loading">
     {{'main.resetButton' | translate }}
   </button>
   <button mat-flat-button color="primary" (click)="copyUserRoles()" [disabled]="(!currentUserEntity || !sourceUser) || loading">
