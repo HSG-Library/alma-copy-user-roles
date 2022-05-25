@@ -28,6 +28,11 @@ export class UserAccessService {
 		return combineLatest([config$, userDetails$])
 			.pipe((map(([rawConfig, userDetails]) => {
 				let config: Configuration = rawConfig
+				// app is not configured -> 
+				// no configuration means access is not restricted
+				if (Object.keys(config).length === 0) {
+					return true
+				}
 				if (this.isAccessConfigured(config)) {
 					// if the user in the allowed user list -> allowed
 					if (this.isUserInAllowedList(config, userDetails)) {

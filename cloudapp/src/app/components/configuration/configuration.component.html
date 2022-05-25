@@ -72,5 +72,10 @@
 		</mat-selection-list>
 	</mat-card>
 	<!-- /allow usage for role -->
+
+	<button mat-flat-button color="secondary" (click)="removeConfig()">
+		<mat-icon>delete</mat-icon> {{'config.removeConfig' | translate }}
+	</button>
+
 </mat-card>
 <app-loader [loading]="loading"></app-loader>

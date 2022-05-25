@@ -100,6 +100,19 @@ export class ConfigurationComponent implements OnInit {
     this.allowedUsersSelection = []
   }
 
+  removeConfig(): void {
+    let confirmMsg = this.translate.instant('config.confirmRemoveConfig')
+    if (confirm(confirmMsg)) {
+      this.loading = true
+      this.configService.remove()
+        .subscribe(() => {
+          this.loading = false
+          this.dirty = false
+          this.back()
+        })
+    }
+  }
+
   private isAlreadyAllowed(user: UserSummaryEnriched): boolean {
     return Array.from(this.allowedUsers).some((userInList) => userInList.primary_id == user.primary_id)
   }
