@@ -1,28 +1,59 @@
 {
-	"main": {
-		"copyUserRolesButton": "Rollen kopieren",
+	"config": {
+		"allowAnyRole": "Keine Einschränkungen aufgrund von Rollen",
+		"allowByRole": "Erlaubte Rollen verwalten",
+		"allowByUser": "Erlaubte Benutzende verwalten",
+		"allowForGeneralAdministrator": "General Adminstrator (Allgemeiner Systemadminstrator)",
+		"allowForUserAdministrator": "User Adminstrator (Benutzer-Administrator)",
+		"allowUsage": "Benutzung der App verwalten",
+		"allowUsageExplanation": "Mit den folgenden Einstellungen lässt sich die Benutzung der App verwalten. Wenn keine Konfiguration vorgenommen wird, sind alle Benutzenden erlaubt. Ein expliziter Eintrag in der List der erlaubten Benutzenden hat immer Zugriff, unabhängig von den Rollen.",
+		"allowUsersWithRoleText": "Benutzenden mit folgenden Rollen verwendung erlauben:",
+		"allowedUsers": "Erlaubte Benutzende:",
+		"backButton": "Zurück",
+		"confirmRemoveConfig": "Wollen sie die vorgenommene Konfiguration wirklich entfernen?",
+		"confirmUnsaved": "Ungespeicherte Daten, trotzdem Seite verlassen?",
+		"removeConfig": "Konfiguration entfernen",
+		"rolesAndUsersAreExclusive": "Wenn die Benutzendenliste gepflegt ist, werden keine Rollen geprüft",
+		"saveButton": "Speichern",
+		"searchForUser": "Benutzende suchen:",
+		"userAlreadyInList": "'{{user}}' hat bereits Zugriff"
+	},
+	"findUser": {
 		"error": {
-			"copyUserRolesAlert": "Rollen kopieren fehlgeschlagen, Alma antwortet mit Status: {{status}}",
-			"findUserAlert": "Benutzer suchen fehlgeschlagen, Alma antwortet mit Status: {{status}}",
-			"userDetailAlert": "Benutzerdetails für Benutzer '{{primaryId}}' fehlgeschlagen, Alma antwortet mit Status: {{status}}"
+			"findUserAlert": "Benutzer suchen fehlgeschlagen, Alma antwortet mit Status: '{{status}}'",
+			"userDetailAlert": "Benutzerdetails für Benutzer '{{primaryId}}' fehlgeschlagen, Alma antwortet mit Status: '{{status}}'"
 		},
 		"findUserLabel": "Suchen",
-		"replaceExistingRolesCheckboxLabel": "Bestehende Rollen ersetzen",
-		"resetButton": "Zurücksetzen",
 		"resultCountInfo": "(nur {{pageSize}} Einträge sichtbar, bitte Suche verfeinern)",
 		"resultCountLabel": "Resultate: {{resultCount}}",
-		"role": "Rolle",
-		"roles": "Rollen",
-		"rolesCopyToTargetInfo": "Rollen werden auf diesen Benutzer kopiert",
 		"rolesNotValid": "Nicht alle Rollen gültig",
 		"rolesValid": "Alle Rollen gültig",
+		"selectUserFromListInfo": "Benutzer aus Liste wählen:"
+	},
+	"global": {
+		"role": "Rolle",
+		"roles": "Rollen"
+	},
+	"main": {
+		"checkingPermissions": "Überprüfe Zugriffsrechte...",
+		"copyUserRolesButton": "Rollen kopieren",
+		"error": {
+			"copyUserRolesAlert": "Rollen kopieren fehlgeschlagen, Alma antwortet mit Status: '{{status}}'",
+			"permissionCheck": "Prüfen der Zugrifssrechte fehlgeschlagen, Alma antwortet mit Status '{{status}}'",
+			"validationAlert": "Validieren des Benutzers fehlgeschlagen, Alma antwortet mit Status: '{{status}}'"
+		},
+		"needsAtLeastUserManager": "Zur Verwendung dieser App wird mindestens die Rolle 'Benutzer Manager' benötigt.",
+		"replaceExistingRolesCheckboxLabel": "Bestehende Rollen ersetzen",
+		"resetButton": "Zurücksetzen",
+		"rolesCopyToTargetInfo": "Rollen werden auf diesen Benutzer kopiert",
 		"searchUserInfo": "Benutzer Suchen",
 		"selectTargetFirstInfo": "Bitte zuerst einen Ziel-Benutzer wählen",
 		"selectTargetUserInfo": "Ziel-Benutzer wählen indem Benutzerdetails eines Benutzers in Alma geöffnet werden ",
-		"selectUserFromListInfo": "Benutzer aus Liste wählen:",
 		"sourcUserTitle": "Rollen von diesem Benutzer kopieren",
 		"successAlert": "Rollen erfolgreich kopiert",
-		"targetUserTitle": "Rollen auf diesen Benutzer kopieren"
+		"targetUserTitle": "Rollen auf diesen Benutzer kopieren",
+		"userIsNotAllowed": "Zugriff verweigert",
+		"userIsNotAllowedInfo": "Sie haben nicht die nötigen Zugriffsrechte um die App zu verwenden."
 	},
 	"validationDialog": {
 		"introText": "Die Gültigkeitsprüfung der Rollen ist fehlgeschlagen: Nicht alle Rollen dieses Benutzers sind gültig. Alma meldet: ",

@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { AlertService, CloudAppEventsService, Entity, EntityType } from '@exlibris/exl-cloudapp-angular-lib'
 import { TranslateService } from '@ngx-translate/core'
-import { Observable } from 'rxjs'
-import { AppConfig } from '../../app.config'
+import { Observable, Subject } from 'rxjs'
 import { ValidationInfo } from '../../models/validationInfo'
 import { UserService } from '../../services/user.service'
+import { UserAccessService } from '../../services/userAccess.service'
 import { UserRolesService } from '../../services/userRoles.service'
 import { UserSummaryEnriched } from '../../types/userSummaryEnriched.type'
 import { ValidationDialog } from '../validationDialog/validationDialog.component'
@@ -18,14 +18,17 @@ import { ValidationDialog } from '../validationDialog/validationDialog.component
 export class MainComponent implements OnInit, OnDestroy {
 
   loading: boolean = false
+  checkingUser: boolean = false;
+  isUserAllowed: boolean = false
+
+  permissionError: string
+
   currentUserEntity: Entity
   replaceExistingRoles: boolean = false
-  resultEntites: UserSummaryEnriched[]
-  resultCount: number = -1
-  pageSize: number = AppConfig.pageSize
   sourceUserOptions: UserSummaryEnriched[]
   sourceUser: UserSummaryEnriched
-  searchTerm: string
+
+  resetEventSubject = new Subject<void>()
 
   entities$: Observable<Entity[]> = this.eventsService.entities$
 
@@ -36,10 +39,30 @@ export class MainComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private userService: UserService,
     private userRoleService: UserRolesService,
+    private userAccessService: UserAccessService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.entities$.subscribe(entities => this.selectUserFromCurrentPage(entities))
+    this.checkingUser = true
+    this.loading = true
+    this.userAccessService.isUserAllowed()
+      .subscribe(
+        (allowed) => {
+          this.isUserAllowed = allowed
+          this.checkingUser = false
+          this.loading = false
+        },
+        (error) => {
+          let alertMsg = this.translate.instant('main.error.permissionCheck', {
+            status: error.status
+          })
+          this.alert.error(alertMsg, { autoClose: true })
+          console.error('Error while checking permissions in ngOnInit()', error)
+          this.permissionError = `Permission denied: ${error.message}`
+          this.loading = false
+        }
+      )
   }
 
   ngOnDestroy(): void { }
@@ -55,53 +78,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.currentUserEntity = null
   }
 
-  findUser() {
-    if (this.searchTerm && this.searchTerm.length >= 2) {
-      this.loading = true
-
-      this.userService.findUser(this.searchTerm.trim()).subscribe(
-        (userResponse) => {
-          this.resultCount = userResponse.total_record_count
-          this.resultEntites = userResponse.user
-          this.loading = false
-          if (userResponse.total_record_count <= 0) {
-            return
-          }
-          userResponse.user.forEach(user => {
-            this.userService.getUserDetails(user.primary_id).subscribe(
-              (userDetails) =>
-                this.resultEntites = this.resultEntites
-                  .map(u => {
-                    if (u.primary_id === userDetails.primary_id) {
-                      u.user_group = userDetails.user_group
-                      u.user_role = userDetails.user_role
-                    }
-                    return u
-                  }),
-              (error) => {
-                let alertMsg = this.translate.instant('main.error.userDetailAlert', {
-                  primaryId: user.primary_id,
-                  status: error.status
-                })
-                this.alert.error(alertMsg, { autoClose: true })
-                console.error('Error in findUser()', error)
-                this.loading = false
-              })
-          })
-        },
-        (error) => {
-          let alertMsg = this.translate.instant('main.error.findUserAlert', {
-            status: error.status
-          })
-          this.alert.error(alertMsg, { autoClose: true })
-          console.error('Error in findUser()', error)
-          this.loading = false
-        })
-    }
-  }
-
-  selectSourceUser(event: UserSummaryEnriched[]) {
-    let user: UserSummaryEnriched = event[0]
+  selectSourceUser(user: UserSummaryEnriched): void {
     this.loading = true
     this.userRoleService.validate(user)
       .subscribe((validationInfo: ValidationInfo) => {
@@ -111,7 +88,7 @@ export class MainComponent implements OnInit, OnDestroy {
           user.rolesValid = true
         } else {
           this.sourceUser = null
-          this.dialog.open(ValidationDialog, { autoFocus: false, data: validationInfo });
+          this.dialog.open(ValidationDialog, { autoFocus: false, data: validationInfo })
           user.rolesValid = false
         }
       },
@@ -128,7 +105,7 @@ export class MainComponent implements OnInit, OnDestroy {
       )
   }
 
-  copyUserRoles() {
+  copyUserRoles(): void {
     this.userService.getUserDetailsFromEntity(this.currentUserEntity)
       .subscribe(userDetails => {
         this.userRoleService.copy(this.sourceUser, userDetails, this.replaceExistingRoles)
@@ -149,10 +126,8 @@ export class MainComponent implements OnInit, OnDestroy {
       })
   }
 
-  reset() {
+  reset(): void {
     this.sourceUser = null
-    this.resultEntites = null
-    this.resultCount = -1
-    this.searchTerm = ''
+    this.resetEventSubject.next()
   }
 }
