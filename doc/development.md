@@ -39,17 +39,7 @@ None
 - `"@angular-devkit/build-angular": "~0.1102.14"`
 - `"@angular/cli": "~11.2.14"`
 - `"@angular/compiler-cli": "~11.2.14"`
-- `"@types/jasmine": "~3.5.0"`
-- `"@types/jasminewd2": "~2.0.3"`
-- `"@types/lodash": "^4.0.0"`
-- `"@types/node": "~13.13.5"` (updated to "^16.0.0" since we use node v16)
-- `"jasmine-core": "~3.7.1"`
-- `"jasmine-spec-reporter": "~7.0.0"`
-- `"karma": "~6.3.2"`
-- `"karma-chrome-launcher": "~3.1.0"`
-- `"karma-coverage-istanbul-reporter": "~3.0.3"`
-- `"karma-jasmine": "~4.0.1"`
-- `"karma-jasmine-html-reporter": "~1.5.4"`
+- `"@types/node": "~16.0.0"`
 - `"postcss": "~8.3.0"`
 - `"typescript": "~4.1.5"`
 </details><br>
