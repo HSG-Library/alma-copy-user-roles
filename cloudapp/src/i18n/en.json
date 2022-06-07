@@ -1,11 +1,11 @@
 {
 	"config": {
-		"allowAnyRole": "No restrictions by role",
+		"allowAnyRole": "No restriction by role",
 		"allowByRole": "Allow by role",
 		"allowByUser": "Allow by user",
 		"allowForGeneralAdministrator": "General Administrator",
 		"allowForUserAdministrator": "User Administrator",
-		"allowUsage": "Manage app usage for users",
+		"allowUsage": "Manage app usage",
 		"allowUsageExplanation": "The following settings can be used to manage the use of the app. If no configuration is made, all users are allowed. An explicit entry in the list of allowed users always has access, regardless of the roles.",
 		"allowUsersWithRoleText": "Allow usage for users with the following roles:",
 		"allowedUsers": "Allowed users:",

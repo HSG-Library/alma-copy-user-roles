@@ -8,17 +8,61 @@ An [ExLibris Alma CloudApp](https://developers.exlibrisgroup.com/cloudapps/), wh
 <br>
 
 ## How to use
-1. Install the 'Copy User Roles' CloudApp (see: [ExLibris documentation on using CloudApps](https://knowledge.exlibrisgroup.com/Alma/Product_Documentation/010Alma_Online_Help_(English)/050Administration/050Configuring_General_Alma_Functions/Configuring_Cloud_Apps#Using_Cloud_Apps))
-1. Open the user record in Alma which is to receive new roles
-1. Open the 'Copy User Roles' CloudApp
-1. The current user record is selected as target user
-1. In the CloudApp, search for the user from whom the roles are to be copied
-1. Select the user form the list
-1. Click the 'Copy user roles' button
+In order to use the CloudApp, one of the following roles is needed: 
+* 'User Manager'
+* 'User Administrator'
+* 'Gerneral System Administrator'
 
-### Please note: all roles must be valid
+To copy roles from one user to another perform the following steps:
+
+1. Install the 'Copy User Roles' CloudApp (see: [ExLibris documentation on using CloudApps](https://knowledge.exlibrisgroup.com/Alma/Product_Documentation/010Alma_Online_Help_(English)/050Administration/050Configuring_General_Alma_Functions/Configuring_Cloud_Apps#Using_Cloud_Apps))
+2. Open the user record in Alma which is to receive new roles
+3. Open the 'Copy User Roles' CloudApp
+4. The current user record is selected as target user
+5. In the CloudApp, search for the user from whom the roles are to be copied
+6. Select the user form the list
+7. Click the 'Copy user roles' button
+
+## Configuration
+The app some institution-wide configuration options, configuration can be set by a user with any of the 'administrator' roles, i.e. 'General System Administrator' or 'Catalog Administrator' (see [ExLibris Documentation](https://developers.exlibrisgroup.com/cloudapps/docs/api/configuration-service/)).
+
+To open the configuration, click the 'three dots menu' an then the configuration icon:
+
+<img src="doc/img/open-configuration.jpg" width=400><br><br><br>
+
+### Restrict/manage access
+There is a possibility to manage the access to the CloudApp. If no configuration regarding access control is made, no additional restrictions will apply.
+
+**General note**
+
+The following should be noted: The access management in the app only prevents or allows access to the user interface. Access to the API can only be restricted by ExLibris. According to ExLibris, only interfaces to which the logged-in user has access can be used via CloudApp:
+> The user must have permissions to perform the action implemented by the API, and any history actions are logged under the user's identity. If the Cloud App attempts to call an API which performs an action for which the logged-in user does not have the proper role, Alma will return a 401 Unauthorized to the Cloud App.
+
+See [ExLibrs documentation](https://developers.exlibrisgroup.com/cloudapps/docs/api/rest-service/)
+
+**Allow by user**
+
+If a user is added to the list of allowed users, access is granted regardless of the users roles.
+
+* To add a user, search for the user in the according search field, and click on the user you want to add
+* To remove a user select the user in the list and click the 'trash bin' icon
+* After any configuration change, click the 'save' button to save the settings
+
+<img src="doc/img/add-user.jpg" width=400><br><br><br>
+
+**Allow by role**
+
+To use the app, the role of 'User Manager', 'User Administrator' or 'Gerneral System Administrator' is needed, anyway. This configuration allows to further restrict to a smaller set of allowed roles. Please note, that as soon as a user is added to the list of allowed users it is not possible to restrict access by role. 
+
+<img src="doc/img/allow-by-role.jpg" width=400><br><br><br>
+
+## Please note: all roles must be valid
 * In order to copy user roles, all roles of the source user must be valid
 * When selecting the source user the roles will be validated
 * If not all roles are valid, copying is not possible. The roles must first be correctly configured
 * There will be a dialog with the error message from Alma, which should help to find the role which is not correctly configured
 * The error message is most detailed in english. If you are using another language than entlish and the error message does not help, try switching to english
+
+
+### Development
+[Notes on CloudApp development](doc/development.md)
