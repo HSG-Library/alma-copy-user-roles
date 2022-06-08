@@ -1,0 +1,30 @@
+name: Check CloudApp
+
+on:
+  push:
+    branches: ["develop"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 13.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 13.x
+
+      - name: Audit ('npm audit')
+        run: |
+          npm ci
+          npm audit --audit-level=critical
+
+      - name: Build CloudApp ('eca build')
+        run: |
+          npm i -g @exlibris/exl-cloudapp-cli
+          eca build | grep 'Generated'
