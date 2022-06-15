@@ -2,7 +2,7 @@
 # Copy User Roles
 <img align="right" src="./cloudapp/src/assets/app-icon.png" width="100" style="border-radius: 3px">
 
-An [ExLibris Alma CloudApp](https://developers.exlibrisgroup.com/cloudapps/), which allows to copy user roles from one user to another.
+An [ExLibris Alma CloudApp](https://developers.exlibrisgroup.com/cloudapps/), which allows to copy user roles from one user to another and also to compare the applied roles of two users.
 
 <br>
 <br>
@@ -56,12 +56,18 @@ To use the app, the role of 'User Manager', 'User Administrator' or 'Gerneral Sy
 
 <img src="doc/img/allow-by-role.jpg" width=400><br><br><br>
 
-## Please note: all roles must be valid
-* In order to copy user roles, all roles of the source user must be valid
-* When selecting the source user the roles will be validated
-* If not all roles are valid, copying is not possible. The roles must first be correctly configured
-* There will be a dialog with the error message from Alma, which should help to find the role which is not correctly configured
-* The error message is most detailed in english. If you are using another language than entlish and the error message does not help, try switching to english
+## Copying roles from users with invalid roles
+* When selecting the source user the roles will be validated, if not all roles are valid there will be a dialog with the error message from Alma, which should help to find the role which is not correctly configured
+* The dialog offers the possibilty to proceed anyway: in this case, the valid roles will be copied and the invalid roles will be skipped.
+* The copy process with invalid roles **takes significantly longer** than with only valid roles
+* After copying, a short summary about the valid and invalid roles is displayed 
+<img src="doc/img/results-copy.jpg" width=400><br><br><br>
+
+
+## Comparing roles of two users
+* Especially after copying from users with invalid roles, it can be helpful to compare the roles of the two users
+* It seems to be possible, that a user has duplicate roles. The copy process reduces the duplicates, which results sometimes in different role numbers between the source user and the target user after copying. This can be verified by comparing the two users
+<img src="doc/img/results-compare.jpg" width=400><br><br><br>
 
 
 ### Development
