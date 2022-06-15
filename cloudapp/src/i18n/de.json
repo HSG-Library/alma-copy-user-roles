@@ -49,7 +49,7 @@
 		"results": {
 			"copyInfo": "Falls diese Zahlen nicht korrekt aussehen, vergleichen sie die Rollen von Ziel und Quelle, um zu sehen, ob die Quelle Duplikate hat. Doppelte Rollen werden beim Kopieren reduziert.",
 			"intersection": "Überschneidung ({{count}})",
-			"invalidRolesTitle": "Ungültige Rolle ({{count}})",
+			"invalidRolesTitle": "Ungültige Rollen, ausgelassen: {{count}}",
 			"noneYet": "Noch keine Ergebnisse",
 			"onlyInSoure": "Nur Quelle ({{count}})",
 			"onlyInTarget": "Nur Ziel ({{count}})",
@@ -57,7 +57,7 @@
 			"sourceDuplicates": "Duplikate auf Quelle ({{count}})",
 			"targetDuplicates": "Duplikate auf Ziel({{count}})",
 			"title": "Ergebnisse",
-			"validRolesTitle": "Gültige Rollen ({{count}})"
+			"validRolesTitle": "Gültige Rollen, kopiert: {{count}}"
 		},
 		"rolesCopyToTargetInfo": "Rollen werden auf diesen Benutzer kopiert",
 		"searchUserInfo": "Benutzer Suchen",

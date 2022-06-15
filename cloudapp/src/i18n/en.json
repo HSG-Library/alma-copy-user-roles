@@ -49,7 +49,7 @@
 		"results": {
 			"copyInfo": "If this numbers seem incorrect, compare the roles of the users to see if the source user has duplicate roles. Duplicate roles are reduced during copying.",
 			"intersection": "Intersection ({{count}})",
-			"invalidRolesTitle": "Invalid roles ({{count}})",
+			"invalidRolesTitle": "Invalid roles, skipped: {{count}}",
 			"noneYet": "perform action to see results",
 			"onlyInSoure": "Only on source ({{count}})",
 			"onlyInTarget": "Only on target ({{count}})",
@@ -57,7 +57,7 @@
 			"sourceDuplicates": "Duplicates on source ({{count}})",
 			"targetDuplicates": "Duplicates on target ({{count}})",
 			"title": "Results",
-			"validRolesTitle": "Valid roles ({{count}})"
+			"validRolesTitle": "Valid roles, copied: {{count}}"
 		},
 		"rolesCopyToTargetInfo": "Roles will be copied to this user",
 		"searchUserInfo": "Search for a user",
