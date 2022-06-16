@@ -1,9 +1,17 @@
-.cur-allowed-users-toolbar {
-	margin-bottom: 40px;
-	display: flex;
-	flex-direction: row;
+.cur-allowed-users-list {
+	margin-bottom: 10px;
 }
 
-.cur-allowed-users-toolbar mat-list-item {
-	width: auto;
+.cur-allowed-users-title-bar {
+	display: flex;
+	align-items: center;
+
+	p {
+		margin: 0;
+		flex-grow: 1;
+	}
+
+	button {
+		margin-right: 5px;
+	}
 }

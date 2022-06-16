@@ -92,10 +92,6 @@ export class ConfigurationComponent implements OnInit {
     this.dirty = true
   }
 
-  selectAll(): void {
-    this.allowedUsersSelection = Array.from(this.allowedUsers)
-  }
-
   deselectAll(): void {
     this.allowedUsersSelection = []
   }
