@@ -36,8 +36,8 @@
 	},
 	"main": {
 		"checkingPermissions": "Überprüfe Zugriffsrechte...",
-		"compareButton": "Rollen vergleichen",
-		"copyUserRolesButton": "Rollen kopieren",
+		"compareButton": "Vergleichen",
+		"copyUserRolesButton": "Kopieren",
 		"error": {
 			"copyUserRolesAlert": "Rollen kopieren fehlgeschlagen, Alma antwortet mit Status: '{{status}}'",
 			"permissionCheck": "Prüfen der Zugrifssrechte fehlgeschlagen, Alma antwortet mit Status '{{status}}'",
