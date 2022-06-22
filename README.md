@@ -61,12 +61,14 @@ To use the app, the role of 'User Manager', 'User Administrator' or 'Gerneral Sy
 * The dialog offers the possibilty to proceed anyway: in this case, the valid roles will be copied and the invalid roles will be skipped.
 * The copy process with invalid roles **takes significantly longer** than with only valid roles
 * After copying, a short summary about the valid and invalid roles is displayed 
+
 <img src="doc/img/results-copy.jpg" width=400><br><br><br>
 
 
 ## Comparing roles of two users
 * Especially after copying from users with invalid roles, it can be helpful to compare the roles of the two users
 * It seems to be possible, that a user has duplicate roles. The copy process reduces the duplicates, which results sometimes in different role numbers between the source user and the target user after copying. This can be verified by comparing the two users
+
 <img src="doc/img/results-compare.jpg" width=400><br><br><br>
 
 
