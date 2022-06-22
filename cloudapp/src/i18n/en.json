@@ -36,8 +36,8 @@
 	},
 	"main": {
 		"checkingPermissions": "Checking permissions...",
-		"compareButton": "Compare Roles",
-		"copyUserRolesButton": "Copy Roles",
+		"compareButton": "Compare",
+		"copyUserRolesButton": "Copy",
 		"error": {
 			"copyUserRolesAlert": "Could not copy user roles, Alma responded with status: '{{status}}'",
 			"permissionCheck": "Could not check permissions, Alma responded with status: '{{status}}'",
