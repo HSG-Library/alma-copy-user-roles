@@ -17,7 +17,7 @@
       <div *ngIf="permissionError">
         <h1 translate>main.userIsNotAllowed</h1>
         <p translate>main.needsAtLeastUserManager</p>
-        <pre class="cur-technical-error">{{permissionError}}</pre>
+        <pre class="technical-error">{{permissionError}}</pre>
       </div>
     </mat-card-content>
   </mat-card>
@@ -45,11 +45,11 @@
     </mat-card-content>
     <mat-card-content *ngIf='currentUserEntity'>
       <p translate>main.rolesCopyToTargetInfo</p>
-      <p class="cur-username">
-        <span class="uxf-icon uxf-user cur-leading-icon"></span> {{currentUserEntity.description}}
+      <p class="username">
+        <span class="uxf-icon uxf-user leading-icon"></span> {{currentUserEntity.description}}
       </p>
       <mat-checkbox [(ngModel)]="replaceExistingRoles">{{ 'main.replaceExistingRolesCheckboxLabel' | translate }}</mat-checkbox>
-      <mat-expansion-panel class="cur-results-panel"
+      <mat-expansion-panel class="results-panel"
                            [disabled]="!copyResult && !compareResult"
                            [expanded]="resultsExpanded"
                            (opened)="resultsExpanded = true"
@@ -156,12 +156,12 @@
       </p>
     </mat-card-content>
     <mat-card-content [style.display]="!currentUserEntity ? 'none' : 'block'">
-      <p class="cur-username" *ngIf="sourceUser" [ngPlural]="sourceUser.user_role?.length">
-        <span class="uxf-icon uxf-user cur-leading-icon"></span> {{sourceUser.last_name}}, {{sourceUser.first_name}} - {{sourceUser.user_role?.length}}
+      <p class="username" *ngIf="sourceUser" [ngPlural]="sourceUser.user_role?.length">
+        <span class="uxf-icon uxf-user leading-icon"></span> {{sourceUser.last_name}}, {{sourceUser.first_name}} - {{sourceUser.user_role?.length}}
         <ng-template ngPluralCase="=1">{{ 'global.role' | translate }}</ng-template>
         <ng-template ngPluralCase="other">{{ 'global.roles' | translate }}</ng-template>
       </p>
-      <p class="cur-bold" *ngIf="!sourceUser" translate>
+      <p class="bold" *ngIf="!sourceUser" translate>
         main.searchUserInfo
       </p>
 
