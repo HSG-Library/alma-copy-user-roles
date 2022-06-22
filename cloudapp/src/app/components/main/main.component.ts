@@ -3,10 +3,13 @@ import { MatDialog } from '@angular/material/dialog'
 import { AlertService, CloudAppEventsService, Entity, EntityType } from '@exlibris/exl-cloudapp-angular-lib'
 import { TranslateService } from '@ngx-translate/core'
 import { Observable, Subject } from 'rxjs'
+import { switchMap } from 'rxjs/operators'
 import { ValidationInfo } from '../../models/validationInfo'
 import { UserService } from '../../services/user.service'
 import { UserAccessService } from '../../services/userAccess.service'
 import { UserRolesService } from '../../services/userRoles.service'
+import { CompareResult } from '../../types/compareResult.type'
+import { CopyResult } from '../../types/copyResult.type'
 import { UserSummaryEnriched } from '../../types/userSummaryEnriched.type'
 import { ValidationDialog } from '../validationDialog/validationDialog.component'
 
@@ -27,6 +30,10 @@ export class MainComponent implements OnInit, OnDestroy {
   replaceExistingRoles: boolean = false
   sourceUserOptions: UserSummaryEnriched[]
   sourceUser: UserSummaryEnriched
+
+  copyResult: CopyResult
+  compareResult: CompareResult
+  resultsExpanded: boolean
 
   resetEventSubject = new Subject<void>()
 
@@ -88,8 +95,15 @@ export class MainComponent implements OnInit, OnDestroy {
           user.rolesValid = true
         } else {
           this.sourceUser = null
-          this.dialog.open(ValidationDialog, { autoFocus: false, data: validationInfo })
           user.rolesValid = false
+          let dialogRef = this.dialog.open(ValidationDialog, { autoFocus: false, data: validationInfo })
+          dialogRef.afterClosed().subscribe(
+            data => {
+              if (data) {
+                this.sourceUser = user
+              }
+            }
+          )
         }
       },
         (error) => {
@@ -106,16 +120,22 @@ export class MainComponent implements OnInit, OnDestroy {
   }
 
   copyUserRoles(): void {
+    this.loading = true
+    this.resetResults()
     this.userService.getUserDetailsFromEntity(this.currentUserEntity)
       .subscribe(userDetails => {
         this.userRoleService.copy(this.sourceUser, userDetails, this.replaceExistingRoles)
           .subscribe(
-            () => {
+            (copyResult: CopyResult) => {
+              console.log(copyResult)
+              this.copyResult = copyResult
+              this.loading = false
               this.eventsService.refreshPage().subscribe(
                 () => this.alert.success(this.translate.instant('main.successAlert'))
               )
             },
             (error) => {
+              this.loading = false
               let alertMsg = this.translate.instant('main.error.copyUserRolesAlert', {
                 status: error.status
               })
@@ -126,8 +146,29 @@ export class MainComponent implements OnInit, OnDestroy {
       })
   }
 
+  compareUserRoles(): void {
+    this.loading = true
+    this.resetResults()
+    this.userService.getUserDetailsFromEntity(this.currentUserEntity)
+      .pipe(
+        switchMap((userDetails) => {
+          return this.userRoleService.compare(this.sourceUser, userDetails)
+        }))
+      .subscribe((compareResult: CompareResult) => {
+        this.compareResult = compareResult
+        this.loading = false
+      })
+  }
+
+  resetResults(): void {
+    this.copyResult = null
+    this.compareResult = null
+    this.resultsExpanded = false
+  }
+
   reset(): void {
     this.sourceUser = null
     this.resetEventSubject.next()
+    this.resetResults()
   }
 }

@@ -1,12 +1,42 @@
-.cur-username {
+.username {
   font-weight: bold;
   font-size: 18px;
 }
 
-.cur-roles-valid {
+.roles-valid {
   padding-left: 20px;
 }
 
-.cur-technical-error {
+.technical-error {
   white-space: pre-line;
+}
+
+.results-panel {
+  margin-top: 20px;
+
+  mat-expansion-panel {
+    margin-bottom: 10px;
+  }
+
+  .mat-expansion-panel-header-title,
+  .mat-expansion-panel-header-description {
+    align-items: center;
+
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  ul {
+    list-style-type: circle;
+    padding-left: 15px;
+    margin: 0;
+
+    li {
+      margin-bottom: 5px;
+      font-family: monospace;
+      font-size: 12px;
+    }
+  }
 }

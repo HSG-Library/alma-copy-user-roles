@@ -12,20 +12,25 @@
         margin-bottom: 20px;
     }
 
-    .cur-bold {
+    .bold {
         font-weight: bold;
     }
 
-    .cur-full-width {
+    .full-width {
         width: 100%;
     }
 
-    .cur-list-option {
-        height: 40px !important;
+    .list-option {
+        min-height: 40px !important;
+        height: fit-content !important;
         padding: 0px !important;
+
+        .mat-list-item-content {
+            min-height: 40px !important;
+        }
     }
 
-    .cur-leading-icon {
+    .leading-icon {
         margin-right: 5px;
     }
 }

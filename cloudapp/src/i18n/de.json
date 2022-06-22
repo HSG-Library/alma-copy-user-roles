@@ -24,7 +24,7 @@
 			"userDetailAlert": "Benutzerdetails für Benutzer '{{primaryId}}' fehlgeschlagen, Alma antwortet mit Status: '{{status}}'"
 		},
 		"findUserLabel": "Suchen",
-		"resultCountInfo": "(nur {{pageSize}} Einträge sichtbar, bitte Suche verfeinern)",
+		"resultCountInfo": "(nur {{pageSize}} Einträge sichtbar, bitte Suche verfeinern z.B voller Name od. Primary ID)",
 		"resultCountLabel": "Resultate: {{resultCount}}",
 		"rolesNotValid": "Nicht alle Rollen gültig",
 		"rolesValid": "Alle Rollen gültig",
@@ -36,7 +36,8 @@
 	},
 	"main": {
 		"checkingPermissions": "Überprüfe Zugriffsrechte...",
-		"copyUserRolesButton": "Rollen kopieren",
+		"compareButton": "Vergleichen",
+		"copyUserRolesButton": "Kopieren",
 		"error": {
 			"copyUserRolesAlert": "Rollen kopieren fehlgeschlagen, Alma antwortet mit Status: '{{status}}'",
 			"permissionCheck": "Prüfen der Zugrifssrechte fehlgeschlagen, Alma antwortet mit Status '{{status}}'",
@@ -45,6 +46,19 @@
 		"needsAtLeastUserManager": "Zur Verwendung dieser App wird mindestens die Rolle 'Benutzer Manager' benötigt.",
 		"replaceExistingRolesCheckboxLabel": "Bestehende Rollen ersetzen",
 		"resetButton": "Zurücksetzen",
+		"results": {
+			"copyInfo": "Falls diese Zahlen nicht korrekt aussehen, vergleichen sie die Rollen von Ziel und Quelle, um zu sehen, ob die Quelle Duplikate hat. Doppelte Rollen werden beim Kopieren reduziert.",
+			"intersection": "Überschneidung ({{count}})",
+			"invalidRolesTitle": "Ungültige Rollen, ausgelassen: {{count}}",
+			"noneYet": "Noch keine Ergebnisse",
+			"onlyInSoure": "Nur Quelle ({{count}})",
+			"onlyInTarget": "Nur Ziel ({{count}})",
+			"ready": "Resultate bereit",
+			"sourceDuplicates": "Duplikate auf Quelle ({{count}})",
+			"targetDuplicates": "Duplikate auf Ziel({{count}})",
+			"title": "Ergebnisse",
+			"validRolesTitle": "Gültige Rollen, kopiert: {{count}}"
+		},
 		"rolesCopyToTargetInfo": "Rollen werden auf diesen Benutzer kopiert",
 		"searchUserInfo": "Benutzer Suchen",
 		"selectTargetFirstInfo": "Bitte zuerst einen Ziel-Benutzer wählen",
@@ -56,9 +70,10 @@
 		"userIsNotAllowedInfo": "Sie haben nicht die nötigen Zugriffsrechte um die App zu verwenden."
 	},
 	"validationDialog": {
-		"introText": "Die Gültigkeitsprüfung der Rollen ist fehlgeschlagen: Nicht alle Rollen dieses Benutzers sind gültig. Alma meldet: ",
-		"okButtonLabel": "Schliessen",
-		"outroText": "Bei einer generischen Fehlermeldung, bitte auf Englisch umschalten. Die Englischen Meldungen sind detailierter.",
-		"title": "Die Rollen von diesem Benutzer können nicht kopiert werden"
+		"abortButtonLabel": "Abbrechen",
+		"introText": "Die Gültigkeitsprüfung der Rollen ist fehlgeschlagen: Nicht alle Rollen dieses Benutzers sind gültig.",
+		"outroText": "Wenn sie 'Benutzer wählen' klicken, können die Rollen in Gruppen kopiert werden um so die ungültigen Rollen zu finden und auszulassen. Dieser Vorgang kann etwas länger dauern.",
+		"proceedAnywayButtonLabel": "Benutzer wählen",
+		"title": "Achtung, nicht alle Rollen sind gültig"
 	}
 }

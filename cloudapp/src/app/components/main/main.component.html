@@ -3,6 +3,9 @@
   <button mat-flat-button color="secondary" (click)="reset()" [disabled]="(!sourceUser) || loading">
     {{'main.resetButton' | translate }}
   </button>
+  <button mat-flat-button color="secondary" (click)="compareUserRoles()" [disabled]="(!currentUserEntity || !sourceUser) || loading">
+    {{'main.compareButton' | translate }}
+  </button>
   <button mat-flat-button color="primary" (click)="copyUserRoles()" [disabled]="(!currentUserEntity || !sourceUser) || loading">
     {{'main.copyUserRolesButton' | translate }}
   </button>
@@ -14,7 +17,7 @@
       <div *ngIf="permissionError">
         <h1 translate>main.userIsNotAllowed</h1>
         <p translate>main.needsAtLeastUserManager</p>
-        <pre class="cur-technical-error">{{permissionError}}</pre>
+        <pre class="technical-error">{{permissionError}}</pre>
       </div>
     </mat-card-content>
   </mat-card>
@@ -42,10 +45,104 @@
     </mat-card-content>
     <mat-card-content *ngIf='currentUserEntity'>
       <p translate>main.rolesCopyToTargetInfo</p>
-      <p class="cur-username">
-        <span class="uxf-icon uxf-user cur-leading-icon"></span> {{currentUserEntity.description}}
+      <p class="username">
+        <span class="uxf-icon uxf-user leading-icon"></span> {{currentUserEntity.description}}
       </p>
       <mat-checkbox [(ngModel)]="replaceExistingRoles">{{ 'main.replaceExistingRolesCheckboxLabel' | translate }}</mat-checkbox>
+      <mat-expansion-panel class="results-panel"
+                           [disabled]="!copyResult && !compareResult"
+                           [expanded]="resultsExpanded"
+                           (opened)="resultsExpanded = true"
+                           (closed)="resultsExpanded = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'main.results.title' | translate }}
+          </mat-panel-title>
+          <mat-panel-description>
+            <p *ngIf="copyResult || compareResult">{{ 'main.results.ready' | translate }}</p>
+            <p *ngIf="!copyResult && !compareResult">{{ 'main.results.noneYet' | translate }}</p>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="cur-results-content">
+          <div *ngIf="copyResult">
+            <p>
+              {{ 'main.results.copyInfo' | translate }}
+            </p>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ 'main.results.invalidRolesTitle' | translate : {count: copyResult.invalidRoles.length} }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ul *ngFor="let role of copyResult.invalidRoles">
+                <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+              </ul>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ 'main.results.validRolesTitle' | translate : {count: copyResult.validRoles.length} }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ul *ngFor="let role of copyResult.validRoles">
+                <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+              </ul>
+            </mat-expansion-panel>
+          </div>
+          <div *ngIf="compareResult">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ 'main.results.intersection' | translate : {count: compareResult.intersection.length} }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ul *ngFor="let role of compareResult.intersection">
+                <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+              </ul>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ 'main.results.onlyInSoure' | translate : {count: compareResult.onlyInSoure.length} }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ul *ngFor="let role of compareResult.onlyInSoure">
+                <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+              </ul>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ 'main.results.onlyInTarget' | translate : {count: compareResult.onlyInTarget.length} }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ul *ngFor="let role of compareResult.onlyInTarget">
+                <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+              </ul>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ 'main.results.sourceDuplicates' | translate : {count: compareResult.sourceDuplicates.length} }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ul *ngFor="let role of compareResult.sourceDuplicates">
+                <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+              </ul>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ 'main.results.targetDuplicates' | translate : {count: compareResult.targetDuplicates.length} }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ul *ngFor="let role of compareResult.targetDuplicates">
+                <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+              </ul>
+            </mat-expansion-panel>
+          </div>
+        </div>
+      </mat-expansion-panel>
     </mat-card-content>
   </mat-card>
   <!-- /target user -->
@@ -59,12 +156,12 @@
       </p>
     </mat-card-content>
     <mat-card-content [style.display]="!currentUserEntity ? 'none' : 'block'">
-      <p class="cur-username" *ngIf="sourceUser" [ngPlural]="sourceUser.user_role?.length">
-        <span class="uxf-icon uxf-user cur-leading-icon"></span> {{sourceUser.last_name}}, {{sourceUser.first_name}} - {{sourceUser.user_role?.length}}
+      <p class="username" *ngIf="sourceUser" [ngPlural]="sourceUser.user_role?.length">
+        <span class="uxf-icon uxf-user leading-icon"></span> {{sourceUser.last_name}}, {{sourceUser.first_name}} - {{sourceUser.user_role?.length}}
         <ng-template ngPluralCase="=1">{{ 'global.role' | translate }}</ng-template>
         <ng-template ngPluralCase="other">{{ 'global.roles' | translate }}</ng-template>
       </p>
-      <p class="cur-bold" *ngIf="!sourceUser" translate>
+      <p class="bold" *ngIf="!sourceUser" translate>
         main.searchUserInfo
       </p>
 

@@ -70,9 +70,13 @@ export class UserAccessService {
 
 	private hasUserAllowedRole(config: Configuration, userDetails: UserDetails): boolean {
 		let allowedRoles: number[] = config.allowedRoles
+		// role 0 is a placeholder value for "all roles allowed"
+		// see cloudapp/src/app/components/configuration/configuration.component.html arround line 56
 		if (allowedRoles.includes(0)) {
 			return true
 		}
-		return userDetails.user_role.some(userRole => allowedRoles.includes(parseInt(userRole.role_type.value)))
+		return userDetails.user_role.some(userRole => {
+			return allowedRoles.includes(parseInt(userRole.role_type.value)) && userRole.status.value === 'ACTIVE'
+		})
 	}
 }

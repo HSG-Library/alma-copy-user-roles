@@ -3,13 +3,15 @@
   <p translate>
     validationDialog.introText
   <p>
-  <pre class="cur-validation-message">{{data.message}}</pre>
   <p translate>
     validationDialog.outroText
   <p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-flat-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>
-    {{'validationDialog.okButtonLabel' | translate }}
+  <button mat-flat-button color="secondary" (click)="close()">
+    {{'validationDialog.abortButtonLabel' | translate }}
+  </button>
+  <button mat-flat-button color="primary" (click)="proceed()" cdkFocusInitial>
+    {{'validationDialog.proceedAnywayButtonLabel' | translate }}
   </button>
 </mat-dialog-actions>
