@@ -71,10 +71,9 @@
 	},
 	"validationDialog": {
 		"abortButtonLabel": "Abbrechen",
-		"errorMessageInfo": "Bei einer generischen Fehlermeldung, bitte auf Englisch umschalten. Die Englischen Meldungen sind detailierter.",
-		"introText": "Die Gültigkeitsprüfung der Rollen ist fehlgeschlagen: Nicht alle Rollen dieses Benutzers sind gültig. Alma meldet: ",
-		"outroText": "Wenn sie 'Weiter' wählen, werden die Rollen einzeln kopiert um so die ungültigen Rollen zu finden und auszulassen. Das könnte eine Weile dauern.",
-		"proceedAnywayButtonLabel": "Weiter",
+		"introText": "Die Gültigkeitsprüfung der Rollen ist fehlgeschlagen: Nicht alle Rollen dieses Benutzers sind gültig.",
+		"outroText": "Wenn sie 'Benutzer wählen' klicken, können die Rollen in Gruppen kopiert werden um so die ungültigen Rollen zu finden und auszulassen. Dieser Vorgang kann etwas länger dauern.",
+		"proceedAnywayButtonLabel": "Benutzer wählen",
 		"title": "Achtung, nicht alle Rollen sind gültig"
 	}
 }

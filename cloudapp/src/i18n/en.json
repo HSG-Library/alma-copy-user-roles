@@ -71,10 +71,9 @@
 	},
 	"validationDialog": {
 		"abortButtonLabel": "Cancel",
-		"errorMessageInfo": "",
-		"introText": "Validation of roles failed: Not all roles of this user are valid. Message from Alma:",
-		"outroText": "If you press 'proceed', the roles will be copied one by one, in order to find and skip the invalid ones. This could take a while.",
-		"proceedAnywayButtonLabel": "Proceed",
+		"introText": "Validation of roles failed: Not all roles of this user are valid.",
+		"outroText": "If you press 'Select user', the roles will be copied in small groups, in order to find and skip the invalid ones. This could take a while.",
+		"proceedAnywayButtonLabel": "Select user",
 		"title": "Warning, not all roles are valid"
 	}
 }
