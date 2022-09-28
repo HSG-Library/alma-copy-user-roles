@@ -3,9 +3,20 @@
 ## Environment to run the CloudApp locally
 
 - `node.js` and `npm` the version to be used can be found in `.nvmrc`. If `node` is installed via `nvm` the correct version will be set automatically
-- Install the ECA CLI if not already installed, see [Documentation](https://developers.exlibrisgroup.com/cloudapps/started/): 
+- Install the ECA CLI if not already installed, see [Documentation](https://developers.exlibrisgroup.com/cloudapps/started/):
 
        npm install -g @exlibris/exl-cloudapp-cli
+
+- Create `config.json` in project root. Example:
+
+       {
+              "title": "Copy User Roles",
+              "subtitle": "Copy User Roles - Development",
+              "author": "Jonas Furrer",
+              "env": "https://slsp-hsg.alma.exlibrisgroup.com/institution/41SLSP_HSG",
+              "port": 4200,
+              "name": "copy-user-roles"
+       }
 
 - Start local environment `eca start`
 - Build (do this at least before a release) `eca build`
@@ -48,4 +59,4 @@ None
 Dependencies added by the ECA framework can mostly be ignored.
 
 - Look for outdated dependencies: `npm outdated`
-- Update safley, according to `package.json` [syntax (`~`, `^`)](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#dependencies) : `npm update` 
+- Update safley, according to `package.json` [syntax (`~`, `^`)](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#dependencies) : `npm update`
