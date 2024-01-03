@@ -1,24 +1,27 @@
-# For most projects, this workflow file will not need changing; you simply need
-# to commit it to your repository.
-#
-# You may wish to alter this file to override the set of languages analyzed,
-# or to provide custom queries or build logic.
-#
-# ******** NOTE ********
-# We have attempted to detect the languages in your repository. Please check
-# the `language` matrix defined below to confirm you have the correct set of
-# supported CodeQL languages.
-#
 name: "CodeQL"
 
 on:
   push:
-    branches: [main, develop]
+    branches: ["main", "develop"]
+    paths:
+    [
+      "package.json",
+      "package-lock.json",
+      "cloudapp/src/**",
+      ".github/workflows/**",
+    ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [main]
+    branches: ["main"]
+    paths:
+      [
+        "package.json",
+        "package-lock.json",
+        "cloudapp/src/**",
+        ".github/workflows/**",
+      ]
   schedule:
-    - cron: "35 10 * * 1"
+    - cron: "35 10 * * 1" # at 10:53 every Monday
 
 jobs:
   analyze:
@@ -29,13 +32,10 @@ jobs:
       fail-fast: false
       matrix:
         language: ["javascript"]
-        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
-        # Learn more:
-        # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
