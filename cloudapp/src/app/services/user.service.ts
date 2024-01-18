@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { CloudAppRestService, Entity, HttpMethod, Request } from '@exlibris/exl-cloudapp-angular-lib'
 import { Observable } from 'rxjs'
-import { UserListResponse } from '../types/userResponse.type'
+import { UserListResponse } from '../types/userListResponse.type'
 import { UserDetails } from '../types/userDetails.type'
 import { AppConfig } from '../app.config'
 

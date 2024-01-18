@@ -10,7 +10,7 @@ import { UserAccessService } from '../../services/userAccess.service'
 import { UserRolesService } from '../../services/userRoles.service'
 import { CompareResult } from '../../types/compareResult.type'
 import { CopyResult } from '../../types/copyResult.type'
-import { UserSummaryEnriched } from '../../types/userSummaryEnriched.type'
+import { UserDetailsChecked } from '../../types/userDetailsChecked'
 import { ValidationDialog } from '../validationDialog/validationDialog.component'
 
 @Component({
@@ -28,8 +28,8 @@ export class MainComponent implements OnInit, OnDestroy {
 
   currentUserEntity: Entity
   replaceExistingRoles: boolean = false
-  sourceUserOptions: UserSummaryEnriched[]
-  sourceUser: UserSummaryEnriched
+  sourceUserOptions: UserDetailsChecked[]
+  sourceUser: UserDetailsChecked
 
   copyResult: CopyResult
   compareResult: CompareResult
@@ -85,7 +85,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.currentUserEntity = null
   }
 
-  selectSourceUser(user: UserSummaryEnriched): void {
+  selectSourceUser(user: UserDetailsChecked): void {
     this.loading = true
     this.userRoleService.validate(user)
       .subscribe((validationInfo: ValidationInfo) => {

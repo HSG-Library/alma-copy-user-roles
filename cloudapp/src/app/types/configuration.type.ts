@@ -1,6 +1,6 @@
-import { UserSummaryEnriched } from './userSummaryEnriched.type'
+import { UserDetailsChecked } from './userDetailsChecked'
 
 export type Configuration = {
 	allowedRoles: number[]
-	allowedUsers: UserSummaryEnriched[]
+	allowedUsers: UserDetailsChecked[]
 }

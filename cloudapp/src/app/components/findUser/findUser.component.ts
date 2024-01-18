@@ -4,8 +4,8 @@ import { TranslateService } from '@ngx-translate/core'
 import { Observable, Subscription } from 'rxjs'
 import { AppConfig } from '../../app.config'
 import { UserService } from '../../services/user.service'
-import { UserListResponse } from '../../types/userResponse.type'
-import { UserSummaryEnriched } from '../../types/userSummaryEnriched.type'
+import { UserListResponse } from '../../types/userListResponse.type'
+import { UserDetailsChecked } from '../../types/userDetailsChecked'
 
 
 @Component({
@@ -16,9 +16,9 @@ export class FindUserComponent implements OnInit, OnDestroy {
 
 	loading: boolean
 	searchTerm: string
-	resultEntites: UserSummaryEnriched[]
+	resultEntites: UserDetailsChecked[]
 	resultCount: number = -1
-	userOptions: UserSummaryEnriched[]
+	userOptions: UserDetailsChecked[]
 	pageSize: number = AppConfig.pageSize
 
 
@@ -27,7 +27,7 @@ export class FindUserComponent implements OnInit, OnDestroy {
 	resetEventSubscription: Subscription
 
 	@Output()
-	selectedUserOutput = new EventEmitter<UserSummaryEnriched>()
+	selectedUserOutput = new EventEmitter<UserDetailsChecked>()
 
 	constructor(
 		private userService: UserService,
@@ -68,8 +68,8 @@ export class FindUserComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	selectUser(event: UserSummaryEnriched[]) {
-		let user: UserSummaryEnriched = event[0]
+	selectUser(event: UserDetailsChecked[]) {
+		let user: UserDetailsChecked = event[0]
 		this.userOptions = []
 		this.selectedUserOutput.emit(user)
 	}

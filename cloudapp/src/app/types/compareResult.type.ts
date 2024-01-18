@@ -1,4 +1,4 @@
-import { UserRole } from './usrRole.type'
+import { UserRole } from './userRole.type'
 
 export type CompareResult = {
 	intersection: UserRole[]

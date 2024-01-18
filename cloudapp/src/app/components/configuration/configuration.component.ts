@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 import { AlertService, CloudAppConfigService } from '@exlibris/exl-cloudapp-angular-lib'
 import { TranslateService } from '@ngx-translate/core'
 import { Configuration } from '../../types/configuration.type'
-import { UserSummaryEnriched } from '../../types/userSummaryEnriched.type'
+import { UserDetailsChecked } from '../../types/userDetailsChecked'
 
 
 @Component({
@@ -18,8 +18,8 @@ export class ConfigurationComponent implements OnInit {
   dirty: boolean
   config: Configuration
 
-  allowedUsers: Set<UserSummaryEnriched> = new Set<UserSummaryEnriched>()
-  allowedUsersSelection: UserSummaryEnriched[] = []
+  allowedUsers: Set<UserDetailsChecked> = new Set<UserDetailsChecked>()
+  allowedUsersSelection: UserDetailsChecked[] = []
 
   allowedRolesSelection: number[] = [0]
 
@@ -33,14 +33,14 @@ export class ConfigurationComponent implements OnInit {
   ngOnInit(): void {
     this.configService.get().subscribe(config => {
       this.config = config
-      this.allowedUsers = new Set<UserSummaryEnriched>(this.config.allowedUsers)
+      this.allowedUsers = new Set<UserDetailsChecked>(this.config.allowedUsers)
       if (this.config.allowedRoles?.length > 0) {
         this.allowedRolesSelection = this.config.allowedRoles
       }
     })
   }
 
-  addAllowedUser(user: UserSummaryEnriched): void {
+  addAllowedUser(user: UserDetailsChecked): void {
     if (this.isAlreadyAllowed(user)) {
       let alertMsg = this.translate.instant('config.userAlreadyInList', {
         user: `${user.first_name} ${user.last_name}`
@@ -78,7 +78,7 @@ export class ConfigurationComponent implements OnInit {
     }
   }
 
-  selectAllowedUsers($event: UserSummaryEnriched[]): void {
+  selectAllowedUsers($event: UserDetailsChecked[]): void {
     this.allowedUsersSelection = $event
   }
 
@@ -109,7 +109,7 @@ export class ConfigurationComponent implements OnInit {
     }
   }
 
-  private isAlreadyAllowed(user: UserSummaryEnriched): boolean {
+  private isAlreadyAllowed(user: UserDetailsChecked): boolean {
     return Array.from(this.allowedUsers).some((userInList) => userInList.primary_id == user.primary_id)
   }
 }

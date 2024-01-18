@@ -1,5 +1,5 @@
 import { UserDetails } from './userDetails.type'
-import { UserRole } from './usrRole.type'
+import { UserRole } from './userRole.type'
 
 export type CopyResult = {
 	validRoles: UserRole[]

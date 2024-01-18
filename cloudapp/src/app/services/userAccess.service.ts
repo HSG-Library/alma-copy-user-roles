@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/internal/Observable'
 import { flatMap, map } from 'rxjs/operators'
 import { Configuration } from '../types/configuration.type'
 import { UserDetails } from '../types/userDetails.type'
-import { UserSummaryEnriched } from '../types/userSummaryEnriched.type'
+import { UserDetailsChecked } from '../types/userDetailsChecked'
 import { UserService } from './user.service'
 
 @Injectable({
@@ -28,7 +28,7 @@ export class UserAccessService {
 		return combineLatest([config$, userDetails$])
 			.pipe((map(([rawConfig, userDetails]) => {
 				let config: Configuration = rawConfig
-				// app is not configured -> 
+				// app is not configured ->
 				// no configuration means access is not restricted
 				if (Object.keys(config).length === 0) {
 					return true
@@ -46,7 +46,7 @@ export class UserAccessService {
 						return false
 					}
 					// at this stage, the user is not in the allowed users list,
-					// no other user is in the allowed users list, 
+					// no other user is in the allowed users list,
 					// check if the user has one of the allowed roles
 					if (this.hasUserAllowedRole(config, userDetails)) {
 						return true
@@ -64,7 +64,7 @@ export class UserAccessService {
 	}
 
 	private isUserInAllowedList(config: Configuration, userDetails: UserDetails): boolean {
-		let allowedUsers: UserSummaryEnriched[] = config.allowedUsers
+		let allowedUsers: UserDetailsChecked[] = config.allowedUsers
 		return allowedUsers.some(user => user.primary_id == userDetails.primary_id)
 	}
 
