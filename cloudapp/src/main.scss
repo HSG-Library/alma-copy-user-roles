@@ -8,8 +8,8 @@
 @mixin global-styles {
     /* Add global styles here */
 
-    .mat-card {
-        margin-bottom: 20px;
+    section {
+        margin-bottom: 70px;
     }
 
     .bold {
@@ -32,5 +32,13 @@
 
     .leading-icon {
         margin-right: 5px;
+    }
+
+    #copy-user-roles-main {
+        .mat-expansion-panel {
+            box-shadow: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 0;
+        }
     }
 }
