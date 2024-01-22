@@ -55,7 +55,7 @@ export class RoleSelectComponent {
 					this.selectedRoles.add(role)
 				}
 			})
-			this.areas = Array.from(this.mappedRoles.keys())
+			this.areas = Array.from(this.mappedRoles.keys()).sort()
 			this.emitSelectedRoles()
 		})
 	}
