@@ -14,6 +14,7 @@ import { LoaderComponent } from './components/loader/loader.component'
 import { MainComponent } from './components/main/main.component'
 import { RoleSelectComponent } from './components/roleSelect/roleSelect.component'
 import { ValidationDialog } from './components/validationDialog/validationDialog.component'
+import { ResultComponent } from './components/result/result.component'
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ValidationDialog } from './components/validationDialog/validationDialog
     FindUserComponent,
     LoaderComponent,
     RoleSelectComponent,
+    ResultComponent,
   ],
   entryComponents: [
     ValidationDialog,

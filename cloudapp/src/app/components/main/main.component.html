@@ -1,5 +1,5 @@
-<!-- action buttons -->
 <div id="copy-user-roles-main">
+  <!-- action buttons -->
   <div class="eca-actions">
     <button mat-flat-button color="secondary" (click)="reset()" [disabled]="(!sourceUser) || loading">
       {{'main.resetButton' | translate }}
@@ -11,6 +11,8 @@
       {{'main.copyUserRolesButton' | translate }}
     </button>
   </div>
+  <!-- /action buttons -->
+  <!-- checking permissions -->
   <div *ngIf="checkingUser">
     <section>
       <h1 *ngIf="!permissionError" translate>main.checkingPermissions</h1>
@@ -23,8 +25,6 @@
       </div>
     </section>
   </div>
-
-  <!-- /action buttons -->
   <div *ngIf="!isUserAllowed && !checkingUser">
     <section>
       <h1 translate>main.userIsNotAllowed</h1>
@@ -35,6 +35,7 @@
       </div>
     </section>
   </div>
+  <!-- /checking permissions -->
   <div *ngIf="isUserAllowed && !checkingUser">
     <!-- target user -->
     <section>
@@ -50,100 +51,7 @@
           <span class="uxf-icon uxf-user leading-icon"></span> {{currentUserEntity.description}}
         </p>
         <mat-checkbox [(ngModel)]="replaceExistingRoles">{{ 'main.replaceExistingRolesCheckboxLabel' | translate }}</mat-checkbox>
-        <mat-expansion-panel class="results-panel"
-                             [disabled]="!copyResult && !compareResult"
-                             [expanded]="resultsExpanded"
-                             (opened)="resultsExpanded = true"
-                             (closed)="resultsExpanded = false">
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              {{ 'main.results.title' | translate }}
-            </mat-panel-title>
-            <mat-panel-description>
-              <p *ngIf="copyResult || compareResult">{{ 'main.results.ready' | translate }}</p>
-              <p *ngIf="!copyResult && !compareResult">{{ 'main.results.noneYet' | translate }}</p>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <div class="cur-results-content">
-            <div *ngIf="copyResult">
-              <p>
-                {{ 'main.results.copyInfo' | translate }}
-              </p>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    {{ 'main.results.invalidRolesTitle' | translate : {count: copyResult.invalidRoles.length} }}
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <ul *ngFor="let role of copyResult.invalidRoles">
-                  <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
-                </ul>
-              </mat-expansion-panel>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    {{ 'main.results.validRolesTitle' | translate : {count: copyResult.validRoles.length} }}
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <ul *ngFor="let role of copyResult.validRoles">
-                  <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
-                </ul>
-              </mat-expansion-panel>
-            </div>
-            <div *ngIf="compareResult">
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    {{ 'main.results.intersection' | translate : {count: compareResult.intersection.length} }}
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <ul *ngFor="let role of compareResult.intersection">
-                  <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
-                </ul>
-              </mat-expansion-panel>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    {{ 'main.results.onlyInSoure' | translate : {count: compareResult.onlyInSoure.length} }}
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <ul *ngFor="let role of compareResult.onlyInSoure">
-                  <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
-                </ul>
-              </mat-expansion-panel>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    {{ 'main.results.onlyInTarget' | translate : {count: compareResult.onlyInTarget.length} }}
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <ul *ngFor="let role of compareResult.onlyInTarget">
-                  <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
-                </ul>
-              </mat-expansion-panel>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    {{ 'main.results.sourceDuplicates' | translate : {count: compareResult.sourceDuplicates.length} }}
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <ul *ngFor="let role of compareResult.sourceDuplicates">
-                  <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
-                </ul>
-              </mat-expansion-panel>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    {{ 'main.results.targetDuplicates' | translate : {count: compareResult.targetDuplicates.length} }}
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <ul *ngFor="let role of compareResult.targetDuplicates">
-                  <li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
-                </ul>
-              </mat-expansion-panel>
-            </div>
-          </div>
-        </mat-expansion-panel>
+        <app-result [copyResult]="copyResult" [compareResult]="compareResult"></app-result>
       </div>
     </section>
     <!-- /target user -->
@@ -172,7 +80,6 @@
         <app-find-user [resetEventObservable$]="resetEventSubject.asObservable()"
                        (selectedUserOutput)="selectSourceUser($event)">
         </app-find-user>
-
       </div>
     </section>
     <!-- /source user -->
