@@ -164,7 +164,10 @@
       <p class="bold" *ngIf="!sourceUser" translate>
         main.searchUserInfo
       </p>
-
+      <app-role-select
+                       [user]="sourceUser"
+                       (rolesSelectedOutput)="selectSourceRoles($event)">
+      </app-role-select>
       <app-find-user [resetEventObservable$]="resetEventSubject.asObservable()"
                      (selectedUserOutput)="selectSourceUser($event)">
       </app-find-user>

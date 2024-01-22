@@ -11,6 +11,7 @@ import { UserRolesService } from '../../services/userRoles.service'
 import { CompareResult } from '../../types/compareResult.type'
 import { CopyResult } from '../../types/copyResult.type'
 import { UserDetailsChecked } from '../../types/userDetailsChecked'
+import { UserRole } from '../../types/userRole.type'
 import { ValidationDialog } from '../validationDialog/validationDialog.component'
 
 @Component({
@@ -37,7 +38,8 @@ export class MainComponent implements OnInit, OnDestroy {
 
   resetEventSubject = new Subject<void>()
 
-  entities$: Observable<Entity[]> = this.eventsService.entities$
+  private entities$: Observable<Entity[]> = this.eventsService.entities$
+  private selectedRoles: UserRole[]
 
   constructor(
     private dialog: MatDialog,
@@ -124,7 +126,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.resetResults()
     this.userService.getUserDetailsFromEntity(this.currentUserEntity)
       .subscribe(userDetails => {
-        this.userRoleService.copy(this.sourceUser, userDetails, this.replaceExistingRoles)
+        this.userRoleService.copy(this.sourceUser, this.selectedRoles, userDetails, this.replaceExistingRoles)
           .subscribe(
             (copyResult: CopyResult) => {
               console.log(copyResult)
@@ -158,6 +160,10 @@ export class MainComponent implements OnInit, OnDestroy {
         this.compareResult = compareResult
         this.loading = false
       })
+  }
+
+  selectSourceRoles(userRoles: UserRole[]): void {
+    this.selectedRoles = userRoles
   }
 
   resetResults(): void {

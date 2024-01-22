@@ -69,6 +69,11 @@
 		"userIsNotAllowed": "Zugriff verweigert",
 		"userIsNotAllowedInfo": "Sie haben nicht die nötigen Zugriffsrechte um die App zu verwenden."
 	},
+	"roleSelect": {
+		"rolesSelected": "Gewählte Rollen",
+		"selectAll": "Alle auswählen",
+		"deselectAll": "Alle abwählen"
+	},
 	"validationDialog": {
 		"abortButtonLabel": "Abbrechen",
 		"introText": "Die Gültigkeitsprüfung der Rollen ist fehlgeschlagen: Nicht alle Rollen dieses Benutzers sind gültig.",

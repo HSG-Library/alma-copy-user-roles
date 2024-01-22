@@ -1,18 +1,19 @@
-import { NgModule } from '@angular/core'
 import { HttpClientModule } from '@angular/common/http'
+import { NgModule } from '@angular/core'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { MaterialModule, CloudAppTranslateModule, AlertModule } from '@exlibris/exl-cloudapp-angular-lib'
+import { AlertModule, CloudAppTranslateModule, MaterialModule } from '@exlibris/exl-cloudapp-angular-lib'
 
-import { AppComponent } from './app.component'
 import { AppRoutingModule } from './app-routing.module'
-import { MainComponent } from './components/main/main.component'
-import { ValidationDialog } from './components/validationDialog/validationDialog.component'
+import { AppComponent } from './app.component'
 import { ConfigurationComponent } from './components/configuration/configuration.component'
 import { FindUserComponent } from './components/findUser/findUser.component'
 import { LoaderComponent } from './components/loader/loader.component'
+import { MainComponent } from './components/main/main.component'
+import { RoleSelectComponent } from './components/roleSelect/roleSelect.component'
+import { ValidationDialog } from './components/validationDialog/validationDialog.component'
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LoaderComponent } from './components/loader/loader.component'
     ValidationDialog,
     FindUserComponent,
     LoaderComponent,
+    RoleSelectComponent,
   ],
   entryComponents: [
     ValidationDialog,

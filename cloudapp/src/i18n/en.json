@@ -69,6 +69,11 @@
 		"userIsNotAllowed": "Permission denied",
 		"userIsNotAllowedInfo": "You don't have the permission to use this app."
 	},
+		"roleSelect": {
+			"rolesSelected": "Selected roles",
+			"selectAll": "Select all",
+			"deselectAll": "Deselect all"
+		},
 	"validationDialog": {
 		"abortButtonLabel": "Cancel",
 		"introText": "Validation of roles failed: Not all roles of this user are valid.",

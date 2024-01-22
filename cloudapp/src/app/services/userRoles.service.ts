@@ -19,11 +19,11 @@ export class UserRolesService {
 		private userService: UserService,
 		private arrayHelper: ArrayHelperService) { }
 
-	copy(sourceUser: UserDetailsChecked, targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
+	copy(sourceUser: UserDetailsChecked, selectedRoles: UserRole[], targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
 		if (sourceUser.rolesValid) {
-			return this.copyValidRoles(sourceUser, targetUser, replaceExistingRoles)
+			return this.copyValidRoles(selectedRoles, targetUser, replaceExistingRoles)
 		} else {
-			return this.copyOneByOne(sourceUser, targetUser, replaceExistingRoles)
+			return this.copyOneByOne(selectedRoles, targetUser, replaceExistingRoles)
 		}
 	}
 
@@ -47,13 +47,13 @@ export class UserRolesService {
 		return of(compareResult)
 	}
 
-	private copyValidRoles(sourceUser: UserDetailsChecked, targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
+	private copyValidRoles(selectedRoles: UserRole[], targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
 		if (replaceExistingRoles) {
-			// replace existing roles by overwriting the target roles with the source roles
-			targetUser.user_role = sourceUser.user_role
+			// replace existing roles by overwriting the target roles with the selected roles
+			targetUser.user_role = selectedRoles
 		} else {
 			// don't replace by combining existing roles with the new roles
-			targetUser.user_role = [...targetUser.user_role, ...sourceUser.user_role]
+			targetUser.user_role = [...targetUser.user_role, ...selectedRoles]
 		}
 
 		// since all roles are valid, just updated the target user
@@ -70,15 +70,15 @@ export class UserRolesService {
 			)
 	}
 
-	private copyOneByOne(sourceUser: UserDetailsChecked, targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
+	private copyOneByOne(selectedRoles: UserRole[], targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
 		let roles = []
 		let backupRoles = targetUser.user_role
 		if (replaceExistingRoles) {
-			// replace: just use the roles of the source user
-			roles = sourceUser.user_role
+			// replace: just use the selected roles of the source user
+			roles = selectedRoles
 		} else {
 			// don't replace, combine the roles of source and target user
-			roles = [...targetUser.user_role, ...sourceUser.user_role]
+			roles = [...targetUser.user_role, ...selectedRoles]
 		}
 
 		// since there are only 25 requests in 5sec allowed (see: https://developers.exlibrisgroup.com/cloudapps/docs/api/rest-service/)

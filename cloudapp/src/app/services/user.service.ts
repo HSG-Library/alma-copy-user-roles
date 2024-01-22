@@ -5,7 +5,6 @@ import { UserListResponse } from '../types/userListResponse.type'
 import { UserDetails } from '../types/userDetails.type'
 import { AppConfig } from '../app.config'
 
-const httpHeader: { [header: string]: string } = { 'Content-Type': 'application/json', 'Accept': 'application/json' }
 
 @Injectable({
 	providedIn: 'root'
@@ -18,7 +17,7 @@ export class UserService {
 		let request: Request = {
 			url: '/users',
 			method: HttpMethod.GET,
-			headers: httpHeader,
+			headers: AppConfig.httpHeader,
 			queryParams: {
 				q: this.createPattern(searchTerm),
 				order_by: 'last_name,first_name,primary_id',
@@ -32,7 +31,7 @@ export class UserService {
 		let request: Request = {
 			url: '/users/' + primaryId,
 			method: HttpMethod.GET,
-			headers: httpHeader,
+			headers: AppConfig.httpHeader,
 			queryParams: {
 				user_id_type: 'all_unique',
 				view: 'full',
@@ -46,7 +45,7 @@ export class UserService {
 		let request: Request = {
 			url: userEntity.link,
 			method: HttpMethod.GET,
-			headers: httpHeader,
+			headers: AppConfig.httpHeader,
 			queryParams: {
 				user_id_type: 'all_unique',
 				view: 'full',
@@ -60,7 +59,7 @@ export class UserService {
 		let request: Request = {
 			url: '/users/' + userData.primary_id,
 			method: HttpMethod.PUT,
-			headers: httpHeader,
+			headers: AppConfig.httpHeader,
 			requestBody: userData,
 		}
 		return this.restService.call(request)
