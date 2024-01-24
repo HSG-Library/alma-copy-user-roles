@@ -49,6 +49,7 @@ export class RoleSelectComponent {
 				if (area) {
 					if (this.mappedRoles.has(area)) {
 						this.mappedRoles.get(area).push(role)
+						this.mappedRoles.get(area).sort((a, b) => a.role_type.desc.localeCompare(b.role_type.desc))
 					} else {
 						this.mappedRoles.set(area, [role])
 					}
