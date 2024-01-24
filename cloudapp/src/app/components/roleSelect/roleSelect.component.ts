@@ -33,7 +33,7 @@ export class RoleSelectComponent {
 	@Output()
 	rolesSelectedOutput: EventEmitter<UserRole[]> = new EventEmitter<UserRole[]>()
 
-	private selectedRoles: Set<UserRole> = new Set()
+	selectedRoles: Set<UserRole> = new Set()
 
 	constructor(
 		private userRoleAreaService: UserRoleAreaService,
