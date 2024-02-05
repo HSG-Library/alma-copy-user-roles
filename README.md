@@ -1,3 +1,5 @@
+<br> <a href="https://developers.exlibrisgroup.com/appcenter/copy-user-roles/">![CloudApp Activations](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapps01.ext.exlibrisgroup.com%2Fappstats.json&query=%24%5B%3F(%40.cloud_app_id%3D%3D'hsg-library%2Falma-copy-user-roles')%5D.user_count&style=flat&label=Cloud%20App%20Activations)</a>
+<a href="https://developers.exlibrisgroup.com/appcenter/copy-user-roles/">![Deployed Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapps01.ext.exlibrisgroup.com%2Fapps.json&query=%24%5B%3F(%40.id%3D%3D'hsg-library%2Falma-copy-user-roles')%5D.version&label=Deployed%20Version&color=green)</a>
 
 # Copy User Roles
 <img align="right" src="./cloudapp/src/assets/app-icon.png" width="100" style="border-radius: 3px">
