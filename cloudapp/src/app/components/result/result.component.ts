@@ -22,7 +22,7 @@ export class ResultComponent {
 
 	@Input()
 	set compareResult(value: CompareResult) {
-		this._compareResult = value
+				this._compareResult = value
 	}
 
 	get compareResult(): CompareResult {
@@ -30,5 +30,4 @@ export class ResultComponent {
 	}
 
 	resultsExpanded: boolean = false
-
 }

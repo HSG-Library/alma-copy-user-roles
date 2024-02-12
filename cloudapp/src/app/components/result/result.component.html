@@ -13,6 +13,7 @@
 		</mat-panel-description>
 	</mat-expansion-panel-header>
 	<div class="cur-results-content">
+		<!-- ***COPY RESULT*** -->
 		<div *ngIf="copyResult">
 			<p>
 				{{ 'main.results.copyInfo' | translate }}
@@ -24,7 +25,7 @@
 					</mat-panel-title>
 				</mat-expansion-panel-header>
 				<ul *ngFor="let role of copyResult.invalidRoles">
-					<li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+					<li><app-role-output [userRole]="role"></app-role-output></li>
 				</ul>
 			</mat-expansion-panel>
 			<mat-expansion-panel>
@@ -34,10 +35,12 @@
 					</mat-panel-title>
 				</mat-expansion-panel-header>
 				<ul *ngFor="let role of copyResult.validRoles">
-					<li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+					<li><app-role-output [userRole]="role"></app-role-output></li>
 				</ul>
 			</mat-expansion-panel>
 		</div>
+		<!-- /***COPY RESULT*** -->
+		<!-- ***COMPARE RESULT*** -->
 		<div *ngIf="compareResult">
 			<mat-expansion-panel>
 				<mat-expansion-panel-header>
@@ -46,7 +49,7 @@
 					</mat-panel-title>
 				</mat-expansion-panel-header>
 				<ul *ngFor="let role of compareResult.intersection">
-					<li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+					<li><app-role-output [userRole]="role"></app-role-output></li>
 				</ul>
 			</mat-expansion-panel>
 			<mat-expansion-panel>
@@ -56,7 +59,7 @@
 					</mat-panel-title>
 				</mat-expansion-panel-header>
 				<ul *ngFor="let role of compareResult.onlyInSoure">
-					<li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+					<li><app-role-output [userRole]="role"></app-role-output></li>
 				</ul>
 			</mat-expansion-panel>
 			<mat-expansion-panel>
@@ -66,7 +69,7 @@
 					</mat-panel-title>
 				</mat-expansion-panel-header>
 				<ul *ngFor="let role of compareResult.onlyInTarget">
-					<li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+					<li><app-role-output [userRole]="role"></app-role-output></li>
 				</ul>
 			</mat-expansion-panel>
 			<mat-expansion-panel>
@@ -76,7 +79,7 @@
 					</mat-panel-title>
 				</mat-expansion-panel-header>
 				<ul *ngFor="let role of compareResult.sourceDuplicates">
-					<li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+					<li><app-role-output [userRole]="role"></app-role-output></li>
 				</ul>
 			</mat-expansion-panel>
 			<mat-expansion-panel>
@@ -86,9 +89,10 @@
 					</mat-panel-title>
 				</mat-expansion-panel-header>
 				<ul *ngFor="let role of compareResult.targetDuplicates">
-					<li>{{role.role_type.desc}} ({{role.role_type.value}}) [scope: {{role.scope.value}}, status: {{role.status.value}}]</li>
+					<li><app-role-output [userRole]="role"></app-role-output></li>
 				</ul>
 			</mat-expansion-panel>
 		</div>
+		<!-- /***COMPARE RESULT*** -->
 	</div>
 </mat-expansion-panel>

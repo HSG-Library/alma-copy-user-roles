@@ -28,8 +28,7 @@
 						 *ngFor="let resultEntity of resultEntites" [value]="resultEntity">
 			<div>
 				<span class="uxf-icon uxf-user leading-icon"></span>
-				{{resultEntity.last_name}}, {{resultEntity.first_name}} - {{resultEntity?.user_group?.desc.trim()}}&nbsp;
-				[{{resultEntity?.user_group?.value}}] -
+				{{resultEntity.last_name}}, {{resultEntity.first_name}} - {{resultEntity?.user_group?.desc.trim()}}&nbsp;-
 				<span *ngIf="resultEntity?.user_role" [ngPlural]="resultEntity?.user_role?.length">
 					{{resultEntity?.user_role?.length}}&nbsp;
 					<ng-template ngPluralCase="=1">{{ 'global.role' | translate }}</ng-template>

@@ -1,0 +1,16 @@
+<span class="role-output">
+	<span matTooltip="{{userRole.role_type.value}}">{{userRole.role_type.desc}}</span> ({{userRole.status.desc}})
+	<ul class="role-details">
+		<li>scope: {{userRole.scope.value}}</li>
+		<li *ngIf="userRole.parameter && userRole.parameter.length > 0 ">
+			parameter:
+			<ul class="role-parameter" >
+					<li *ngFor="let param of userRole.parameter">
+						<span>Type: {{param.type.value}}</span><br>
+						<span>Value: {{param.value.desc}}</span><br>
+						<span *ngIf="param.scope">Scope: {{param.scope.desc}}</span>
+					</li>
+			</ul>
+		</li>
+	</ul>
+</span>
