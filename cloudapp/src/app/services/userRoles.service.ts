@@ -53,7 +53,7 @@ export class UserRolesService {
 			targetUser.user_role = selectedRoles
 		} else {
 			// don't replace by combining existing roles with the new roles
-			targetUser.user_role = [...targetUser.user_role, ...selectedRoles]
+			targetUser.user_role = [...selectedRoles, ...targetUser.user_role]
 		}
 
 		// since all roles are valid, just updated the target user
@@ -78,7 +78,7 @@ export class UserRolesService {
 			roles = selectedRoles
 		} else {
 			// don't replace, combine the roles of source and target user
-			roles = [...targetUser.user_role, ...selectedRoles]
+			roles = [...selectedRoles, ...targetUser.user_role]
 		}
 
 		// since there are only 25 requests in 5sec allowed (see: https://developers.exlibrisgroup.com/cloudapps/docs/api/rest-service/)
