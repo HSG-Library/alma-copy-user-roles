@@ -47,17 +47,20 @@
 		"replaceExistingRolesCheckboxLabel": "Bestehende Rollen ersetzen",
 		"resetButton": "Zurücksetzen",
 		"results": {
-			"copyInfo": "Falls diese Zahlen nicht korrekt aussehen, vergleichen sie die Rollen von Ziel und Quelle, um zu sehen, ob die Quelle Duplikate hat. Doppelte Rollen werden beim Kopieren reduziert.",
+			"copiedRolesTitle": "Tatsächlich kopierte Rollen: {{count}}",
+			"copyInfo": "Falls diese Zahlen nicht korrekt aussehen, nutzen sie die 'Vergleichen Funktion', um zu sehen, ob die Quelle Duplikate hat. Doppelte Rollen werden beim Kopieren reduziert.",
 			"intersection": "Überschneidung ({{count}})",
 			"invalidRolesTitle": "Ungültige Rollen, ausgelassen: {{count}}",
 			"noneYet": "Noch keine Ergebnisse",
 			"onlyInSoure": "Nur Quelle ({{count}})",
 			"onlyInTarget": "Nur Ziel ({{count}})",
 			"ready": "Resultate bereit",
+			"rolesSelectedToCopyTitle": "Gewählt für Kopie: {{count}}",
+			"skippedDuplicateRolesTitle": "Duplikate, ausgelassen: {{count}}",
 			"sourceDuplicates": "Duplikate auf Quelle ({{count}})",
 			"targetDuplicates": "Duplikate auf Ziel({{count}})",
 			"title": "Ergebnisse",
-			"validRolesTitle": "Gültige Rollen, kopiert: {{count}}"
+			"validRolesTitle": "Gültige Rollen, auf Ziel: {{count}}"
 		},
 		"rolesCopyToTargetInfo": "Rollen werden auf diesen Benutzer kopiert",
 		"searchUserInfo": "Benutzer Suchen",
@@ -70,9 +73,9 @@
 		"userIsNotAllowedInfo": "Sie haben nicht die nötigen Zugriffsrechte um die App zu verwenden."
 	},
 	"roleSelect": {
+		"deselectAll": "Alle abwählen",
 		"rolesSelected": "Gewählte Rollen",
-		"selectAll": "Alle auswählen",
-		"deselectAll": "Alle abwählen"
+		"selectAll": "Alle auswählen"
 	},
 	"validationDialog": {
 		"abortButtonLabel": "Abbrechen",

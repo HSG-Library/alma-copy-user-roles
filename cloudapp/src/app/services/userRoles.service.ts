@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { from, Observable, of } from 'rxjs'
-import { catchError, mergeMap, switchMap } from 'rxjs/operators'
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators'
 import { ValidationInfo } from '../models/validationInfo'
 import { CompareResult } from '../types/compareResult.type'
 import { CopyResult } from '../types/copyResult.type'
@@ -20,11 +20,22 @@ export class UserRolesService {
 		private arrayHelper: ArrayHelperService) { }
 
 	copy(sourceUser: UserDetailsChecked, selectedRoles: UserRole[], targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
+		let copyResult: Observable<CopyResult>
 		if (sourceUser.rolesValid) {
-			return this.copyValidRoles(selectedRoles, targetUser, replaceExistingRoles)
+			copyResult = this.copyValidRoles(selectedRoles, targetUser, replaceExistingRoles)
 		} else {
-			return this.copyOneByOne(selectedRoles, targetUser, replaceExistingRoles)
+			copyResult = this.copyOneByOne(selectedRoles, targetUser, replaceExistingRoles)
 		}
+
+		copyResult = copyResult.pipe(
+			map(copyResult => {
+				const duplicates: UserRole[] = this.arrayHelper.findDuplicates(sourceUser.user_role)
+				copyResult.skippedDuplicateRoles = this.arrayHelper.intersection(selectedRoles, duplicates)
+				return copyResult
+			})
+		)
+
+		return copyResult
 	}
 
 	compare(sourceUser: UserDetailsChecked, targetUser: UserDetails): Observable<CompareResult> {
@@ -61,8 +72,11 @@ export class UserRolesService {
 			.pipe(
 				switchMap(userDetails => {
 					let copyResult: CopyResult = {
+						rolesSelectedToCopy: selectedRoles,
 						validRoles: targetUser.user_role,
+						copiedRoles: selectedRoles,
 						invalidRoles: [],
+						skippedDuplicateRoles: [],
 						targetUser: userDetails
 					}
 					return of(copyResult)
@@ -95,8 +109,11 @@ export class UserRolesService {
 						.pipe(
 							switchMap(userDetails => {
 								let copyResult: CopyResult = {
+									rolesSelectedToCopy: selectedRoles,
 									validRoles: roleState.valid,
 									invalidRoles: roleState.invalid,
+									copiedRoles: this.arrayHelper.removeItems(selectedRoles, roleState.invalid),
+									skippedDuplicateRoles: [],
 									targetUser: userDetails
 								}
 								return of(copyResult)
@@ -108,8 +125,11 @@ export class UserRolesService {
 					return this.userService.updateUser(targetUser).pipe(
 						switchMap(userDetails => {
 							let copyResult: CopyResult = {
+								rolesSelectedToCopy: selectedRoles,
 								validRoles: [],
 								invalidRoles: [],
+								copiedRoles: [],
+								skippedDuplicateRoles: roles,
 								targetUser: userDetails
 							}
 							return of(copyResult)

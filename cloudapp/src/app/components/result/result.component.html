@@ -21,10 +21,40 @@
 			<mat-expansion-panel>
 				<mat-expansion-panel-header>
 					<mat-panel-title>
+						{{ 'main.results.rolesSelectedToCopyTitle' | translate : {count: copyResult.rolesSelectedToCopy.length} }}
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<ul *ngFor="let role of copyResult.rolesSelectedToCopy">
+					<li><app-role-output [userRole]="role"></app-role-output></li>
+				</ul>
+			</mat-expansion-panel>
+			<mat-expansion-panel>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						{{ 'main.results.skippedDuplicateRolesTitle' | translate : {count: copyResult.skippedDuplicateRoles.length} }}
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<ul *ngFor="let role of copyResult.skippedDuplicateRoles">
+					<li><app-role-output [userRole]="role"></app-role-output></li>
+				</ul>
+			</mat-expansion-panel>
+			<mat-expansion-panel>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
 						{{ 'main.results.invalidRolesTitle' | translate : {count: copyResult.invalidRoles.length} }}
 					</mat-panel-title>
 				</mat-expansion-panel-header>
 				<ul *ngFor="let role of copyResult.invalidRoles">
+					<li><app-role-output [userRole]="role"></app-role-output></li>
+				</ul>
+			</mat-expansion-panel>
+			<mat-expansion-panel>
+				<mat-expansion-panel-header>
+					<mat-panel-title>
+						{{ 'main.results.copiedRolesTitle' | translate : {count: copyResult.copiedRoles.length} }}
+					</mat-panel-title>
+				</mat-expansion-panel-header>
+				<ul *ngFor="let role of copyResult.copiedRoles">
 					<li><app-role-output [userRole]="role"></app-role-output></li>
 				</ul>
 			</mat-expansion-panel>
