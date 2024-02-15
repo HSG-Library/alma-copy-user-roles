@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { UserRoleAreaService } from '../../services/userRoleAreaService'
 import { UserDetailsChecked } from '../../types/userDetailsChecked'
 import { UserRole } from '../../types/userRole.type'
+import { UserRolesService } from '../../services/userRoles.service'
 
 @Component({
 	selector: 'app-role-select',
@@ -37,6 +38,7 @@ export class RoleSelectComponent {
 
 	constructor(
 		private userRoleAreaService: UserRoleAreaService,
+		private userRoleService: UserRolesService
 	) { }
 
 	mapRoles(): void {
@@ -44,12 +46,12 @@ export class RoleSelectComponent {
 			return
 		}
 		this.userRoleAreaService.getRoleTypeDefinitionMapping().subscribe(mapping => {
-			this._user.user_role.forEach(role => {
+			const roles = this.userRoleService.normalizeRolesList(this._user.user_role)
+			roles.forEach(role => {
 				const area = mapping.get(role.role_type.value)
 				if (area) {
 					if (this.mappedRoles.has(area)) {
 						this.mappedRoles.get(area).push(role)
-						this.mappedRoles.get(area).sort((a, b) => a.role_type.desc.localeCompare(b.role_type.desc))
 					} else {
 						this.mappedRoles.set(area, [role])
 					}

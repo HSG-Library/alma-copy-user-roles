@@ -22,7 +22,21 @@
 					</mat-checkbox>
 				</mat-list-item>
 				<mat-list-item class="item-role" *ngFor="let role of mappedRoles.get(area)">
-					<mat-checkbox [checked]="roleChecked(role)" (change)="selectRole(role)">{{role.role_type.desc}}<br><span class="scope">[{{role.scope.desc}}]</span></mat-checkbox>
+					<mat-checkbox [checked]="roleChecked(role)" (change)="selectRole(role)">
+						{{role.role_type.desc}}<br>
+						<span class="scope">{{role.scope.desc}}</span>
+						<span class="parameter" *ngIf="role.parameter && role.parameter.length > 0 ">
+							<br>
+							parameter:
+							<ul class="role-parameter">
+								<li *ngFor="let param of role.parameter">
+									<span>Type: {{param.type.value}}</span><br>
+									<span>Value: {{param.value.desc}}</span><br>
+									<span *ngIf="param.scope">Scope: {{param.scope.desc}}</span>
+								</li>
+							</ul>
+						</span>
+					</mat-checkbox>
 				</mat-list-item>
 			</div>
 		</ng-container>

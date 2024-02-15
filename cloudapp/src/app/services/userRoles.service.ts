@@ -226,7 +226,7 @@ export class UserRolesService {
 			)
 	}
 
-	private normalizeRolesList(roles: UserRole[]): UserRole[] {
+	normalizeRolesList(roles: UserRole[]): UserRole[] {
 		roles.map(role => {
 			role.parameter = role.parameter.sort((param1, param2) => {
 				const type1 = param1.type.value

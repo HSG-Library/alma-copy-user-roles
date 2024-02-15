@@ -1,6 +1,12 @@
-.scope {
+.scope, .parameter {
 	color: #888;
 	font-size: smaller;
+}
+
+.parameter ul {
+	margin: 0;
+	padding-left: 15px;
+	list-style: circle;
 }
 
 mat-expansion-panel {
