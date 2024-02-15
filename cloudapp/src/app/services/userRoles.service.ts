@@ -39,8 +39,8 @@ export class UserRolesService {
 	}
 
 	compare(sourceUser: UserDetailsChecked, targetUser: UserDetails): Observable<CompareResult> {
-		let sourceRoles = sourceUser.user_role
-		let targetRoles = targetUser.user_role
+		let sourceRoles = this.normalizeRolesList(sourceUser.user_role)
+		let targetRoles = this.normalizeRolesList(targetUser.user_role)
 
 		let intersection: UserRole[] = this.arrayHelper.intersection(sourceRoles, targetRoles)
 		let onlyInSource: UserRole[] = this.arrayHelper.removeItems(sourceRoles, intersection)
@@ -61,10 +61,10 @@ export class UserRolesService {
 	private copyValidRoles(selectedRoles: UserRole[], targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
 		if (replaceExistingRoles) {
 			// replace existing roles by overwriting the target roles with the selected roles
-			targetUser.user_role = selectedRoles
+			targetUser.user_role = this.normalizeRolesList(selectedRoles)
 		} else {
 			// don't replace by combining existing roles with the new roles
-			targetUser.user_role = [...selectedRoles, ...targetUser.user_role]
+			targetUser.user_role = this.normalizeRolesList([...selectedRoles, ...targetUser.user_role])
 		}
 
 		// since all roles are valid, just updated the target user
@@ -89,10 +89,10 @@ export class UserRolesService {
 		let backupRoles = targetUser.user_role
 		if (replaceExistingRoles) {
 			// replace: just use the selected roles of the source user
-			roles = selectedRoles
+			roles = this.normalizeRolesList(selectedRoles)
 		} else {
 			// don't replace, combine the roles of source and target user
-			roles = [...selectedRoles, ...targetUser.user_role]
+			roles = this.normalizeRolesList([...selectedRoles, ...targetUser.user_role])
 		}
 
 		// since there are only 25 requests in 5sec allowed (see: https://developers.exlibrisgroup.com/cloudapps/docs/api/rest-service/)
@@ -224,6 +224,22 @@ export class UserRolesService {
 					}
 				)
 			)
+	}
+
+	private normalizeRolesList(roles: UserRole[]): UserRole[] {
+		roles.map(role => {
+			role.parameter = role.parameter.sort((param1, param2) => {
+				const type1 = param1.type.value
+				const type2 = param2.type.value
+				const value1 = param1.value?.desc || ''
+				const value2 = param2.value?.desc || ''
+				return (type1 + value1).localeCompare(type2 + value2)
+			})
+			role.parameter.map(param => {
+				param.value.desc = String(param.value?.value)
+			})
+		})
+		return roles.sort((a, b) => a.role_type.desc.localeCompare(b.role_type.desc))
 	}
 }
 
