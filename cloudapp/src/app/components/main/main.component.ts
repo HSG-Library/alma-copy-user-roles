@@ -133,7 +133,7 @@ export class MainComponent implements OnInit, OnDestroy {
               this.copyResult = copyResult
               this.loading = false
               this.eventsService.refreshPage().subscribe(
-                () => this.alert.success(this.translate.instant('main.successAlert'))
+                () => this.alert.success(this.translate.instant('main.successAlert'), { autoClose: true, delay: 5000 }),
               )
             },
             (error) => {

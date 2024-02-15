@@ -67,7 +67,7 @@
 		"selectTargetFirstInfo": "Select a target user first.",
 		"selectTargetUserInfo": "Select the target user by navigating to a user record in Alma.",
 		"sourcUserTitle": "Copy roles from this user",
-		"successAlert": "Successfully copied user roles",
+		"successAlert": "Successfully copied user roles. For further information, see 'Results'.",
 		"targetUserTitle": "Copy roles to this user",
 		"userIsNotAllowed": "Permission denied",
 		"userIsNotAllowedInfo": "You don't have the permission to use this app."

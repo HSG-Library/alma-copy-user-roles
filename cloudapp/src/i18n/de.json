@@ -67,7 +67,7 @@
 		"selectTargetFirstInfo": "Bitte zuerst einen Ziel-Benutzer wählen",
 		"selectTargetUserInfo": "Ziel-Benutzer wählen indem Benutzerdetails eines Benutzers in Alma geöffnet werden ",
 		"sourcUserTitle": "Rollen von diesem Benutzer kopieren",
-		"successAlert": "Rollen erfolgreich kopiert",
+		"successAlert": "Rollen erfolgreich kopiert. Für weitere Infomationen, siehe 'Resultate'",
 		"targetUserTitle": "Rollen auf diesen Benutzer kopieren",
 		"userIsNotAllowed": "Zugriff verweigert",
 		"userIsNotAllowedInfo": "Sie haben nicht die nötigen Zugriffsrechte um die App zu verwenden."
