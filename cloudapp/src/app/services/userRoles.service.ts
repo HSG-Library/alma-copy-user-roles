@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core'
 import { from, Observable, of } from 'rxjs'
-import { catchError, mergeMap, switchMap } from 'rxjs/operators'
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators'
 import { ValidationInfo } from '../models/validationInfo'
 import { CompareResult } from '../types/compareResult.type'
 import { CopyResult } from '../types/copyResult.type'
 import { UserDetails } from '../types/userDetails.type'
-import { UserSummaryEnriched } from '../types/userSummaryEnriched.type'
-import { UserRole } from '../types/usrRole.type'
+import { UserDetailsChecked } from '../types/userDetailsChecked'
+import { UserRole } from '../types/userRole.type'
 import { ArrayHelperService } from './arrayHelper.service'
 import { UserService } from './user.service'
 
@@ -19,17 +19,28 @@ export class UserRolesService {
 		private userService: UserService,
 		private arrayHelper: ArrayHelperService) { }
 
-	copy(sourceUser: UserSummaryEnriched, targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
+	copy(sourceUser: UserDetailsChecked, selectedRoles: UserRole[], targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
+		let copyResult: Observable<CopyResult>
 		if (sourceUser.rolesValid) {
-			return this.copyValidRoles(sourceUser, targetUser, replaceExistingRoles)
+			copyResult = this.copyValidRoles(selectedRoles, targetUser, replaceExistingRoles)
 		} else {
-			return this.copyOneByOne(sourceUser, targetUser, replaceExistingRoles)
+			copyResult = this.copyOneByOne(selectedRoles, targetUser, replaceExistingRoles)
 		}
+
+		copyResult = copyResult.pipe(
+			map(copyResult => {
+				const duplicates: UserRole[] = this.arrayHelper.findDuplicates(sourceUser.user_role)
+				copyResult.skippedDuplicateRoles = this.arrayHelper.intersection(selectedRoles, duplicates)
+				return copyResult
+			})
+		)
+
+		return copyResult
 	}
 
-	compare(sourceUser: UserSummaryEnriched, targetUser: UserDetails): Observable<CompareResult> {
-		let sourceRoles = sourceUser.user_role
-		let targetRoles = targetUser.user_role
+	compare(sourceUser: UserDetailsChecked, targetUser: UserDetails): Observable<CompareResult> {
+		let sourceRoles = this.normalizeRolesList(sourceUser.user_role)
+		let targetRoles = this.normalizeRolesList(targetUser.user_role)
 
 		let intersection: UserRole[] = this.arrayHelper.intersection(sourceRoles, targetRoles)
 		let onlyInSource: UserRole[] = this.arrayHelper.removeItems(sourceRoles, intersection)
@@ -47,13 +58,13 @@ export class UserRolesService {
 		return of(compareResult)
 	}
 
-	private copyValidRoles(sourceUser: UserSummaryEnriched, targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
+	private copyValidRoles(selectedRoles: UserRole[], targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
 		if (replaceExistingRoles) {
-			// replace existing roles by overwriting the target roles with the source roles
-			targetUser.user_role = sourceUser.user_role
+			// replace existing roles by overwriting the target roles with the selected roles
+			targetUser.user_role = this.normalizeRolesList(selectedRoles)
 		} else {
 			// don't replace by combining existing roles with the new roles
-			targetUser.user_role = [...targetUser.user_role, ...sourceUser.user_role]
+			targetUser.user_role = this.normalizeRolesList([...selectedRoles, ...targetUser.user_role])
 		}
 
 		// since all roles are valid, just updated the target user
@@ -61,8 +72,11 @@ export class UserRolesService {
 			.pipe(
 				switchMap(userDetails => {
 					let copyResult: CopyResult = {
+						rolesSelectedToCopy: selectedRoles,
 						validRoles: targetUser.user_role,
+						copiedRoles: selectedRoles,
 						invalidRoles: [],
+						skippedDuplicateRoles: [],
 						targetUser: userDetails
 					}
 					return of(copyResult)
@@ -70,15 +84,15 @@ export class UserRolesService {
 			)
 	}
 
-	private copyOneByOne(sourceUser: UserSummaryEnriched, targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
+	private copyOneByOne(selectedRoles: UserRole[], targetUser: UserDetails, replaceExistingRoles: boolean): Observable<CopyResult> {
 		let roles = []
 		let backupRoles = targetUser.user_role
 		if (replaceExistingRoles) {
-			// replace: just use the roles of the source user
-			roles = sourceUser.user_role
+			// replace: just use the selected roles of the source user
+			roles = this.normalizeRolesList(selectedRoles)
 		} else {
 			// don't replace, combine the roles of source and target user
-			roles = [...targetUser.user_role, ...sourceUser.user_role]
+			roles = this.normalizeRolesList([...selectedRoles, ...targetUser.user_role])
 		}
 
 		// since there are only 25 requests in 5sec allowed (see: https://developers.exlibrisgroup.com/cloudapps/docs/api/rest-service/)
@@ -95,8 +109,11 @@ export class UserRolesService {
 						.pipe(
 							switchMap(userDetails => {
 								let copyResult: CopyResult = {
+									rolesSelectedToCopy: selectedRoles,
 									validRoles: roleState.valid,
 									invalidRoles: roleState.invalid,
+									copiedRoles: this.arrayHelper.removeItems(selectedRoles, roleState.invalid),
+									skippedDuplicateRoles: [],
 									targetUser: userDetails
 								}
 								return of(copyResult)
@@ -108,8 +125,11 @@ export class UserRolesService {
 					return this.userService.updateUser(targetUser).pipe(
 						switchMap(userDetails => {
 							let copyResult: CopyResult = {
+								rolesSelectedToCopy: selectedRoles,
 								validRoles: [],
 								invalidRoles: [],
+								copiedRoles: [],
+								skippedDuplicateRoles: roles,
 								targetUser: userDetails
 							}
 							return of(copyResult)
@@ -136,10 +156,10 @@ export class UserRolesService {
 	}
 
 	/*
-	 * Recursive function which checks if the given roles are valid by setting the 
+	 * Recursive function which checks if the given roles are valid by setting the
 	 * reduced set of roles to the user and perform an update. If the update is successful
 	 * the roles are valid, if the update fail, not all roles are valid.
-	 * 
+	 *
 	 * If not all roles are valid, the set is split in half and tested again (recurively)
 	 */
 	private async findInvalid(testRoles: UserRole[], remainingRoles: UserRole[], invalidRoles: UserRole[], targetUser: UserDetails): Promise<UserRole[]> {
@@ -172,10 +192,10 @@ export class UserRolesService {
 
 	/*
 	 * Validate the roles of the source user by first getting all roles
-	 * and then PUTting to the same user, if there is no error, all roles 
+	 * and then PUTting to the same user, if there is no error, all roles
 	 * are valid.
 	 */
-	validate(sourceUser: UserSummaryEnriched): Observable<ValidationInfo> {
+	validate(sourceUser: UserDetailsChecked): Observable<ValidationInfo> {
 		return this.userService.getUserDetails(sourceUser.primary_id)
 			.pipe(
 				mergeMap(
@@ -204,6 +224,22 @@ export class UserRolesService {
 					}
 				)
 			)
+	}
+
+	normalizeRolesList(roles: UserRole[]): UserRole[] {
+		roles.map(role => {
+			role.parameter = role.parameter.sort((param1, param2) => {
+				const type1 = param1.type.value
+				const type2 = param2.type.value
+				const value1 = param1.value?.desc || ''
+				const value2 = param2.value?.desc || ''
+				return (type1 + value1).localeCompare(type2 + value2)
+			})
+			role.parameter.map(param => {
+				param.value.desc = String(param.value?.value)
+			})
+		})
+		return roles.sort((a, b) => a.role_type.desc.localeCompare(b.role_type.desc))
 	}
 }
 

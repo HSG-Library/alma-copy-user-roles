@@ -10,7 +10,8 @@ import { UserAccessService } from '../../services/userAccess.service'
 import { UserRolesService } from '../../services/userRoles.service'
 import { CompareResult } from '../../types/compareResult.type'
 import { CopyResult } from '../../types/copyResult.type'
-import { UserSummaryEnriched } from '../../types/userSummaryEnriched.type'
+import { UserDetailsChecked } from '../../types/userDetailsChecked'
+import { UserRole } from '../../types/userRole.type'
 import { ValidationDialog } from '../validationDialog/validationDialog.component'
 
 @Component({
@@ -28,8 +29,8 @@ export class MainComponent implements OnInit, OnDestroy {
 
   currentUserEntity: Entity
   replaceExistingRoles: boolean = false
-  sourceUserOptions: UserSummaryEnriched[]
-  sourceUser: UserSummaryEnriched
+  sourceUserOptions: UserDetailsChecked[]
+  sourceUser: UserDetailsChecked
 
   copyResult: CopyResult
   compareResult: CompareResult
@@ -37,7 +38,8 @@ export class MainComponent implements OnInit, OnDestroy {
 
   resetEventSubject = new Subject<void>()
 
-  entities$: Observable<Entity[]> = this.eventsService.entities$
+  private entities$: Observable<Entity[]> = this.eventsService.entities$
+  private selectedRoles: UserRole[]
 
   constructor(
     private dialog: MatDialog,
@@ -85,7 +87,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.currentUserEntity = null
   }
 
-  selectSourceUser(user: UserSummaryEnriched): void {
+  selectSourceUser(user: UserDetailsChecked): void {
     this.loading = true
     this.userRoleService.validate(user)
       .subscribe((validationInfo: ValidationInfo) => {
@@ -124,14 +126,14 @@ export class MainComponent implements OnInit, OnDestroy {
     this.resetResults()
     this.userService.getUserDetailsFromEntity(this.currentUserEntity)
       .subscribe(userDetails => {
-        this.userRoleService.copy(this.sourceUser, userDetails, this.replaceExistingRoles)
+        this.userRoleService.copy(this.sourceUser, this.selectedRoles, userDetails, this.replaceExistingRoles)
           .subscribe(
             (copyResult: CopyResult) => {
               console.log(copyResult)
               this.copyResult = copyResult
               this.loading = false
               this.eventsService.refreshPage().subscribe(
-                () => this.alert.success(this.translate.instant('main.successAlert'))
+                () => this.alert.success(this.translate.instant('main.successAlert'), { autoClose: true, delay: 5000 }),
               )
             },
             (error) => {
@@ -158,6 +160,10 @@ export class MainComponent implements OnInit, OnDestroy {
         this.compareResult = compareResult
         this.loading = false
       })
+  }
+
+  selectSourceRoles(userRoles: UserRole[]): void {
+    this.selectedRoles = userRoles
   }
 
   resetResults(): void {

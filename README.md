@@ -1,3 +1,5 @@
+<a href="https://developers.exlibrisgroup.com/appcenter/copy-user-roles/">![CloudApp Activations](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapps01.ext.exlibrisgroup.com%2Fappstats.json&query=%24%5B%3F(%40.cloud_app_id%3D%3D'hsg-library%2Falma-copy-user-roles')%5D.user_count&style=flat&label=Cloud%20App%20Activations)</a>
+<a href="https://developers.exlibrisgroup.com/appcenter/copy-user-roles/">![Deployed Version](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapps01.ext.exlibrisgroup.com%2Fapps.json&query=%24%5B%3F(%40.id%3D%3D'hsg-library%2Falma-copy-user-roles')%5D.version&label=Deployed%20Version&color=green)</a>
 
 # Copy User Roles
 <img align="right" src="./cloudapp/src/assets/app-icon.png" width="100" style="border-radius: 3px">
@@ -8,7 +10,7 @@ An [ExLibris Alma CloudApp](https://developers.exlibrisgroup.com/cloudapps/), wh
 <br>
 
 ## How to use
-In order to use the CloudApp, one of the following roles is needed: 
+In order to use the CloudApp, one of the following roles is needed:
 * 'User Manager'
 * 'User Administrator'
 * 'Gerneral System Administrator'
@@ -52,15 +54,28 @@ If a user is added to the list of allowed users, access is granted regardless of
 
 **Allow by role**
 
-To use the app, the role of 'User Manager', 'User Administrator' or 'Gerneral System Administrator' is needed, anyway. This configuration allows to further restrict to a smaller set of allowed roles. Please note, that as soon as a user is added to the list of allowed users it is not possible to restrict access by role. 
+To use the app, the role of 'User Manager', 'User Administrator' or 'Gerneral System Administrator' is needed. However, this configuration allows to further restrict to a smaller set of allowed roles. Please note, that as soon as a user is added to the list of allowed users it is not possible to restrict access by role.
 
 <img src="doc/img/allow-by-role.jpg" width=400><br><br><br>
+
+## Select which roles should be copied
+
+By default all roles assinged to the source user are copied to the target user.
+
+<img src="doc/img/selected-roles-01.jpg" width=400><br><br><br>
+
+If only some roles should be copied, there is the possibilty to select a custom set of roles:
+
+<img src="doc/img/selected-roles-02.jpg" width=400><br><br><br>
+
+Please note, that the slection has no effect when using the 'Compare' function.
+
 
 ## Copying roles from users with invalid roles
 * When selecting the source user the roles will be validated, if not all roles are valid there will be a dialog with the error message from Alma, which should help to find the role which is not correctly configured
 * The dialog offers the possibilty to proceed anyway: in this case, the valid roles will be copied and the invalid roles will be skipped.
 * The copy process with invalid roles **takes significantly longer** than with only valid roles
-* After copying, a short summary about the valid and invalid roles is displayed 
+* After copying, a short summary about the valid and invalid roles is displayed
 
 <img src="doc/img/results-copy.jpg" width=400><br><br><br>
 

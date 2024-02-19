@@ -47,27 +47,35 @@
 		"replaceExistingRolesCheckboxLabel": "Replace existing roles",
 		"resetButton": "Reset",
 		"results": {
-			"copyInfo": "If this numbers seem incorrect, compare the roles of the users to see if the source user has duplicate roles. Duplicate roles are reduced during copying.",
+			"copiedRolesTitle": "Effectively copied roles: {{count}}",
+			"copyInfo": "If this numbers seem incorrect, use the 'compare function' to check if the source user has duplicate roles. Duplicate roles are reduced during copying.",
 			"intersection": "Intersection ({{count}})",
 			"invalidRolesTitle": "Invalid roles, skipped: {{count}}",
 			"noneYet": "perform action to see results",
 			"onlyInSoure": "Only on source ({{count}})",
 			"onlyInTarget": "Only on target ({{count}})",
 			"ready": "results ready",
+			"rolesSelectedToCopyTitle": "Selected to copy: {{count}}",
+			"skippedDuplicateRolesTitle": "Duplicate roles, skipped: {{count}}",
 			"sourceDuplicates": "Duplicates on source ({{count}})",
 			"targetDuplicates": "Duplicates on target ({{count}})",
 			"title": "Results",
-			"validRolesTitle": "Valid roles, copied: {{count}}"
+			"validRolesTitle": "Valid roles on target: {{count}}"
 		},
 		"rolesCopyToTargetInfo": "Roles will be copied to this user",
 		"searchUserInfo": "Search for a user",
 		"selectTargetFirstInfo": "Select a target user first.",
 		"selectTargetUserInfo": "Select the target user by navigating to a user record in Alma.",
 		"sourcUserTitle": "Copy roles from this user",
-		"successAlert": "Successfully copied user roles",
+		"successAlert": "Successfully copied user roles. For further information, see 'Results'.",
 		"targetUserTitle": "Copy roles to this user",
 		"userIsNotAllowed": "Permission denied",
 		"userIsNotAllowedInfo": "You don't have the permission to use this app."
+	},
+	"roleSelect": {
+		"deselectAll": "Deselect all",
+		"rolesSelected": "Selected roles",
+		"selectAll": "Select all"
 	},
 	"validationDialog": {
 		"abortButtonLabel": "Cancel",

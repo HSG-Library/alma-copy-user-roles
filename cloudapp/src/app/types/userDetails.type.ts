@@ -1,13 +1,8 @@
 import { ResponseValue } from './responseValue.type'
-import { UserRole } from './usrRole.type'
+import { UserBase } from './userBase'
+import { UserRole } from './userRole.type'
 
-export type UserDetails = {
-	primary_id: string
-	first_name: string
-	last_name: string
-	full_name: string
-
-	recordType: ResponseValue
+export type UserDetails = UserBase & {
 	user_group: ResponseValue
 	user_role: UserRole[]
 }
