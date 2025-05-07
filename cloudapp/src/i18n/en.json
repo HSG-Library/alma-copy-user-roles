@@ -41,7 +41,7 @@
     "error": {
       "copyUserRolesAlert": "Could not copy user roles, Alma responded with status: '{{status}}'",
       "permissionCheck": "Could not check permissions, Alma responded with status: '{{status}}'",
-      "validationAlert": "Could not validate user, Alma respondend with status: '{{status}}'"
+      "validationAlert": "Could not validate user, Alma responded with status: '{{status}}'"
     },
     "needsAtLeastUserManager": "To use this app, you need at least the 'User Manager' role.",
     "replaceExistingRolesCheckboxLabel": "Replace existing roles",
@@ -52,7 +52,7 @@
       "intersection": "Intersection ({{count}})",
       "invalidRolesTitle": "Invalid roles, skipped: {{count}}",
       "noneYet": "perform action to see results",
-      "onlyInSoure": "Only on source ({{count}})",
+      "onlyInSource": "Only on source ({{count}})",
       "onlyInTarget": "Only on target ({{count}})",
       "ready": "results ready",
       "rolesSelectedToCopyTitle": "Selected to copy: {{count}}",
@@ -66,7 +66,7 @@
     "searchUserInfo": "Search for a user",
     "selectTargetFirstInfo": "Select a target user first.",
     "selectTargetUserInfo": "Select the target user by navigating to a user record in Alma.",
-    "sourcUserTitle": "Copy roles from this user",
+    "sourceUserTitle": "Copy roles from this user",
     "successAlert": "Successfully copied user roles. For further information, see 'Results'.",
     "targetUserTitle": "Copy roles to this user",
     "userIsNotAllowed": "Permission denied",

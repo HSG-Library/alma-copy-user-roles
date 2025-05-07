@@ -52,12 +52,12 @@ export class MainComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private userService: UserService,
     private userRoleService: UserRolesService,
-    private userAccessService: UserAccessService,
+    private userAccessService: UserAccessService
   ) {}
 
   ngOnInit(): void {
     this.entities$.subscribe((entities) =>
-      this.selectUserFromCurrentPage(entities),
+      this.selectUserFromCurrentPage(entities)
     );
     this.checkingUser = true;
     this.loading = true;
@@ -75,7 +75,7 @@ export class MainComponent implements OnInit, OnDestroy {
         console.error('Error while checking permissions in ngOnInit()', error);
         this.permissionError = `Permission denied: ${error.message}`;
         this.loading = false;
-      },
+      }
     );
   }
 
@@ -123,7 +123,7 @@ export class MainComponent implements OnInit, OnDestroy {
       },
       () => {
         this.loading = false;
-      },
+      }
     );
   }
 
@@ -138,7 +138,7 @@ export class MainComponent implements OnInit, OnDestroy {
             this.sourceUser,
             this.selectedRoles,
             userDetails,
-            this.replaceExistingRoles,
+            this.replaceExistingRoles
           )
           .subscribe(
             (copyResult: CopyResult) => {
@@ -150,8 +150,8 @@ export class MainComponent implements OnInit, OnDestroy {
                 .subscribe(() =>
                   this.alert.success(
                     this.translate.instant('main.successAlert'),
-                    { autoClose: true, delay: 5000 },
-                  ),
+                    { autoClose: true, delay: 5000 }
+                  )
                 );
             },
             (error) => {
@@ -160,11 +160,11 @@ export class MainComponent implements OnInit, OnDestroy {
                 'main.error.copyUserRolesAlert',
                 {
                   status: error.status,
-                },
+                }
               );
               this.alert.error(alertMsg, { autoClose: true });
               console.error('Error in copyUserRoles()', error);
-            },
+            }
           );
       });
   }
@@ -177,7 +177,7 @@ export class MainComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap((userDetails) => {
           return this.userRoleService.compare(this.sourceUser, userDetails);
-        }),
+        })
       )
       .subscribe((compareResult: CompareResult) => {
         this.compareResult = compareResult;

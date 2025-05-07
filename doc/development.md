@@ -29,7 +29,7 @@ None
 
 ### Dependencies added by the ECA framework:
 
-<details><summary>dependecies</summary>
+<details><summary>dependencies</summary>
 - `"@angular/animations": "~11.2.14"`
 - `"@angular/cdk": "~11.2.12"`
 - `"@angular/common": "~11.2.14"`
@@ -58,9 +58,9 @@ None
 - `"typescript": "~4.1.5"`
 </details><br>
 
-## Dependecy update
+## Dependency update
 
 Dependencies added by the ECA framework can mostly be ignored.
 
 - Look for outdated dependencies: `npm outdated`
-- Update safley, according to `package.json` [syntax (`~`, `^`)](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#dependencies) : `npm update`
+- Update safely, according to `package.json` [syntax (`~`, `^`)](https://docs.npmjs.com/cli/v7/configuring-npm/package-json#dependencies) : `npm update`

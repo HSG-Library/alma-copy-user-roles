@@ -28,7 +28,7 @@ export class ConfigurationComponent implements OnInit {
     private configService: CloudAppConfigService,
     private router: Router,
     private translate: TranslateService,
-    private alert: AlertService,
+    private alert: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -89,7 +89,7 @@ export class ConfigurationComponent implements OnInit {
 
   removeAllowedUsers(): void {
     this.allowedUsersSelection.forEach((user) =>
-      this.allowedUsers.delete(user),
+      this.allowedUsers.delete(user)
     );
     this.deselectAll();
     this.dirty = true;
@@ -113,7 +113,7 @@ export class ConfigurationComponent implements OnInit {
 
   private isAlreadyAllowed(user: UserDetailsChecked): boolean {
     return Array.from(this.allowedUsers).some(
-      (userInList) => userInList.primary_id == user.primary_id,
+      (userInList) => userInList.primary_id == user.primary_id
     );
   }
 }

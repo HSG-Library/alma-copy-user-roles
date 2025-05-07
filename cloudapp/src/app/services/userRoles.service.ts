@@ -16,41 +16,41 @@ import { UserService } from './user.service';
 export class UserRolesService {
   constructor(
     private userService: UserService,
-    private arrayHelper: ArrayHelperService,
+    private arrayHelper: ArrayHelperService
   ) {}
 
   copy(
     sourceUser: UserDetailsChecked,
     selectedRoles: UserRole[],
     targetUser: UserDetails,
-    replaceExistingRoles: boolean,
+    replaceExistingRoles: boolean
   ): Observable<CopyResult> {
     let copyResult: Observable<CopyResult>;
     if (sourceUser.rolesValid) {
       copyResult = this.copyValidRoles(
         selectedRoles,
         targetUser,
-        replaceExistingRoles,
+        replaceExistingRoles
       );
     } else {
       copyResult = this.copyOneByOne(
         selectedRoles,
         targetUser,
-        replaceExistingRoles,
+        replaceExistingRoles
       );
     }
 
     copyResult = copyResult.pipe(
       map((copyResult) => {
         const duplicates: UserRole[] = this.arrayHelper.findDuplicates(
-          sourceUser.user_role,
+          sourceUser.user_role
         );
         copyResult.skippedDuplicateRoles = this.arrayHelper.intersection(
           selectedRoles,
-          duplicates,
+          duplicates
         );
         return copyResult;
-      }),
+      })
     );
 
     return copyResult;
@@ -58,22 +58,22 @@ export class UserRolesService {
 
   compare(
     sourceUser: UserDetailsChecked,
-    targetUser: UserDetails,
+    targetUser: UserDetails
   ): Observable<CompareResult> {
     let sourceRoles = this.normalizeRolesList(sourceUser.user_role);
     let targetRoles = this.normalizeRolesList(targetUser.user_role);
 
     let intersection: UserRole[] = this.arrayHelper.intersection(
       sourceRoles,
-      targetRoles,
+      targetRoles
     );
     let onlyInSource: UserRole[] = this.arrayHelper.removeItems(
       sourceRoles,
-      intersection,
+      intersection
     );
     let onlyInTarget: UserRole[] = this.arrayHelper.removeItems(
       targetRoles,
-      intersection,
+      intersection
     );
     let sourceDuplicates: UserRole[] =
       this.arrayHelper.findDuplicates(sourceRoles);
@@ -82,7 +82,7 @@ export class UserRolesService {
 
     let compareResult: CompareResult = {
       intersection: intersection,
-      onlyInSoure: onlyInSource,
+      onlyInSource: onlyInSource,
       onlyInTarget: onlyInTarget,
       sourceDuplicates: sourceDuplicates,
       targetDuplicates: targetDuplicates,
@@ -93,7 +93,7 @@ export class UserRolesService {
   private copyValidRoles(
     selectedRoles: UserRole[],
     targetUser: UserDetails,
-    replaceExistingRoles: boolean,
+    replaceExistingRoles: boolean
   ): Observable<CopyResult> {
     if (replaceExistingRoles) {
       // replace existing roles by overwriting the target roles with the selected roles
@@ -118,14 +118,14 @@ export class UserRolesService {
           targetUser: userDetails,
         };
         return of(copyResult);
-      }),
+      })
     );
   }
 
   private copyOneByOne(
     selectedRoles: UserRole[],
     targetUser: UserDetails,
-    replaceExistingRoles: boolean,
+    replaceExistingRoles: boolean
   ): Observable<CopyResult> {
     let roles = [];
     let backupRoles = targetUser.user_role;
@@ -143,9 +143,9 @@ export class UserRolesService {
     // since there are only 25 requests in 5sec allowed (see: https://developers.exlibrisgroup.com/cloudapps/docs/api/rest-service/)
     // we have to be reduce the calls as much as possible
     // one-by-one copy from users with over 200 roles are not possible
-    // -> attemt a recursive-binary-search-style update method (🤪)
+    // -> attempt a recursive-binary-search-style update method (🤪)
     let roleState$: Observable<RoleState> = from(
-      this.evaluateRoles(roles, [], targetUser),
+      this.evaluateRoles(roles, [], targetUser)
     );
 
     return roleState$.pipe(
@@ -159,13 +159,13 @@ export class UserRolesService {
               invalidRoles: roleState.invalid,
               copiedRoles: this.arrayHelper.removeItems(
                 selectedRoles,
-                roleState.invalid,
+                roleState.invalid
               ),
               skippedDuplicateRoles: [],
               targetUser: userDetails,
             };
             return of(copyResult);
-          }),
+          })
         );
       }),
       catchError((e) => {
@@ -181,38 +181,38 @@ export class UserRolesService {
               targetUser: userDetails,
             };
             return of(copyResult);
-          }),
+          })
         );
-      }),
+      })
     );
   }
 
   private async evaluateRoles(
     roles: UserRole[],
     invalidRoles: UserRole[],
-    targetUser: UserDetails,
+    targetUser: UserDetails
   ): Promise<RoleState> {
     let evaluatedInvalid: UserRole[] = await this.findInvalid(
       roles,
       [],
       [],
-      targetUser,
+      targetUser
     );
     let remainingRoles: UserRole[] = this.arrayHelper.removeItems(
       roles,
-      evaluatedInvalid,
+      evaluatedInvalid
     );
 
     let invalid: boolean = await this.hasInvalidRole(
       remainingRoles,
-      targetUser,
+      targetUser
     );
     if (invalid) {
       let newInvalidRoles: UserRole[] = [...invalidRoles, ...evaluatedInvalid];
       return await this.evaluateRoles(
         remainingRoles,
         newInvalidRoles,
-        targetUser,
+        targetUser
       );
     } else {
       return {
@@ -227,13 +227,13 @@ export class UserRolesService {
    * reduced set of roles to the user and perform an update. If the update is successful
    * the roles are valid, if the update fail, not all roles are valid.
    *
-   * If not all roles are valid, the set is split in half and tested again (recurively)
+   * If not all roles are valid, the set is split in half and tested again (recursively)
    */
   private async findInvalid(
     testRoles: UserRole[],
     remainingRoles: UserRole[],
     invalidRoles: UserRole[],
-    targetUser: UserDetails,
+    targetUser: UserDetails
   ): Promise<UserRole[]> {
     if (testRoles.length == 0 && remainingRoles.length == 0) {
       return invalidRoles;
@@ -244,7 +244,7 @@ export class UserRolesService {
         remainingRoles,
         [],
         invalidRoles,
-        targetUser,
+        targetUser
       );
     } else {
       if (testRoles.length == 1) {
@@ -253,7 +253,7 @@ export class UserRolesService {
           remainingRoles,
           [],
           newInvalidRoles,
-          targetUser,
+          targetUser
         );
       }
       let bisected: [UserRole[], UserRole[]] =
@@ -263,14 +263,14 @@ export class UserRolesService {
         bisected[0],
         newRemaining,
         invalidRoles,
-        targetUser,
+        targetUser
       );
     }
   }
 
   private async hasInvalidRole(
     roles: UserRole[],
-    targetUser: UserDetails,
+    targetUser: UserDetails
   ): Promise<boolean> {
     targetUser.user_role = roles;
     try {
@@ -302,7 +302,7 @@ export class UserRolesService {
               validationInfo.rawError = error;
               console.error('Role validation error', error);
               return of(validationInfo);
-            }),
+            })
           );
         } catch (error) {
           validationInfo.valid = false;
@@ -310,7 +310,7 @@ export class UserRolesService {
           validationInfo.rawError = error;
           return of(validationInfo);
         }
-      }),
+      })
     );
   }
 
@@ -328,7 +328,7 @@ export class UserRolesService {
       });
     });
     return roles.sort((a, b) =>
-      a.role_type.desc.localeCompare(b.role_type.desc),
+      a.role_type.desc.localeCompare(b.role_type.desc)
     );
   }
 }

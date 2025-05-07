@@ -1,4 +1,4 @@
-@mixin main-component-theme($theme, $typgraphy) {
+@mixin main-component-theme($theme, $typography) {
   div.highlight {
     border: mat-color(map-get($theme, primary)) solid 2px;
     background-color: mat-color(map-get($theme, primary), lighter);

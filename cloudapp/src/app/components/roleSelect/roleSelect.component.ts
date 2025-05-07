@@ -39,7 +39,7 @@ export class RoleSelectComponent {
 
   constructor(
     private userRoleAreaService: UserRoleAreaService,
-    private userRoleService: UserRolesService,
+    private userRoleService: UserRolesService
   ) {}
 
   mapRoles(): void {
@@ -50,7 +50,7 @@ export class RoleSelectComponent {
       .getRoleTypeDefinitionMapping()
       .subscribe((mapping) => {
         const roles = this.userRoleService.normalizeRolesList(
-          this._user.user_role,
+          this._user.user_role
         );
         roles.forEach((role) => {
           const area = mapping.get(role.role_type.value);
@@ -68,7 +68,7 @@ export class RoleSelectComponent {
       });
   }
 
-  areaCompleteCheked(area: string): boolean {
+  areaCompleteChecked(area: string): boolean {
     const roles = this.mappedRoles.get(area);
     if (roles) {
       return roles.every((role) => this.roleChecked(role));
@@ -88,7 +88,7 @@ export class RoleSelectComponent {
   }
 
   checkArea(area: string): void {
-    if (this.areaCompleteCheked(area)) {
+    if (this.areaCompleteChecked(area)) {
       this.mappedRoles.get(area).forEach((role) => {
         if (this.selectedRoles.has(role)) {
           this.selectedRoles.delete(role);

@@ -29,7 +29,7 @@
           <mat-panel-title>
             {{
               'main.results.rolesSelectedToCopyTitle'
-                | translate: { count: copyResult.rolesSelectedToCopy.length }
+                | translate : { count: copyResult.rolesSelectedToCopy.length }
             }}
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -42,7 +42,7 @@
           <mat-panel-title>
             {{
               'main.results.skippedDuplicateRolesTitle'
-                | translate: { count: copyResult.skippedDuplicateRoles.length }
+                | translate : { count: copyResult.skippedDuplicateRoles.length }
             }}
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -55,7 +55,7 @@
           <mat-panel-title>
             {{
               'main.results.invalidRolesTitle'
-                | translate: { count: copyResult.invalidRoles.length }
+                | translate : { count: copyResult.invalidRoles.length }
             }}
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -68,7 +68,7 @@
           <mat-panel-title>
             {{
               'main.results.copiedRolesTitle'
-                | translate: { count: copyResult.copiedRoles.length }
+                | translate : { count: copyResult.copiedRoles.length }
             }}
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -81,7 +81,7 @@
           <mat-panel-title>
             {{
               'main.results.validRolesTitle'
-                | translate: { count: copyResult.validRoles.length }
+                | translate : { count: copyResult.validRoles.length }
             }}
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -98,7 +98,7 @@
           <mat-panel-title>
             {{
               'main.results.intersection'
-                | translate: { count: compareResult.intersection.length }
+                | translate : { count: compareResult.intersection.length }
             }}
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -110,12 +110,12 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{
-              'main.results.onlyInSoure'
-                | translate: { count: compareResult.onlyInSoure.length }
+              'main.results.onlyInSource'
+                | translate : { count: compareResult.onlyInSource.length }
             }}
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <ul *ngFor="let role of compareResult.onlyInSoure">
+        <ul *ngFor="let role of compareResult.onlyInSource">
           <li><app-role-output [userRole]="role"></app-role-output></li>
         </ul>
       </mat-expansion-panel>
@@ -124,7 +124,7 @@
           <mat-panel-title>
             {{
               'main.results.onlyInTarget'
-                | translate: { count: compareResult.onlyInTarget.length }
+                | translate : { count: compareResult.onlyInTarget.length }
             }}
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -137,7 +137,7 @@
           <mat-panel-title>
             {{
               'main.results.sourceDuplicates'
-                | translate: { count: compareResult.sourceDuplicates.length }
+                | translate : { count: compareResult.sourceDuplicates.length }
             }}
           </mat-panel-title>
         </mat-expansion-panel-header>
@@ -150,7 +150,7 @@
           <mat-panel-title>
             {{
               'main.results.targetDuplicates'
-                | translate: { count: compareResult.targetDuplicates.length }
+                | translate : { count: compareResult.targetDuplicates.length }
             }}
           </mat-panel-title>
         </mat-expansion-panel-header>

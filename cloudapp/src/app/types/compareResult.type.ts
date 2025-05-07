@@ -2,7 +2,7 @@ import { UserRole } from './userRole.type';
 
 export type CompareResult = {
   intersection: UserRole[];
-  onlyInSoure: UserRole[];
+  onlyInSource: UserRole[];
   onlyInTarget: UserRole[];
   sourceDuplicates: UserRole[];
   targetDuplicates: UserRole[];

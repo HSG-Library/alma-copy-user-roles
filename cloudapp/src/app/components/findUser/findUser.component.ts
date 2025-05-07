@@ -21,7 +21,7 @@ import { UserDetailsChecked } from '../../types/userDetailsChecked';
 export class FindUserComponent implements OnInit, OnDestroy {
   loading: boolean;
   searchTerm: string;
-  resultEntites: UserDetailsChecked[];
+  resultEntities: UserDetailsChecked[];
   resultCount: number = -1;
   userOptions: UserDetailsChecked[];
   pageSize: number = AppConfig.pageSize;
@@ -36,12 +36,12 @@ export class FindUserComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private translate: TranslateService,
-    private alert: AlertService,
+    private alert: AlertService
   ) {}
 
   ngOnInit(): void {
     this.resetEventSubscription = this.resetEventObservable$?.subscribe(() =>
-      this.reset(),
+      this.reset()
     );
   }
 
@@ -56,7 +56,7 @@ export class FindUserComponent implements OnInit, OnDestroy {
       this.userService.findUser(this.searchTerm.trim()).subscribe(
         (userResponse) => {
           this.resultCount = userResponse.total_record_count;
-          this.resultEntites = userResponse.user;
+          this.resultEntities = userResponse.user;
           this.loading = false;
           if (userResponse.total_record_count <= 0) {
             return;
@@ -68,12 +68,12 @@ export class FindUserComponent implements OnInit, OnDestroy {
             'findUser.error.findUserAlert',
             {
               status: error.status,
-            },
+            }
           );
           this.alert.error(alertMsg, { autoClose: true });
           console.error('Error in findUser()', error);
           this.loading = false;
-        },
+        }
       );
     }
   }
@@ -88,7 +88,7 @@ export class FindUserComponent implements OnInit, OnDestroy {
     userResponse.user.forEach((user) => {
       this.userService.getUserDetails(user.primary_id).subscribe(
         (userDetails) =>
-          (this.resultEntites = this.resultEntites.map((u) => {
+          (this.resultEntities = this.resultEntities.map((u) => {
             if (u.primary_id === userDetails.primary_id) {
               u.user_group = userDetails.user_group;
               u.user_role = userDetails.user_role;
@@ -101,12 +101,12 @@ export class FindUserComponent implements OnInit, OnDestroy {
             {
               primaryId: user.primary_id,
               status: error.status,
-            },
+            }
           );
           this.alert.error(alertMsg, { autoClose: true });
           console.error('Error in findUser()', error);
           this.loading = false;
-        },
+        }
       );
     });
   }
@@ -114,6 +114,6 @@ export class FindUserComponent implements OnInit, OnDestroy {
   private reset() {
     this.searchTerm = '';
     this.resultCount = -1;
-    this.resultEntites = null;
+    this.resultEntities = null;
   }
 }

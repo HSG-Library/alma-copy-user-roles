@@ -6,7 +6,7 @@ import { UserRole } from '../../types/userRole.type';
   templateUrl: './role-output.component.html',
   styleUrls: ['./role-output.component.scss'],
 })
-export class RoleOutputComponet {
+export class RoleOutputComponent {
   @Input()
   userRole: UserRole;
 }

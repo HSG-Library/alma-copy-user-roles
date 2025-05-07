@@ -16,7 +16,7 @@ In order to use the CloudApp, one of the following roles is needed:
 
 - 'User Manager'
 - 'User Administrator'
-- 'Gerneral System Administrator'
+- 'General System Administrator'
 
 To copy roles from one user to another perform the following steps:
 
@@ -60,7 +60,7 @@ If a user is added to the list of allowed users, access is granted regardless of
 
 **Allow by role**
 
-To use the app, the role of 'User Manager', 'User Administrator' or 'Gerneral System Administrator' is needed. However, this configuration allows to further restrict to a smaller set of allowed roles. Please note, that as soon as a user is added to the list of allowed users it is not possible to restrict access by role.
+To use the app, the role of 'User Manager', 'User Administrator' or 'General System Administrator' is needed. However, this configuration allows to further restrict to a smaller set of allowed roles. Please note, that as soon as a user is added to the list of allowed users it is not possible to restrict access by role.
 
 <img src="doc/img/allow-by-role.jpg" width=400><br><br><br>
 
@@ -70,7 +70,7 @@ By default all roles assinged to the source user are copied to the target user.
 
 <img src="doc/img/selected-roles-01.jpg" width=400><br><br><br>
 
-If only some roles should be copied, there is the possibilty to select a custom set of roles:
+If only some roles should be copied, there is the possibility to select a custom set of roles:
 
 <img src="doc/img/selected-roles-02.jpg" width=400><br><br><br>
 
@@ -79,7 +79,7 @@ Please note, that the slection has no effect when using the 'Compare' function.
 ## Copying roles from users with invalid roles
 
 - When selecting the source user the roles will be validated, if not all roles are valid there will be a dialog with the error message from Alma, which should help to find the role which is not correctly configured
-- The dialog offers the possibilty to proceed anyway: in this case, the valid roles will be copied and the invalid roles will be skipped.
+- The dialog offers the possibility to proceed anyway: in this case, the valid roles will be copied and the invalid roles will be skipped.
 - The copy process with invalid roles **takes significantly longer** than with only valid roles
 - After copying, a short summary about the valid and invalid roles is displayed
 
