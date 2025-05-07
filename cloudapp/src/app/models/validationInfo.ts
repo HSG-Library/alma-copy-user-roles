@@ -1,26 +1,26 @@
 export class ValidationInfo {
-  isValid: boolean;
-  msg: string;
-  err: object;
+  public isValid: boolean;
+  public msg: string;
+  public err: object;
 
-  get valid(): boolean {
+  public get valid(): boolean {
     return this.isValid;
   }
-  set valid(valid: boolean) {
+  public set valid(valid: boolean) {
     this.isValid = valid;
   }
 
-  get message(): string {
+  public get message(): string {
     return this.msg;
   }
-  set message(message: string) {
+  public set message(message: string) {
     this.msg = message;
   }
 
-  get rawError(): object {
+  public get rawError(): object {
     return this.err;
   }
-  set rawError(rawError: object) {
+  public set rawError(rawError: object) {
     this.err = rawError;
   }
 }

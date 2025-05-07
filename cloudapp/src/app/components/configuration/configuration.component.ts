@@ -14,15 +14,15 @@ import { UserDetailsChecked } from '../../types/userDetailsChecked';
   styleUrls: ['./configuration.component.scss'],
 })
 export class ConfigurationComponent implements OnInit {
-  loading: boolean;
-  saving: boolean;
-  dirty: boolean;
-  config: Configuration;
+  public loading: boolean;
+  public saving: boolean;
+  public dirty: boolean;
+  public config: Configuration;
 
-  allowedUsers: Set<UserDetailsChecked> = new Set<UserDetailsChecked>();
-  allowedUsersSelection: UserDetailsChecked[] = [];
+  public allowedUsers: Set<UserDetailsChecked> = new Set<UserDetailsChecked>();
+  public allowedUsersSelection: UserDetailsChecked[] = [];
 
-  allowedRolesSelection: number[] = [0];
+  public allowedRolesSelection: number[] = [0];
 
   public constructor(
     private configService: CloudAppConfigService,

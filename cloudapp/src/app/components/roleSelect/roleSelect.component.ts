@@ -13,7 +13,7 @@ export class RoleSelectComponent {
   private _user: UserDetailsChecked;
 
   @Input()
-  set user(value: UserDetailsChecked) {
+  public set user(value: UserDetailsChecked) {
     //set newly selected user
     this._user = value;
     // reset selected roles and mapped roles
@@ -23,19 +23,19 @@ export class RoleSelectComponent {
     this.mapRoles();
   }
 
-  get user(): UserDetailsChecked {
+  public get user(): UserDetailsChecked {
     return this._user;
   }
 
-  areas: string[];
-  mappedRoles: Map<string, UserRole[]>;
+  public areas: string[];
+  public mappedRoles: Map<string, UserRole[]>;
 
   @Output()
-  rolesSelectedOutput: EventEmitter<UserRole[]> = new EventEmitter<
+  public rolesSelectedOutput: EventEmitter<UserRole[]> = new EventEmitter<
     UserRole[]
   >();
 
-  selectedRoles: Set<UserRole> = new Set();
+  public selectedRoles: Set<UserRole> = new Set();
 
   public constructor(
     private userRoleAreaService: UserRoleAreaService,

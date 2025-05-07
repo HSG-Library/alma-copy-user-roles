@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class ArrayHelperService {
   public constructor() {}
 
-  bisect<Type>(array: Type[]): [Type[], Type[]] {
+  public bisect<Type>(array: Type[]): [Type[], Type[]] {
     if (array.length == 1) {
       return [array, []];
     }
@@ -16,7 +16,7 @@ export class ArrayHelperService {
     return [leftHalf, rightHalf];
   }
 
-  intersection<Type>(array1: Type[], array2: Type[]): Type[] {
+  public intersection<Type>(array1: Type[], array2: Type[]): Type[] {
     let merged = new Map<string, IntersectHelper>();
     let result: Type[] = [];
     array1.forEach((el) => {
@@ -39,7 +39,7 @@ export class ArrayHelperService {
     return result;
   }
 
-  removeItems<Type>(array: Type[], remove: Type[]): Type[] {
+  public removeItems<Type>(array: Type[], remove: Type[]): Type[] {
     let items = new Map<string, Type>();
     let result: Type[] = [];
     array.forEach((item) => {
@@ -58,7 +58,7 @@ export class ArrayHelperService {
     return result;
   }
 
-  findDuplicates<Type>(array: Type[]): Type[] {
+  public findDuplicates<Type>(array: Type[]): Type[] {
     let items = new Map<string, Type>();
     let result: Type[] = [];
     array.forEach((item) => {

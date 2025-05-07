@@ -25,22 +25,22 @@ import { ValidationDialog } from '../validationDialog/validationDialog.component
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit, OnDestroy {
-  loading: boolean = false;
-  checkingUser: boolean = false;
-  isUserAllowed: boolean = false;
+  public loading: boolean = false;
+  public checkingUser: boolean = false;
+  public isUserAllowed: boolean = false;
 
-  permissionError: string;
+  public permissionError: string;
 
-  currentUserEntity: Entity;
-  replaceExistingRoles: boolean = false;
-  sourceUserOptions: UserDetailsChecked[];
-  sourceUser: UserDetailsChecked;
+  public currentUserEntity: Entity;
+  public replaceExistingRoles: boolean = false;
+  public sourceUserOptions: UserDetailsChecked[];
+  public sourceUser: UserDetailsChecked;
 
-  copyResult: CopyResult;
-  compareResult: CompareResult;
-  resultsExpanded: boolean;
+  public copyResult: CopyResult;
+  public compareResult: CompareResult;
+  public resultsExpanded: boolean;
 
-  resetEventSubject = new Subject<void>();
+  public resetEventSubject = new Subject<void>();
 
   private entities$: Observable<Entity[]> = this.eventsService.entities$;
   private selectedRoles: UserRole[];

@@ -19,19 +19,19 @@ import { UserDetailsChecked } from '../../types/userDetailsChecked';
   templateUrl: './findUser.component.html',
 })
 export class FindUserComponent implements OnInit, OnDestroy {
-  loading: boolean;
-  searchTerm: string;
-  resultEntities: UserDetailsChecked[];
-  resultCount: number = -1;
-  userOptions: UserDetailsChecked[];
-  pageSize: number = AppConfig.pageSize;
+  public loading: boolean;
+  public searchTerm: string;
+  public resultEntities: UserDetailsChecked[];
+  public resultCount: number = -1;
+  public userOptions: UserDetailsChecked[];
+  public pageSize: number = AppConfig.pageSize;
 
   @Input()
-  resetEventObservable$: Observable<void>;
-  resetEventSubscription: Subscription;
+  public resetEventObservable$: Observable<void>;
+  public resetEventSubscription: Subscription;
 
   @Output()
-  selectedUserOutput = new EventEmitter<UserDetailsChecked>();
+  public selectedUserOutput = new EventEmitter<UserDetailsChecked>();
 
   public constructor(
     private userService: UserService,
