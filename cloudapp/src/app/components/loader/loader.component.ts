@@ -1,14 +1,12 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input } from '@angular/core';
 
 @Component({
-	selector: 'app-loader',
-	templateUrl: './loader.component.html',
+  selector: 'app-loader',
+  templateUrl: './loader.component.html',
 })
 export class LoaderComponent {
+  @Input()
+  loading: boolean;
 
-	@Input()
-	loading: boolean
-
-	constructor() { }
-
+  constructor() {}
 }

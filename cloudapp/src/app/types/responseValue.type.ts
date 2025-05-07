@@ -1,4 +1,4 @@
 export type ResponseValue = {
-	value: string
-	desc: string
-}
+  value: string;
+  desc: string;
+};

@@ -2,22 +2,22 @@ name: Check CloudApp
 
 on:
   push:
-    branches: ["develop"]
+    branches: ['develop']
     paths:
       [
-        "package.json",
-        "package-lock.json",
-        "cloudapp/src/**",
-        ".github/workflows/**",
+        'package.json',
+        'package-lock.json',
+        'cloudapp/src/**',
+        '.github/workflows/**',
       ]
   pull_request:
-    branches: ["main"]
+    branches: ['main']
     paths:
       [
-        "package.json",
-        "package-lock.json",
-        "cloudapp/src/**",
-        ".github/workflows/**",
+        'package.json',
+        'package-lock.json',
+        'cloudapp/src/**',
+        '.github/workflows/**',
       ]
 
 jobs:

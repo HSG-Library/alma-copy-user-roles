@@ -1,48 +1,48 @@
-.scope, .parameter {
-	color: #888;
-	font-size: smaller;
+.scope,
+.parameter {
+  color: #888;
+  font-size: smaller;
 }
 
 .parameter ul {
-	margin: 0;
-	padding-left: 15px;
-	list-style: circle;
+  margin: 0;
+  padding-left: 15px;
+  list-style: circle;
 }
 
 mat-expansion-panel {
-	margin-top: 20px;
-	margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .panel-header {
-	display: flex;
+  display: flex;
 
-	mat-panel-title {
-		justify-content: left;
-		line-height: 40px;
-	}
+  mat-panel-title {
+    justify-content: left;
+    line-height: 40px;
+  }
 
-	mat-panel-description {
-		justify-content: right;
-	}
+  mat-panel-description {
+    justify-content: right;
+  }
 }
 
 #role-list {
+  .area-section {
+    margin-bottom: 20px;
+  }
 
-	.area-section {
-		margin-bottom: 20px;
-	}
+  .area-header {
+    font-size: 14px;
+    font-weight: 500;
+  }
 
-	.area-header {
-		font-size: 14px;
-		font-weight: 500;
-	}
+  .item-area {
+    margin-bottom: 10px;
+  }
 
-	.item-area {
-		margin-bottom: 10px;
-	}
-
-	.item-role {
-		margin-left: 20px;
-	}
+  .item-role {
+    margin-left: 20px;
+  }
 }

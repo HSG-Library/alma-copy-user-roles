@@ -1,7 +1,7 @@
-import { ResponseValue } from './responseValue.type'
+import { ResponseValue } from './responseValue.type';
 
 export type UserRoleParameter = {
-	type: ResponseValue
-	scope: ResponseValue
-	value: ResponseValue
-}
+  type: ResponseValue;
+  scope: ResponseValue;
+  value: ResponseValue;
+};

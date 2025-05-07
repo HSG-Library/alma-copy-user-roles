@@ -22,10 +22,13 @@
 - Build (do this at least before a release) `eca build`
 
 ## Dependencies
+
 ### Project dependencies:
+
 None
 
 ### Dependencies added by the ECA framework:
+
 <details><summary>dependecies</summary>
 - `"@angular/animations": "~11.2.14"`
 - `"@angular/cdk": "~11.2.12"`
@@ -56,6 +59,7 @@ None
 </details><br>
 
 ## Dependecy update
+
 Dependencies added by the ECA framework can mostly be ignored.
 
 - Look for outdated dependencies: `npm outdated`
