@@ -13,11 +13,11 @@ import {
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ConfigurationComponent } from './components/configuration/configuration.component';
-import { FindUserComponent } from './components/findUser/findUser.component';
+import { FindUserComponent } from './components/find-user/find-user.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { MainComponent } from './components/main/main.component';
-import { RoleSelectComponent } from './components/roleSelect/roleSelect.component';
-import { ValidationDialog } from './components/validationDialog/validationDialog.component';
+import { RoleSelectComponent } from './components/role-select/role-select.component';
+import { ValidationDialog } from './components/validation-dialog/validation-dialog.component';
 import { ResultComponent } from './components/result/result.component';
 import { RoleOutputComponent } from './components/result/role-output.component';
 

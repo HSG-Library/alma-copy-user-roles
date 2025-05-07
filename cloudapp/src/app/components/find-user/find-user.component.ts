@@ -16,7 +16,7 @@ import { UserDetailsChecked } from '../../types/userDetailsChecked';
 
 @Component({
   selector: 'app-find-user',
-  templateUrl: './findUser.component.html',
+  templateUrl: './find-user.component.html',
 })
 export class FindUserComponent implements OnInit, OnDestroy {
   public loading: boolean;

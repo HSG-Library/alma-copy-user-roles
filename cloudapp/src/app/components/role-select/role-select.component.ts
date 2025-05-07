@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { UserRoleAreaService } from '../../services/userRoleAreaService';
+import { UserRoleAreaService } from '../../services/userRoleArea.service';
 import { UserDetailsChecked } from '../../types/userDetailsChecked';
 import { UserRole } from '../../types/userRole.type';
 import { UserRolesService } from '../../services/userRoles.service';
 
 @Component({
   selector: 'app-role-select',
-  templateUrl: './roleSelect.component.html',
-  styleUrls: ['./roleSelect.component.scss'],
+  templateUrl: './role-select.component.html',
+  styleUrls: ['./role-select.component.scss'],
 })
 export class RoleSelectComponent {
   private _user: UserDetailsChecked;

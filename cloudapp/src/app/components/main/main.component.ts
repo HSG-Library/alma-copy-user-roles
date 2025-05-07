@@ -17,7 +17,7 @@ import { CompareResult } from '../../types/compareResult.type';
 import { CopyResult } from '../../types/copyResult.type';
 import { UserDetailsChecked } from '../../types/userDetailsChecked';
 import { UserRole } from '../../types/userRole.type';
-import { ValidationDialog } from '../validationDialog/validationDialog.component';
+import { ValidationDialog } from '../validation-dialog/validation-dialog.component';
 
 @Component({
   selector: 'app-main',

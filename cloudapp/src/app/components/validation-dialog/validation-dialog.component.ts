@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ValidationInfo } from '../../models/validationInfo';
 
 @Component({
-  templateUrl: './validationDialog.component.html',
+  templateUrl: './validation-dialog.component.html',
 })
 export class ValidationDialog {
   public constructor(
