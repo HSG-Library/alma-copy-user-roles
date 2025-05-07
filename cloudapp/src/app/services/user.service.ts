@@ -14,9 +14,9 @@ import { AppConfig } from '../app.config';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private restService: CloudAppRestService) {}
+  public constructor(private restService: CloudAppRestService) {}
 
-  findUser(searchTerm: string): Observable<UserListResponse> {
+  public findUser(searchTerm: string): Observable<UserListResponse> {
     let request: Request = {
       url: '/users',
       method: HttpMethod.GET,
@@ -30,7 +30,7 @@ export class UserService {
     return this.restService.call(request);
   }
 
-  getUserDetails(primaryId: string): Observable<UserDetails> {
+  public getUserDetails(primaryId: string): Observable<UserDetails> {
     let request: Request = {
       url: '/users/' + primaryId,
       method: HttpMethod.GET,
@@ -44,7 +44,7 @@ export class UserService {
     return this.restService.call(request);
   }
 
-  getUserDetailsFromEntity(userEntity: Entity): Observable<UserDetails> {
+  public getUserDetailsFromEntity(userEntity: Entity): Observable<UserDetails> {
     let request: Request = {
       url: userEntity.link,
       method: HttpMethod.GET,
@@ -58,7 +58,7 @@ export class UserService {
     return this.restService.call(request);
   }
 
-  updateUser(userData: UserDetails): Observable<UserDetails> {
+  public updateUser(userData: UserDetails): Observable<UserDetails> {
     let request: Request = {
       url: '/users/' + userData.primary_id,
       method: HttpMethod.PUT,

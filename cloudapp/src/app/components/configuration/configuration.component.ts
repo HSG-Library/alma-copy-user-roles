@@ -24,14 +24,14 @@ export class ConfigurationComponent implements OnInit {
 
   allowedRolesSelection: number[] = [0];
 
-  constructor(
+  public constructor(
     private configService: CloudAppConfigService,
     private router: Router,
     private translate: TranslateService,
     private alert: AlertService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.configService.get().subscribe((config) => {
       this.config = config;
       this.allowedUsers = new Set<UserDetailsChecked>(this.config.allowedUsers);
@@ -41,7 +41,7 @@ export class ConfigurationComponent implements OnInit {
     });
   }
 
-  addAllowedUser(user: UserDetailsChecked): void {
+  public addAllowedUser(user: UserDetailsChecked): void {
     if (this.isAlreadyAllowed(user)) {
       let alertMsg = this.translate.instant('config.userAlreadyInList', {
         user: `${user.first_name} ${user.last_name}`,
@@ -53,7 +53,7 @@ export class ConfigurationComponent implements OnInit {
     this.dirty = true;
   }
 
-  save(): void {
+  public save(): void {
     this.saving = true;
     if (this.allowedRolesSelection.length == 0) {
       this.allowedRolesSelection = [0];
@@ -68,7 +68,7 @@ export class ConfigurationComponent implements OnInit {
     });
   }
 
-  back(): void {
+  public back(): void {
     if (!this.dirty) {
       this.router.navigate(['/']);
       return;
@@ -79,15 +79,15 @@ export class ConfigurationComponent implements OnInit {
     }
   }
 
-  selectAllowedUsers($event: UserDetailsChecked[]): void {
+  public selectAllowedUsers($event: UserDetailsChecked[]): void {
     this.allowedUsersSelection = $event;
   }
 
-  selectAllowedRole($event: number[]): void {
+  public selectAllowedRole($event: number[]): void {
     this.dirty = true;
   }
 
-  removeAllowedUsers(): void {
+  public removeAllowedUsers(): void {
     this.allowedUsersSelection.forEach((user) =>
       this.allowedUsers.delete(user)
     );
@@ -95,11 +95,11 @@ export class ConfigurationComponent implements OnInit {
     this.dirty = true;
   }
 
-  deselectAll(): void {
+  public deselectAll(): void {
     this.allowedUsersSelection = [];
   }
 
-  removeConfig(): void {
+  public removeConfig(): void {
     let confirmMsg = this.translate.instant('config.confirmRemoveConfig');
     if (confirm(confirmMsg)) {
       this.loading = true;

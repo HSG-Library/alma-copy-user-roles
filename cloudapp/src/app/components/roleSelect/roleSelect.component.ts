@@ -37,12 +37,12 @@ export class RoleSelectComponent {
 
   selectedRoles: Set<UserRole> = new Set();
 
-  constructor(
+  public constructor(
     private userRoleAreaService: UserRoleAreaService,
     private userRoleService: UserRolesService
   ) {}
 
-  mapRoles(): void {
+  public mapRoles(): void {
     if (!this._user) {
       return;
     }
@@ -68,7 +68,7 @@ export class RoleSelectComponent {
       });
   }
 
-  areaCompleteChecked(area: string): boolean {
+  public areaCompleteChecked(area: string): boolean {
     const roles = this.mappedRoles.get(area);
     if (roles) {
       return roles.every((role) => this.roleChecked(role));
@@ -76,7 +76,7 @@ export class RoleSelectComponent {
     return false;
   }
 
-  someChecked(area: string): boolean {
+  public someChecked(area: string): boolean {
     const roles = this.mappedRoles.get(area);
     if (roles) {
       return (
@@ -87,7 +87,7 @@ export class RoleSelectComponent {
     return false;
   }
 
-  checkArea(area: string): void {
+  public checkArea(area: string): void {
     if (this.areaCompleteChecked(area)) {
       this.mappedRoles.get(area).forEach((role) => {
         if (this.selectedRoles.has(role)) {
@@ -102,11 +102,11 @@ export class RoleSelectComponent {
     this.emitSelectedRoles();
   }
 
-  roleChecked(role: UserRole): boolean {
+  public roleChecked(role: UserRole): boolean {
     return this.selectedRoles.has(role);
   }
 
-  selectRole(role: UserRole): void {
+  public selectRole(role: UserRole): void {
     if (this.roleChecked(role)) {
       if (this.selectedRoles.has(role)) {
         this.selectedRoles.delete(role);
@@ -117,15 +117,15 @@ export class RoleSelectComponent {
     this.emitSelectedRoles();
   }
 
-  anyChecked(): boolean {
+  public anyChecked(): boolean {
     return this.selectedRoles.size > 0;
   }
 
-  allChecked(): boolean {
+  public allChecked(): boolean {
     return this.selectedRoles.size === this._user.user_role.length;
   }
 
-  selectAll(event: Event): void {
+  public selectAll(event: Event): void {
     if (event) {
       event.stopPropagation();
     }
@@ -137,7 +137,7 @@ export class RoleSelectComponent {
     this.emitSelectedRoles();
   }
 
-  deselectAll(event: Event): void {
+  public deselectAll(event: Event): void {
     event.stopPropagation();
     this.selectedRoles = new Set();
     this.emitSelectedRoles();

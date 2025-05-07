@@ -45,7 +45,7 @@ export class MainComponent implements OnInit, OnDestroy {
   private entities$: Observable<Entity[]> = this.eventsService.entities$;
   private selectedRoles: UserRole[];
 
-  constructor(
+  public constructor(
     private dialog: MatDialog,
     private eventsService: CloudAppEventsService,
     private alert: AlertService,
@@ -55,7 +55,7 @@ export class MainComponent implements OnInit, OnDestroy {
     private userAccessService: UserAccessService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.entities$.subscribe((entities) =>
       this.selectUserFromCurrentPage(entities)
     );
@@ -79,9 +79,9 @@ export class MainComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {}
+  public ngOnDestroy(): void {}
 
-  selectUserFromCurrentPage(entities: Entity[]): void {
+  public selectUserFromCurrentPage(entities: Entity[]): void {
     if (entities.length == 1) {
       let singleEntity = entities[0];
       if (singleEntity.type === EntityType.USER) {
@@ -92,7 +92,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.currentUserEntity = null;
   }
 
-  selectSourceUser(user: UserDetailsChecked): void {
+  public selectSourceUser(user: UserDetailsChecked): void {
     this.loading = true;
     this.userRoleService.validate(user).subscribe(
       (validationInfo: ValidationInfo) => {
@@ -127,7 +127,7 @@ export class MainComponent implements OnInit, OnDestroy {
     );
   }
 
-  copyUserRoles(): void {
+  public copyUserRoles(): void {
     this.loading = true;
     this.resetResults();
     this.userService
@@ -169,7 +169,7 @@ export class MainComponent implements OnInit, OnDestroy {
       });
   }
 
-  compareUserRoles(): void {
+  public compareUserRoles(): void {
     this.loading = true;
     this.resetResults();
     this.userService
@@ -185,17 +185,17 @@ export class MainComponent implements OnInit, OnDestroy {
       });
   }
 
-  selectSourceRoles(userRoles: UserRole[]): void {
+  public selectSourceRoles(userRoles: UserRole[]): void {
     this.selectedRoles = userRoles;
   }
 
-  resetResults(): void {
+  public resetResults(): void {
     this.copyResult = null;
     this.compareResult = null;
     this.resultsExpanded = false;
   }
 
-  reset(): void {
+  public reset(): void {
     this.sourceUser = null;
     this.resetEventSubject.next();
     this.resetResults();

@@ -14,9 +14,9 @@ import { AppConfig } from '../app.config';
 export class UserRoleAreaService {
   private roleTypeDefinitionMappingObservable: Observable<Map<string, string>>;
 
-  constructor(private restService: CloudAppRestService) {}
+  public constructor(private restService: CloudAppRestService) {}
 
-  getRoleTypeDefinitionMapping(): Observable<Map<string, string>> {
+  public getRoleTypeDefinitionMapping(): Observable<Map<string, string>> {
     // return cached observable
     if (this.roleTypeDefinitionMappingObservable) {
       return this.roleTypeDefinitionMappingObservable;
@@ -36,11 +36,11 @@ export class UserRoleAreaService {
             response.row.forEach(
               (row: { column0: string; column3: string }) => {
                 mapping.set(row.column0, row.column3);
-              },
+              }
             );
             return mapping;
           }),
-          shareReplay(1), // cache the observable
+          shareReplay(1) // cache the observable
         );
       return this.roleTypeDefinitionMappingObservable;
     }

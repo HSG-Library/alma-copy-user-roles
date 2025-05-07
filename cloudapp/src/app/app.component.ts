@@ -6,5 +6,5 @@ import { AppService } from './app.service';
   template: '<cloudapp-alert></cloudapp-alert><router-outlet></router-outlet>',
 })
 export class AppComponent {
-  constructor(private appService: AppService) {}
+  public constructor(private appService: AppService) {}
 }

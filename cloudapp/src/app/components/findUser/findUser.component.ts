@@ -33,23 +33,23 @@ export class FindUserComponent implements OnInit, OnDestroy {
   @Output()
   selectedUserOutput = new EventEmitter<UserDetailsChecked>();
 
-  constructor(
+  public constructor(
     private userService: UserService,
     private translate: TranslateService,
     private alert: AlertService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.resetEventSubscription = this.resetEventObservable$?.subscribe(() =>
       this.reset()
     );
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.resetEventSubscription?.unsubscribe();
   }
 
-  findUser(): void {
+  public findUser(): void {
     if (this.searchTerm && this.searchTerm.length >= 2) {
       this.loading = true;
 
@@ -78,7 +78,7 @@ export class FindUserComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectUser(event: UserDetailsChecked[]) {
+  public selectUser(event: UserDetailsChecked[]) {
     let user: UserDetailsChecked = event[0];
     this.userOptions = [];
     this.selectedUserOutput.emit(user);

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ArrayHelperService {
-  constructor() {}
+  public constructor() {}
 
   bisect<Type>(array: Type[]): [Type[], Type[]] {
     if (array.length == 1) {

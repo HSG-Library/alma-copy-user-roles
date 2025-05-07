@@ -8,5 +8,5 @@ export class LoaderComponent {
   @Input()
   loading: boolean;
 
-  constructor() {}
+  public constructor() {}
 }

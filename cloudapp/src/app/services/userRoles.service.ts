@@ -14,12 +14,12 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class UserRolesService {
-  constructor(
+  public constructor(
     private userService: UserService,
     private arrayHelper: ArrayHelperService
   ) {}
 
-  copy(
+  public copy(
     sourceUser: UserDetailsChecked,
     selectedRoles: UserRole[],
     targetUser: UserDetails,
@@ -56,7 +56,7 @@ export class UserRolesService {
     return copyResult;
   }
 
-  compare(
+  public compare(
     sourceUser: UserDetailsChecked,
     targetUser: UserDetails
   ): Observable<CompareResult> {
@@ -286,7 +286,7 @@ export class UserRolesService {
    * and then PUTting to the same user, if there is no error, all roles
    * are valid.
    */
-  validate(sourceUser: UserDetailsChecked): Observable<ValidationInfo> {
+  public validate(sourceUser: UserDetailsChecked): Observable<ValidationInfo> {
     return this.userService.getUserDetails(sourceUser.primary_id).pipe(
       mergeMap((sourceUserDetails): Observable<ValidationInfo> => {
         let validationInfo: ValidationInfo = new ValidationInfo();
@@ -314,7 +314,7 @@ export class UserRolesService {
     );
   }
 
-  normalizeRolesList(roles: UserRole[]): UserRole[] {
+  public normalizeRolesList(roles: UserRole[]): UserRole[] {
     roles.map((role) => {
       role.parameter = role.parameter.sort((param1, param2) => {
         const type1 = param1.type.value;

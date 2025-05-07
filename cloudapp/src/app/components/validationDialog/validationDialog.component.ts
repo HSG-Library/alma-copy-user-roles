@@ -6,16 +6,16 @@ import { ValidationInfo } from '../../models/validationInfo';
   templateUrl: './validationDialog.component.html',
 })
 export class ValidationDialog {
-  constructor(
+  public constructor(
     @Inject(MAT_DIALOG_DATA) public data: ValidationInfo,
-    private dialogRef: MatDialogRef<ValidationDialog>,
+    private dialogRef: MatDialogRef<ValidationDialog>
   ) {}
 
-  proceed() {
+  public proceed() {
     this.dialogRef.close(true);
   }
 
-  close() {
+  public close() {
     this.dialogRef.close();
   }
 }

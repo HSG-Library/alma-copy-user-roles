@@ -5,5 +5,5 @@ import { InitService } from '@exlibris/exl-cloudapp-angular-lib';
   providedIn: 'root',
 })
 export class AppService {
-  constructor(private initService: InitService) {}
+  public constructor(private initService: InitService) {}
 }

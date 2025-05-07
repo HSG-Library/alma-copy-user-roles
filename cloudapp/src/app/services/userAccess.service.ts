@@ -15,20 +15,20 @@ import { UserService } from './user.service';
   providedIn: 'root',
 })
 export class UserAccessService {
-  constructor(
+  public constructor(
     private configService: CloudAppConfigService,
     private eventsService: CloudAppEventsService,
-    private userService: UserService,
+    private userService: UserService
   ) {}
 
-  isUserAllowed(): Observable<boolean> {
+  public isUserAllowed(): Observable<boolean> {
     let userDetails$: Observable<UserDetails> = this.eventsService
       .getInitData()
       .pipe(map((initData) => initData.user.primaryId))
       .pipe(
         flatMap((primaryUserId) =>
-          this.userService.getUserDetails(primaryUserId),
-        ),
+          this.userService.getUserDetails(primaryUserId)
+        )
       );
     let config$: Observable<any> = this.configService.get();
 
@@ -61,7 +61,7 @@ export class UserAccessService {
           return false;
         }
         return true;
-      }),
+      })
     );
   }
 
@@ -73,17 +73,17 @@ export class UserAccessService {
 
   private isUserInAllowedList(
     config: Configuration,
-    userDetails: UserDetails,
+    userDetails: UserDetails
   ): boolean {
     let allowedUsers: UserDetailsChecked[] = config.allowedUsers;
     return allowedUsers.some(
-      (user) => user.primary_id == userDetails.primary_id,
+      (user) => user.primary_id == userDetails.primary_id
     );
   }
 
   private hasUserAllowedRole(
     config: Configuration,
-    userDetails: UserDetails,
+    userDetails: UserDetails
   ): boolean {
     let allowedRoles: number[] = config.allowedRoles;
     // role 0 is a placeholder value for "all roles allowed"
