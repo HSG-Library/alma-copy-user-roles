@@ -16,15 +16,13 @@ mat-expansion-panel {
 }
 
 .panel-header {
-  display: flex;
-
   mat-panel-title {
-    justify-content: left;
-    line-height: 40px;
+    flex-grow: 5;
+    flex-basis: initial;
+    white-space: nowrap;
   }
-
   mat-panel-description {
-    justify-content: right;
+    flex-grow: 1;
   }
 }
 

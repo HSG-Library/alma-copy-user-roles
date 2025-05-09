@@ -8,5 +8,5 @@ import { UserRole } from '../../types/userRole.type';
 })
 export class RoleOutputComponent {
   @Input()
-  public userRole: UserRole;
+  public userRole!: UserRole;
 }

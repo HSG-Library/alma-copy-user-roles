@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
 import {
   CloudAppRestService,
   HttpMethod,
@@ -7,14 +7,20 @@ import {
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AppConfig } from '../app.config';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserRoleAreaService {
-  private roleTypeDefinitionMappingObservable: Observable<Map<string, string>>;
+  private roleTypeDefinitionMappingObservable: Observable<
+    Map<string, string>
+  > | null = null;
 
-  public constructor(private restService: CloudAppRestService) {}
+  public constructor(
+    private restService: CloudAppRestService,
+    private destroyRef: DestroyRef
+  ) {}
 
   public getRoleTypeDefinitionMapping(): Observable<Map<string, string>> {
     // return cached observable
@@ -30,8 +36,8 @@ export class UserRoleAreaService {
       this.roleTypeDefinitionMappingObservable = this.restService
         .call(request)
         .pipe(
+          takeUntilDestroyed(this.destroyRef),
           map((response) => {
-            console.log('create mapping', response);
             const mapping = new Map<string, string>();
             response.row.forEach(
               (row: { column0: string; column3: string }) => {

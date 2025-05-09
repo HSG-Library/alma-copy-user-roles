@@ -77,7 +77,7 @@ export class ArrayHelperService {
     if (typeOfElem === 'object') {
       typeOfElem += Object.prototype.toString.call(elem);
     }
-    let key = [typeOfElem, elem.toString(), JSON.stringify(elem)].join('__');
+    let key = [typeOfElem, elem?.toString(), JSON.stringify(elem)].join('__');
     return key;
   }
 }

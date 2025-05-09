@@ -1,7 +1,7 @@
 export class ValidationInfo {
-  public isValid: boolean;
-  public msg: string;
-  public err: object;
+  public isValid: boolean = false;
+  public msg: string = '';
+  public err: object = {};
 
   public get valid(): boolean {
     return this.isValid;

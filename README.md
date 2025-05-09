@@ -43,7 +43,7 @@ The following should be noted: The access management in the app only prevents or
 
 > The user must have permissions to perform the action implemented by the API, and any history actions are logged under the user's identity. If the Cloud App attempts to call an API which performs an action for which the logged-in user does not have the proper role, Alma will return a 401 Unauthorized to the Cloud App.
 
-See [ExLibrs documentation](https://developers.exlibrisgroup.com/cloudapps/docs/api/rest-service/)
+See [ExLibris documentation](https://developers.exlibrisgroup.com/cloudapps/docs/api/rest-service/)
 
 **Allow by user**
 

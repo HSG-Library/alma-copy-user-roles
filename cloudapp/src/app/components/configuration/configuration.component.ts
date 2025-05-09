@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import {
   AlertService,
@@ -15,10 +16,10 @@ import { finalize, tap } from 'rxjs/operators';
   styleUrls: ['./configuration.component.scss'],
 })
 export class ConfigurationComponent implements OnInit {
-  public loading: boolean;
-  public saving: boolean;
-  public dirty: boolean;
-  public config: Configuration;
+  public loading: boolean = false;
+  public saving: boolean = false;
+  public dirty: boolean = false;
+  public config!: Configuration;
 
   public allowedUsers: Set<UserDetailsChecked> = new Set<UserDetailsChecked>();
   public allowedUsersSelection: UserDetailsChecked[] = [];
@@ -29,7 +30,8 @@ export class ConfigurationComponent implements OnInit {
     private configService: CloudAppConfigService,
     private router: Router,
     private translate: TranslateService,
-    private alert: AlertService
+    private alert: AlertService,
+    private destroyRef: DestroyRef
   ) {}
 
   public ngOnInit(): void {
@@ -37,6 +39,7 @@ export class ConfigurationComponent implements OnInit {
     this.configService
       .get()
       .pipe(
+        takeUntilDestroyed(this.destroyRef),
         tap((config) => {
           this.config = config;
           this.allowedUsers = new Set<UserDetailsChecked>(
@@ -93,11 +96,11 @@ export class ConfigurationComponent implements OnInit {
     }
   }
 
-  public selectAllowedUsers($event: UserDetailsChecked[]): void {
-    this.allowedUsersSelection = $event;
+  public selectAllowedUsers(event: UserDetailsChecked[]): void {
+    this.allowedUsersSelection = event;
   }
 
-  public selectAllowedRole($event: number[]): void {
+  public selectAllowedRole(_event: number[]): void {
     this.dirty = true;
   }
 
@@ -125,8 +128,8 @@ export class ConfigurationComponent implements OnInit {
     }
   }
 
-  public setCheckScope($event: boolean): void {
-    this.checkScope = $event;
+  public setCheckScope(event: boolean): void {
+    this.checkScope = event;
     this.dirty = true;
   }
 

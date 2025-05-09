@@ -1,9 +1,9 @@
 <mat-expansion-panel *ngIf="user && user?.user_role?.length">
   <mat-expansion-panel-header class="panel-header">
     <mat-panel-title
-      ><span translate>roleSelect.rolesSelected</span>&nbsp;({{
+      >{{ 'roleSelect.rolesSelected' | translate }}&nbsp;({{
         selectedRoles.size
-      }}/{{ user?.user_role?.length }})</mat-panel-title
+      }}/{{ user.user_role.length }})</mat-panel-title
     >
     <mat-panel-description>
       <button

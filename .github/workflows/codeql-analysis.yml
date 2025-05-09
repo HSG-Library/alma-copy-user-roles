@@ -3,11 +3,11 @@ name: 'CodeQL'
 on:
   push:
     branches: ['main', 'develop']
-    paths: ['cloudapp/src/**']
+    paths: ['cloudapp/src/**', '.github/workflows/**']
   pull_request:
     # The branches below must be a subset of the branches above
     branches: ['main']
-    paths: ['cloudapp/src/**']
+    paths: ['cloudapp/src/**', '.github/workflows/**']
   schedule:
     - cron: '35 10 * * 1' # at 10:53 every Monday
 

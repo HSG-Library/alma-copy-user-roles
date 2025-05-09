@@ -8,24 +8,24 @@ import { CompareResult } from '../../types/compareResult.type';
   styleUrls: ['./result.component.scss'],
 })
 export class ResultComponent {
-  private _copyResult: CopyResult;
-  private _compareResult: CompareResult;
+  private _copyResult: CopyResult | null = null;
+  private _compareResult: CompareResult | null = null;
 
   @Input()
-  set copyResult(value: CopyResult) {
+  set copyResult(value: CopyResult | null) {
     this._copyResult = value;
   }
 
-  get copyResult(): CopyResult {
+  get copyResult(): CopyResult | null {
     return this._copyResult;
   }
 
   @Input()
-  set compareResult(value: CompareResult) {
+  set compareResult(value: CompareResult | null) {
     this._compareResult = value;
   }
 
-  get compareResult(): CompareResult {
+  get compareResult(): CompareResult | null {
     return this._compareResult;
   }
 

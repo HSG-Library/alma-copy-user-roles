@@ -13,10 +13,10 @@ import { UserRoleWithAvailability } from '../../types/userRoleWithAvailability.t
   styleUrls: ['./role-select.component.scss'],
 })
 export class RoleSelectComponent {
-  private _user: UserDetailsChecked;
+  private _user: UserDetailsChecked | null = null;
 
   @Input()
-  public set user(value: UserDetailsChecked) {
+  public set user(value: UserDetailsChecked | null) {
     //set newly selected user
     this._user = value;
     // reset selected roles and mapped roles
@@ -26,18 +26,15 @@ export class RoleSelectComponent {
     this.mapRoles();
   }
 
-  public get user(): UserDetailsChecked {
+  public get user(): UserDetailsChecked | null {
     return this._user;
   }
 
-  public areas: string[];
-  public mappedRoles: Map<string, UserRoleWithAvailability[]>;
-
   @Output()
-  public rolesSelectedOutput: EventEmitter<UserRole[]> = new EventEmitter<
-    UserRoleWithAvailability[]
-  >();
+  public rolesSelectedOutput = new EventEmitter<UserRoleWithAvailability[]>();
 
+  public areas: string[] = [];
+  public mappedRoles: Map<string, UserRoleWithAvailability[]> = new Map();
   public selectedRoles: Set<UserRoleWithAvailability> = new Set();
 
   public constructor(
@@ -56,13 +53,13 @@ export class RoleSelectComponent {
         map((mapping: Map<string, string>) => {
           const roles: UserRoleWithAvailability[] =
             this.userRoleService.normalizeRolesList(
-              this._user.user_role
+              this._user!.user_role
             ) as UserRoleWithAvailability[];
           roles.forEach((role) => {
             const area = mapping.get(role.role_type.value);
             if (area) {
               if (this.mappedRoles.has(area)) {
-                this.mappedRoles.get(area).push(role);
+                this.mappedRoles.get(area)?.push(role);
               } else {
                 this.mappedRoles.set(area, [role]);
               }
@@ -105,13 +102,13 @@ export class RoleSelectComponent {
 
   public checkArea(area: string): void {
     if (this.areaCompleteChecked(area)) {
-      this.mappedRoles.get(area).forEach((role) => {
+      this.mappedRoles.get(area)?.forEach((role) => {
         if (this.selectedRoles.has(role)) {
           this.selectedRoles.delete(role);
         }
       });
     } else {
-      this.mappedRoles.get(area).forEach((role) => {
+      this.mappedRoles.get(area)?.forEach((role) => {
         if (!role.disabled) {
           this.selectedRoles.add(role);
         }
@@ -140,10 +137,12 @@ export class RoleSelectComponent {
   }
 
   public allChecked(): boolean {
-    return this.selectedRoles.size === this._user.user_role.length;
+    return this._user
+      ? this.selectedRoles.size === this._user.user_role.length
+      : false;
   }
 
-  public selectAll(event: Event): void {
+  public selectAll(event: Event | null): void {
     if (event) {
       event.stopPropagation();
     }

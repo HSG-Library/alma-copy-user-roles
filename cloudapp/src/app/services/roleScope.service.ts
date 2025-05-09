@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
 import {
   CloudAppConfigService,
   CloudAppEventsService,
@@ -7,25 +7,28 @@ import {
   Request,
 } from '@exlibris/exl-cloudapp-angular-lib';
 import { Observable, of } from 'rxjs';
-import { flatMap, map, shareReplay, switchMap } from 'rxjs/operators';
+import { flatMap, map, mergeMap, shareReplay, switchMap } from 'rxjs/operators';
 import { Configuration } from '../types/configuration.type';
 import { UserDetails } from '../types/userDetails.type';
 import { UserService } from './user.service';
 import { AppConfig } from '../app.config';
 import { LibraryListResponse } from '../types/libraryListResponse.type';
 import { Library } from '../types/library.type';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { merge } from 'lodash';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoleScopeService {
-  private libraryList: Observable<LibraryListResponse> | null;
+  private libraryList: Observable<LibraryListResponse> | null = null;
 
   public constructor(
     private eventsService: CloudAppEventsService,
     private configService: CloudAppConfigService,
     private restService: CloudAppRestService,
-    private userService: UserService
+    private userService: UserService,
+    private destroyRef: DestroyRef
   ) {}
 
   /**
@@ -39,6 +42,7 @@ export class RoleScopeService {
    */
   public shouldCheckRoleScope(): Observable<boolean> {
     return this.configService.get().pipe(
+      takeUntilDestroyed(this.destroyRef),
       switchMap((config: Configuration) => {
         if (config.checkScope) {
           return this.checkForRoleCombination();
@@ -50,8 +54,9 @@ export class RoleScopeService {
 
   public getAllowedScopes(): Observable<string[]> {
     return this.eventsService.getInitData().pipe(
+      takeUntilDestroyed(this.destroyRef),
       map((initData) => initData.user.primaryId),
-      flatMap((primaryUserId) =>
+      mergeMap((primaryUserId) =>
         this.userService.getUserDetails(primaryUserId)
       ),
       map((userDetails: UserDetails) =>
@@ -72,8 +77,9 @@ export class RoleScopeService {
    */
   private checkForRoleCombination(): Observable<boolean> {
     return this.eventsService.getInitData().pipe(
+      takeUntilDestroyed(this.destroyRef),
       map((initData) => initData.user.primaryId),
-      flatMap((primaryUserId) =>
+      mergeMap((primaryUserId) =>
         this.userService.getUserDetails(primaryUserId)
       ),
       switchMap((userDetails: UserDetails) => {
@@ -107,6 +113,7 @@ export class RoleScopeService {
 
   private isScopedToLibrary(scopes: string[]): Observable<boolean> {
     return this.getLibraryList().pipe(
+      takeUntilDestroyed(this.destroyRef),
       map((libraryList: LibraryListResponse) => libraryList.library),
       map((libraries: Library[]) =>
         libraries.map((library: Library) => library.code)
@@ -124,7 +131,9 @@ export class RoleScopeService {
         method: HttpMethod.GET,
         headers: AppConfig.httpHeader,
       };
-      this.libraryList = this.restService.call(request).pipe(shareReplay(1));
+      this.libraryList = this.restService
+        .call(request)
+        .pipe(takeUntilDestroyed(this.destroyRef), shareReplay(1));
     }
     return this.libraryList;
   }

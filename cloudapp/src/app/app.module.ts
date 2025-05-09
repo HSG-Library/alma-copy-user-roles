@@ -1,4 +1,7 @@
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
@@ -33,13 +36,12 @@ import { RoleOutputComponent } from './components/result/role-output.component';
     ResultComponent,
     RoleOutputComponent,
   ],
-  entryComponents: [ValidationDialog, FindUserComponent, LoaderComponent],
+  bootstrap: [AppComponent],
   imports: [
     MaterialModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule,
     AlertModule,
     FormsModule,
     ReactiveFormsModule,
@@ -48,9 +50,9 @@ import { RoleOutputComponent } from './components/result/role-output.component';
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { appearance: 'standard' },
+      useValue: { appearance: 'fill' },
     },
+    provideHttpClient(withInterceptorsFromDi()),
   ],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}

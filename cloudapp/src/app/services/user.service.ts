@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
 import {
   CloudAppRestService,
   Entity,
@@ -9,12 +9,16 @@ import { Observable } from 'rxjs';
 import { UserListResponse } from '../types/userListResponse.type';
 import { UserDetails } from '../types/userDetails.type';
 import { AppConfig } from '../app.config';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  public constructor(private restService: CloudAppRestService) {}
+  public constructor(
+    private restService: CloudAppRestService,
+    private destroyRef: DestroyRef
+  ) {}
 
   public findUser(searchTerm: string): Observable<UserListResponse> {
     let request: Request = {
@@ -27,7 +31,9 @@ export class UserService {
         limit: AppConfig.pageSize,
       },
     };
-    return this.restService.call(request);
+    return this.restService
+      .call(request)
+      .pipe(takeUntilDestroyed(this.destroyRef));
   }
 
   public getUserDetails(primaryId: string): Observable<UserDetails> {
@@ -41,7 +47,9 @@ export class UserService {
         expand: 'none',
       },
     };
-    return this.restService.call(request);
+    return this.restService
+      .call(request)
+      .pipe(takeUntilDestroyed(this.destroyRef));
   }
 
   public getUserDetailsFromEntity(userEntity: Entity): Observable<UserDetails> {
@@ -55,7 +63,9 @@ export class UserService {
         expand: 'none',
       },
     };
-    return this.restService.call(request);
+    return this.restService
+      .call(request)
+      .pipe(takeUntilDestroyed(this.destroyRef));
   }
 
   public updateUser(userData: UserDetails): Observable<UserDetails> {
@@ -65,7 +75,9 @@ export class UserService {
       headers: AppConfig.httpHeader,
       requestBody: userData,
     };
-    return this.restService.call(request);
+    return this.restService
+      .call(request)
+      .pipe(takeUntilDestroyed(this.destroyRef));
   }
 
   private createPattern(searchTerm: string): string {

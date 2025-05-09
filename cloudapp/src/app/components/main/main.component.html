@@ -83,11 +83,11 @@
         <p
           class="username"
           *ngIf="sourceUser"
-          [ngPlural]="sourceUser.user_role?.length"
+          [ngPlural]="sourceUser.user_role.length"
         >
           <span class="uxf-icon uxf-user leading-icon"></span>
           {{ sourceUser.last_name }}, {{ sourceUser.first_name }} -
-          {{ sourceUser.user_role?.length }}
+          {{ sourceUser.user_role.length }}
           <ng-template ngPluralCase="=1">{{
             'global.role' | translate
           }}</ng-template>

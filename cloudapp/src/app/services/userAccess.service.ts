@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
 import {
   CloudAppConfigService,
   CloudAppEventsService,
 } from '@exlibris/exl-cloudapp-angular-lib';
 import { combineLatest } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { flatMap, map } from 'rxjs/operators';
+import { flatMap, map, mergeMap } from 'rxjs/operators';
 import { Configuration } from '../types/configuration.type';
 import { UserDetails } from '../types/userDetails.type';
 import { UserDetailsChecked } from '../types/userDetailsChecked';
 import { UserService } from './user.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -18,21 +19,26 @@ export class UserAccessService {
   public constructor(
     private configService: CloudAppConfigService,
     private eventsService: CloudAppEventsService,
-    private userService: UserService
+    private userService: UserService,
+    private destroyRef: DestroyRef
   ) {}
 
   public isUserAllowed(): Observable<boolean> {
     let userDetails$: Observable<UserDetails> = this.eventsService
       .getInitData()
-      .pipe(map((initData) => initData.user.primaryId))
       .pipe(
-        flatMap((primaryUserId) =>
+        takeUntilDestroyed(this.destroyRef),
+        map((initData) => initData.user.primaryId),
+        mergeMap((primaryUserId) =>
           this.userService.getUserDetails(primaryUserId)
         )
       );
-    let config$: Observable<any> = this.configService.get();
+    let config$: Observable<any> = this.configService
+      .get()
+      .pipe(takeUntilDestroyed(this.destroyRef));
 
     return combineLatest([config$, userDetails$]).pipe(
+      takeUntilDestroyed(this.destroyRef),
       map(([rawConfig, userDetails]) => {
         let config: Configuration = rawConfig;
         // app is not configured ->
@@ -87,7 +93,7 @@ export class UserAccessService {
   ): boolean {
     let allowedRoles: number[] = config.allowedRoles;
     // role 0 is a placeholder value for "all roles allowed"
-    // see cloudapp/src/app/components/configuration/configuration.component.html arround line 56
+    // see cloudapp/src/app/components/configuration/configuration.component.html around line 56
     if (allowedRoles.includes(0)) {
       return true;
     }

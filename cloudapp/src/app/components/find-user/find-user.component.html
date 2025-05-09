@@ -36,6 +36,7 @@
 <div>
   <mat-selection-list
     [multiple]="false"
+    hideSingleSelectionIndicator
     [(ngModel)]="userOptions"
     (ngModelChange)="selectUser($event)"
   >
@@ -48,10 +49,10 @@
       <div>
         <span class="uxf-icon uxf-user leading-icon"></span>
         {{ resultEntity.last_name }}, {{ resultEntity.first_name }} -
-        {{ resultEntity?.user_group?.desc.trim() }}&nbsp;-
+        {{ resultEntity?.user_group?.desc?.trim() }}&nbsp;-
         <span
           *ngIf="resultEntity?.user_role"
-          [ngPlural]="resultEntity?.user_role?.length"
+          [ngPlural]="resultEntity?.user_role?.length ?? 0"
         >
           {{ resultEntity?.user_role?.length }}&nbsp;
           <ng-template ngPluralCase="=1">{{

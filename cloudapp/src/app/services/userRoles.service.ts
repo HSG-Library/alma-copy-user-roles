@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { ValidationInfo } from '../models/validationInfo';
@@ -9,6 +9,7 @@ import { UserDetailsChecked } from '../types/userDetailsChecked';
 import { UserRole } from '../types/userRole.type';
 import { ArrayHelperService } from './arrayHelper.service';
 import { UserService } from './user.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,8 @@ import { UserService } from './user.service';
 export class UserRolesService {
   public constructor(
     private userService: UserService,
-    private arrayHelper: ArrayHelperService
+    private arrayHelper: ArrayHelperService,
+    private destroyRef: DestroyRef
   ) {}
 
   public copy(
@@ -25,22 +27,23 @@ export class UserRolesService {
     targetUser: UserDetails,
     replaceExistingRoles: boolean
   ): Observable<CopyResult> {
-    let copyResult: Observable<CopyResult>;
+    let copyResult$: Observable<CopyResult>;
     if (sourceUser.rolesValid) {
-      copyResult = this.copyValidRoles(
+      copyResult$ = this.copyValidRoles(
         selectedRoles,
         targetUser,
         replaceExistingRoles
       );
     } else {
-      copyResult = this.copyOneByOne(
+      copyResult$ = this.copyOneByOne(
         selectedRoles,
         targetUser,
         replaceExistingRoles
       );
     }
 
-    copyResult = copyResult.pipe(
+    copyResult$ = copyResult$.pipe(
+      takeUntilDestroyed(this.destroyRef),
       map((copyResult) => {
         const duplicates: UserRole[] = this.arrayHelper.findDuplicates(
           sourceUser.user_role
@@ -53,7 +56,7 @@ export class UserRolesService {
       })
     );
 
-    return copyResult;
+    return copyResult$;
   }
 
   public compare(
@@ -108,8 +111,9 @@ export class UserRolesService {
 
     // since all roles are valid, just updated the target user
     return this.userService.updateUser(targetUser).pipe(
-      switchMap((userDetails) => {
-        let copyResult: CopyResult = {
+      takeUntilDestroyed(this.destroyRef),
+      map((userDetails) => {
+        return {
           rolesSelectedToCopy: selectedRoles,
           validRoles: targetUser.user_role,
           copiedRoles: selectedRoles,
@@ -117,7 +121,6 @@ export class UserRolesService {
           skippedDuplicateRoles: [],
           targetUser: userDetails,
         };
-        return of(copyResult);
       })
     );
   }
@@ -127,8 +130,8 @@ export class UserRolesService {
     targetUser: UserDetails,
     replaceExistingRoles: boolean
   ): Observable<CopyResult> {
-    let roles = [];
-    let backupRoles = targetUser.user_role;
+    let roles: UserRole[] = [];
+    let backupRoles: UserRole[] = targetUser.user_role;
     if (replaceExistingRoles) {
       // replace: just use the selected roles of the source user
       roles = this.normalizeRolesList(selectedRoles);
@@ -149,11 +152,12 @@ export class UserRolesService {
     );
 
     return roleState$.pipe(
+      takeUntilDestroyed(this.destroyRef),
       switchMap((roleState) => {
         targetUser.user_role = roleState.valid;
         return this.userService.updateUser(targetUser).pipe(
-          switchMap((userDetails) => {
-            let copyResult: CopyResult = {
+          map((userDetails) => {
+            return {
               rolesSelectedToCopy: selectedRoles,
               validRoles: roleState.valid,
               invalidRoles: roleState.invalid,
@@ -164,15 +168,14 @@ export class UserRolesService {
               skippedDuplicateRoles: [],
               targetUser: userDetails,
             };
-            return of(copyResult);
           })
         );
       }),
       catchError((e) => {
         targetUser.user_role = backupRoles;
         return this.userService.updateUser(targetUser).pipe(
-          switchMap((userDetails) => {
-            let copyResult: CopyResult = {
+          map((userDetails) => {
+            return {
               rolesSelectedToCopy: selectedRoles,
               validRoles: [],
               invalidRoles: [],
@@ -180,7 +183,6 @@ export class UserRolesService {
               skippedDuplicateRoles: roles,
               targetUser: userDetails,
             };
-            return of(copyResult);
           })
         );
       })
@@ -288,6 +290,7 @@ export class UserRolesService {
    */
   public validate(sourceUser: UserDetailsChecked): Observable<ValidationInfo> {
     return this.userService.getUserDetails(sourceUser.primary_id).pipe(
+      takeUntilDestroyed(this.destroyRef),
       mergeMap((sourceUserDetails): Observable<ValidationInfo> => {
         let validationInfo: ValidationInfo = new ValidationInfo();
         try {
@@ -305,9 +308,10 @@ export class UserRolesService {
             })
           );
         } catch (error) {
+          const err = error as Error;
           validationInfo.valid = false;
-          validationInfo.message = error.message;
-          validationInfo.rawError = error;
+          validationInfo.message = err.message;
+          validationInfo.rawError = err;
           return of(validationInfo);
         }
       })
