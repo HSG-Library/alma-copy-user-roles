@@ -61,7 +61,8 @@ To use the app, the role of 'User Manager', 'User Administrator' or 'General Sys
 
 <img src="doc/img/allow-by-role.jpg" width=400><br><br><br>
 
-**Check and respect role scopes**
+### Check role scope
+
 This option prevents users with the User Manager role, scoped to a specific library, from copying roles which are scoped to another library. This option does **not** affect users with the 'General Administrator' role or the 'User Administrator' role.
 
 <img src="doc/img/check-role-scope.jpg" width=400><br><br><br>
