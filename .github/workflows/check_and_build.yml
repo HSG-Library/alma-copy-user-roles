@@ -41,5 +41,5 @@ jobs:
       - name: Build CloudApp ('eca build')
         run: |
           npm ci
-          npm i -g @exlibris/exl-cloudapp-cli
+          npm i -g @exlibris/exl-cloudapp-cli@1.4.7
           eca build | grep 'Generated'
