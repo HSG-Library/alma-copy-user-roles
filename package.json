@@ -1,8 +1,8 @@
 {
   "name": "copy-user-roles",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Alma CloudApp to copy roles from one user to another",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "start": "eca start"
