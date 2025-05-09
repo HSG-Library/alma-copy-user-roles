@@ -3,23 +3,11 @@ name: 'CodeQL'
 on:
   push:
     branches: ['main', 'develop']
-    paths:
-      [
-        'package.json',
-        'package-lock.json',
-        'cloudapp/src/**',
-        '.github/workflows/**',
-      ]
+    paths: ['cloudapp/src/**']
   pull_request:
     # The branches below must be a subset of the branches above
     branches: ['main']
-    paths:
-      [
-        'package.json',
-        'package-lock.json',
-        'cloudapp/src/**',
-        '.github/workflows/**',
-      ]
+    paths: ['cloudapp/src/**']
   schedule:
     - cron: '35 10 * * 1' # at 10:53 every Monday
 
@@ -29,9 +17,9 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
-        language: ['javascript']
+        language: ['javascript', 'typescript']
 
     steps:
       - name: Checkout repository
@@ -42,3 +30,6 @@ jobs:
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
