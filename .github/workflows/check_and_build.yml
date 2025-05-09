@@ -28,10 +28,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js 13.x
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v4
         with:
-          node-version: 13.x
+          node-version: 16.x
 
       # - name: Audit ('npm audit')
       #   run: |
