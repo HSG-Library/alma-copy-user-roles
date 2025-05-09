@@ -1,40 +1,42 @@
 {
-  "id": "HSG-Library/alma-copy-user-roles",
-  "title": "Copy User Roles",
-  "subtitle": [
-    {
-      "lang": "en",
-      "text": "Copy roles from one user to another"
-    },
-    {
-      "lang": "de",
-      "text": "Kopiert Benutzerrollen von einem Benutzer zum anderen"
-    }
-  ],
-  "author": "Jonas Furrer",
-  "description": [
-    {
-      "lang": "en",
-      "text": "This app allows copying user roles from one user to another. This primarily facilitates the creation of new users for library staff. "
-    },
-    {
-      "lang": "de",
-      "text": "Diese App erlaubt es, Benutzerrollen von einem Benutzer auf einen anderen zu kopieren. Dies erleichtert in erster Linie das Erstellen von neuen Benutzer für Bibliotheksmitarbeiter. "
-    }
-  ],
-  "license": "https://raw.githubusercontent.com/HSG-Library/alma-copy-user-roles/main/LICENSE",
-  "contentSecurity": {
-    "sandbox": {
-      "modals": true
-    }
-  },
-  "pages": {
-    "help": "https://github.com/HSG-Library/alma-copy-user-roles/blob/main/README.md",
-    "config": "/#/config"
-  },
-  "icon": {
-    "type": "url",
-    "value": "/assets/app-icon.png"
-  },
-  "entities": ["USER"]
+   "id": "HSG-Library/alma-copy-user-roles",
+   "title": "Copy User Roles",
+   "subtitle": [
+      {
+         "lang": "en",
+         "text": "Copy roles from one user to another"
+      },
+      {
+         "lang": "de",
+         "text": "Kopiert Benutzerrollen von einem Benutzer zum anderen"
+      }
+   ],
+   "author": "Jonas Furrer",
+   "description": [
+      {
+         "lang": "en",
+         "text": "This app allows copying user roles from one user to another. This primarily facilitates the creation of new users for library staff. "
+      },
+      {
+         "lang": "de",
+         "text": "Diese App erlaubt es, Benutzerrollen von einem Benutzer auf einen anderen zu kopieren. Dies erleichtert in erster Linie das Erstellen von neuen Benutzer für Bibliotheksmitarbeiter. "
+      }
+   ],
+   "license": "https://raw.githubusercontent.com/HSG-Library/alma-copy-user-roles/main/LICENSE",
+   "contentSecurity": {
+      "sandbox": {
+         "modals": true
+      }
+   },
+   "pages": {
+      "help": "https://github.com/HSG-Library/alma-copy-user-roles/blob/main/README.md",
+      "config": "/#/config"
+   },
+   "icon": {
+      "type": "url",
+      "value": "/assets/app-icon.png"
+   },
+   "entities": [
+      "USER"
+   ]
 }

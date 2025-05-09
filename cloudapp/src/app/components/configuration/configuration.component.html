@@ -2,7 +2,7 @@
   <!-- action buttons -->
   <div class="eca-actions">
     <button mat-flat-button color="secondary" (click)="back()">
-      <mat-icon>arrow_back</mat-icon> {{ 'config.backButton' | translate }}
+      <mat-icon>arrow_back</mat-icon>
     </button>
     <button
       mat-flat-button
@@ -10,6 +10,7 @@
       (click)="save()"
       [disabled]="saving || !dirty"
     >
+      <mat-icon>save</mat-icon>
       {{ 'config.saveButton' | translate }}
     </button>
   </div>
@@ -99,6 +100,16 @@
       </mat-selection-list>
     </section>
     <!-- /allow usage for role -->
+    <section>
+      <h1 translate>config.enableCheckScope</h1>
+      <p translate>config.enableCheckScopeExplanation</p>
+      <mat-slide-toggle
+        class="toggle"
+        [(ngModel)]="checkScope"
+        (ngModelChange)="setCheckScope($event)"
+        >{{ 'config.enableCheckScopeLabel' | translate }}</mat-slide-toggle
+      >
+    </section>
     <div class="eca-actions">
       <button mat-flat-button color="secondary" (click)="removeConfig()">
         <mat-icon>delete</mat-icon> {{ 'config.removeConfig' | translate }}

@@ -7,6 +7,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { Configuration } from '../../types/configuration.type';
 import { UserDetailsChecked } from '../../types/userDetailsChecked';
+import { finalize, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-configuration',
@@ -21,7 +22,7 @@ export class ConfigurationComponent implements OnInit {
 
   public allowedUsers: Set<UserDetailsChecked> = new Set<UserDetailsChecked>();
   public allowedUsersSelection: UserDetailsChecked[] = [];
-
+  public checkScope: boolean = false;
   public allowedRolesSelection: number[] = [0];
 
   public constructor(
@@ -32,13 +33,25 @@ export class ConfigurationComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.configService.get().subscribe((config) => {
-      this.config = config;
-      this.allowedUsers = new Set<UserDetailsChecked>(this.config.allowedUsers);
-      if (this.config.allowedRoles?.length > 0) {
-        this.allowedRolesSelection = this.config.allowedRoles;
-      }
-    });
+    this.loading = true;
+    this.configService
+      .get()
+      .pipe(
+        tap((config) => {
+          this.config = config;
+          this.allowedUsers = new Set<UserDetailsChecked>(
+            this.config.allowedUsers
+          );
+          if (this.config.allowedRoles?.length) {
+            this.allowedRolesSelection = this.config.allowedRoles;
+          }
+          if (this.config.checkScope) {
+            this.checkScope = this.config.checkScope;
+          }
+        }),
+        finalize(() => (this.loading = false))
+      )
+      .subscribe();
   }
 
   public addAllowedUser(user: UserDetailsChecked): void {
@@ -61,6 +74,7 @@ export class ConfigurationComponent implements OnInit {
     let config: Configuration = {
       allowedRoles: this.allowedRolesSelection,
       allowedUsers: Array.from(this.allowedUsers),
+      checkScope: this.checkScope,
     };
     this.configService.set(config).subscribe(() => {
       this.saving = false;
@@ -109,6 +123,11 @@ export class ConfigurationComponent implements OnInit {
         this.back();
       });
     }
+  }
+
+  public setCheckScope($event: boolean): void {
+    this.checkScope = $event;
+    this.dirty = true;
   }
 
   private isAlreadyAllowed(user: UserDetailsChecked): boolean {

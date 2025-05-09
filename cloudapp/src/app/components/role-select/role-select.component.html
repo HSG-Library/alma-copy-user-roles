@@ -42,11 +42,16 @@
           *ngFor="let role of mappedRoles.get(area)"
         >
           <mat-checkbox
+            [disabled]="role.disabled"
             [checked]="roleChecked(role)"
             (change)="selectRole(role)"
           >
             {{ role.role_type.desc }}<br />
             <span class="scope">{{ role.scope.desc }}</span>
+            &#8197;
+            <span class="scope" *ngIf="role.disabled"
+              >({{ 'roleSelect.notInScope' | translate }})</span
+            >
             <span
               class="parameter"
               *ngIf="role.parameter && role.parameter.length > 0"

@@ -1,8 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { filter, finalize, map, switchMap, tap } from 'rxjs/operators';
+import { RoleScopeService } from '../../services/roleScope.service';
 import { UserRoleAreaService } from '../../services/userRoleArea.service';
+import { UserRolesService } from '../../services/userRoles.service';
 import { UserDetailsChecked } from '../../types/userDetailsChecked';
 import { UserRole } from '../../types/userRole.type';
-import { UserRolesService } from '../../services/userRoles.service';
+import { UserRoleWithAvailability } from '../../types/userRoleWithAvailability.type';
 
 @Component({
   selector: 'app-role-select',
@@ -18,7 +21,7 @@ export class RoleSelectComponent {
     this._user = value;
     // reset selected roles and mapped roles
     this.selectedRoles = new Set();
-    this.mappedRoles = new Map<string, UserRole[]>();
+    this.mappedRoles = new Map<string, UserRoleWithAvailability[]>();
     // map roles
     this.mapRoles();
   }
@@ -28,18 +31,19 @@ export class RoleSelectComponent {
   }
 
   public areas: string[];
-  public mappedRoles: Map<string, UserRole[]>;
+  public mappedRoles: Map<string, UserRoleWithAvailability[]>;
 
   @Output()
   public rolesSelectedOutput: EventEmitter<UserRole[]> = new EventEmitter<
-    UserRole[]
+    UserRoleWithAvailability[]
   >();
 
-  public selectedRoles: Set<UserRole> = new Set();
+  public selectedRoles: Set<UserRoleWithAvailability> = new Set();
 
   public constructor(
     private userRoleAreaService: UserRoleAreaService,
-    private userRoleService: UserRolesService
+    private userRoleService: UserRolesService,
+    private roleScopeService: RoleScopeService
   ) {}
 
   public mapRoles(): void {
@@ -48,30 +52,42 @@ export class RoleSelectComponent {
     }
     this.userRoleAreaService
       .getRoleTypeDefinitionMapping()
-      .subscribe((mapping) => {
-        const roles = this.userRoleService.normalizeRolesList(
-          this._user.user_role
-        );
-        roles.forEach((role) => {
-          const area = mapping.get(role.role_type.value);
-          if (area) {
-            if (this.mappedRoles.has(area)) {
-              this.mappedRoles.get(area).push(role);
-            } else {
-              this.mappedRoles.set(area, [role]);
+      .pipe(
+        map((mapping: Map<string, string>) => {
+          const roles: UserRoleWithAvailability[] =
+            this.userRoleService.normalizeRolesList(
+              this._user.user_role
+            ) as UserRoleWithAvailability[];
+          roles.forEach((role) => {
+            const area = mapping.get(role.role_type.value);
+            if (area) {
+              if (this.mappedRoles.has(area)) {
+                this.mappedRoles.get(area).push(role);
+              } else {
+                this.mappedRoles.set(area, [role]);
+              }
             }
-            this.selectedRoles.add(role);
-          }
-        });
-        this.areas = Array.from(this.mappedRoles.keys()).sort();
-        this.emitSelectedRoles();
-      });
+          });
+          this.areas = Array.from(this.mappedRoles.keys()).sort();
+        }),
+        switchMap(() => this.roleScopeService.shouldCheckRoleScope()),
+        filter((shouldCheck: boolean) => shouldCheck),
+        switchMap(() => this.roleScopeService.getAllowedScopes()),
+        tap((allowedScopes: string[]) =>
+          this.disableRolesByScope(allowedScopes)
+        ),
+        finalize(() => {
+          this.selectAll(null);
+          this.emitSelectedRoles();
+        })
+      )
+      .subscribe();
   }
 
   public areaCompleteChecked(area: string): boolean {
     const roles = this.mappedRoles.get(area);
     if (roles) {
-      return roles.every((role) => this.roleChecked(role));
+      return roles.every((role) => role.disabled || this.roleChecked(role));
     }
     return false;
   }
@@ -81,7 +97,7 @@ export class RoleSelectComponent {
     if (roles) {
       return (
         roles.some((role) => this.roleChecked(role)) &&
-        !roles.every((role) => this.roleChecked(role))
+        !roles.every((role) => role.disabled || this.roleChecked(role))
       );
     }
     return false;
@@ -96,17 +112,19 @@ export class RoleSelectComponent {
       });
     } else {
       this.mappedRoles.get(area).forEach((role) => {
-        this.selectedRoles.add(role);
+        if (!role.disabled) {
+          this.selectedRoles.add(role);
+        }
       });
     }
     this.emitSelectedRoles();
   }
 
-  public roleChecked(role: UserRole): boolean {
+  public roleChecked(role: UserRoleWithAvailability): boolean {
     return this.selectedRoles.has(role);
   }
 
-  public selectRole(role: UserRole): void {
+  public selectRole(role: UserRoleWithAvailability): void {
     if (this.roleChecked(role)) {
       if (this.selectedRoles.has(role)) {
         this.selectedRoles.delete(role);
@@ -131,7 +149,9 @@ export class RoleSelectComponent {
     }
     this.mappedRoles.forEach((roles) => {
       roles.forEach((role) => {
-        this.selectedRoles.add(role);
+        if (!role.disabled) {
+          this.selectedRoles.add(role);
+        }
       });
     });
     this.emitSelectedRoles();
@@ -145,5 +165,13 @@ export class RoleSelectComponent {
 
   private emitSelectedRoles(): void {
     this.rolesSelectedOutput.emit(Array.from(this.selectedRoles));
+  }
+
+  private disableRolesByScope(allowedScopes: string[]): void {
+    this.mappedRoles.forEach((roles) => {
+      roles.forEach((role) => {
+        role.disabled = !allowedScopes.includes(role.scope.value);
+      });
+    });
   }
 }
