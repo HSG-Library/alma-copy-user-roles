@@ -63,7 +63,7 @@ To use the app, the role of 'User Manager', 'User Administrator' or 'General Sys
 
 ### Check role scope
 
-This option prevents users with the User Manager role, scoped to a specific library, from copying roles which are scoped to another library. This option does **not** affect users with the 'General Administrator' role or the 'User Administrator' role.
+This option prevents users with the User Manager role, scoped to a specific library, from copying roles which are scoped to another library. This option does **not** affect users with the 'General Administrator' role or the 'User Administrator' role. For further information see the following documents: [Alma Release Notes 11/2024](https://knowledge.exlibrisgroup.com/Alma/Release_Notes/2024/Alma_2024_Release_Notes?mon=202411BASE#:~:text=Enhanced%20Library%2DSpecific%20Role%20Management%20for%20User%20Management%20in%20Alma%20UI) and [User Manager role documentation](<https://knowledge.exlibrisgroup.com/Alma/Product_Documentation/010Alma_Online_Help_(English)/050Administration/030User_Management/060Managing_User_Roles?mt-draft=true#user_manager>)
 
 <img src="doc/img/check-role-scope.jpg" width=400><br><br><br>
 
