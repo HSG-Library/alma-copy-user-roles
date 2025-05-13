@@ -1,0 +1,46 @@
+.scope,
+.parameter {
+  color: #888;
+  font-size: smaller;
+}
+
+.parameter ul {
+  margin: 0;
+  padding-left: 15px;
+  list-style: circle;
+}
+
+mat-expansion-panel {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.panel-header {
+  mat-panel-title {
+    flex-grow: 5;
+    flex-basis: initial;
+    white-space: nowrap;
+  }
+  mat-panel-description {
+    flex-grow: 1;
+  }
+}
+
+#role-list {
+  .area-section {
+    margin-bottom: 20px;
+  }
+
+  .area-header {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .item-area {
+    margin-bottom: 10px;
+  }
+
+  .item-role {
+    margin-left: 20px;
+  }
+}

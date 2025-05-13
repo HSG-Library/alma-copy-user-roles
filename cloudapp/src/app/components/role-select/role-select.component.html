@@ -1,0 +1,76 @@
+<mat-expansion-panel *ngIf="user && user?.user_role?.length">
+  <mat-expansion-panel-header class="panel-header">
+    <mat-panel-title
+      >{{ 'roleSelect.rolesSelected' | translate }}&nbsp;({{
+        selectedRoles.size
+      }}/{{ user.user_role.length }})</mat-panel-title
+    >
+    <mat-panel-description>
+      <button
+        mat-icon-button
+        [disabled]="allChecked()"
+        (click)="selectAll($event)"
+        matTooltip="{{ 'roleSelect.selectAll' | translate }}"
+      >
+        <mat-icon>done_all</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        [disabled]="!anyChecked()"
+        (click)="deselectAll($event)"
+        matTooltip="{{ 'roleSelect.deselectAll' | translate }}"
+      >
+        <mat-icon>remove_done</mat-icon>
+      </button></mat-panel-description
+    >
+  </mat-expansion-panel-header>
+
+  <mat-list id="role-list">
+    <ng-container *ngFor="let area of areas">
+      <div class="area-section">
+        <mat-list-item class="item-area">
+          <mat-checkbox
+            [checked]="areaCompleteChecked(area)"
+            [indeterminate]="someChecked(area)"
+            (change)="checkArea(area)"
+          >
+            <span class="area-header">{{ area }}</span>
+          </mat-checkbox>
+        </mat-list-item>
+        <mat-list-item
+          class="item-role"
+          *ngFor="let role of mappedRoles.get(area)"
+        >
+          <mat-checkbox
+            [disabled]="role.disabled"
+            [checked]="roleChecked(role)"
+            (change)="selectRole(role)"
+          >
+            {{ role.role_type.desc }}<br />
+            <span class="scope">{{ role.scope.desc }}</span>
+            &#8197;
+            <span class="scope" *ngIf="role.disabled"
+              >({{ 'roleSelect.notInScope' | translate }})</span
+            >
+            <span
+              class="parameter"
+              *ngIf="role.parameter && role.parameter.length > 0"
+            >
+              <br />
+              parameter:
+              <ul class="role-parameter">
+                <li *ngFor="let param of role.parameter">
+                  <span>Type: {{ param.type.value }}</span
+                  ><br />
+                  <span>Value: {{ param.value.desc }}</span
+                  ><br />
+                  <span *ngIf="param.scope">Scope: {{ param.scope.desc }}</span>
+                </li>
+              </ul>
+            </span>
+          </mat-checkbox>
+        </mat-list-item>
+      </div>
+    </ng-container>
+  </mat-list>
+</mat-expansion-panel>

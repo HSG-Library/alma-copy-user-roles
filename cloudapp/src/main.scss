@@ -1,44 +1,48 @@
 @import './app/components/main/main.component.theme.scss';
 
 @mixin themed-styles($theme, $typography) {
-    /* Include themed component mixins or theme dependent styles here */
-    @include main-component-theme($theme, $typography);
+  /* Include themed component mixins or theme dependent styles here */
+  @include main-component-theme($theme, $typography);
 }
 
 @mixin global-styles {
-    /* Add global styles here */
+  /* Add global styles here */
 
-    section {
-        margin-bottom: 70px;
+  section {
+    margin-bottom: 70px;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .list-option {
+    min-height: 40px !important;
+    height: fit-content !important;
+    padding: 0px !important;
+
+    .mat-list-item-content {
+      min-height: 40px !important;
     }
+  }
 
-    .bold {
-        font-weight: bold;
+  .leading-icon {
+    margin-right: 5px;
+  }
+
+  #copy-user-roles-main {
+    .mat-expansion-panel {
+      box-shadow: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 0;
     }
+  }
 
-    .full-width {
-        width: 100%;
-    }
-
-    .list-option {
-        min-height: 40px !important;
-        height: fit-content !important;
-        padding: 0px !important;
-
-        .mat-list-item-content {
-            min-height: 40px !important;
-        }
-    }
-
-    .leading-icon {
-        margin-right: 5px;
-    }
-
-    #copy-user-roles-main {
-        .mat-expansion-panel {
-            box-shadow: none;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-            border-radius: 0;
-        }
-    }
+  mat-panel-title {
+    font-weight: normal;
+  }
 }

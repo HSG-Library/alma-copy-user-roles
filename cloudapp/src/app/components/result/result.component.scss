@@ -1,27 +1,27 @@
 .results-panel {
-	margin-top: 20px;
+  margin-top: 20px;
 
-	mat-expansion-panel {
-		margin-bottom: 10px;
-	}
+  mat-expansion-panel {
+    margin-bottom: 10px;
+  }
 
-	.mat-expansion-panel-header-title,
-	.mat-expansion-panel-header-description {
-		align-items: center;
+  .mat-expansion-panel-header-title,
+  .mat-expansion-panel-header-description {
+    align-items: center;
 
-		p {
-			padding: 0;
-			margin: 0;
-		}
-	}
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
 
-	ul {
-		list-style-type: circle;
-		padding-left: 15px;
-		margin: 0;
+  ul {
+    list-style-type: circle;
+    padding-left: 15px;
+    margin: 0;
 
-		li {
-			margin-bottom: 5px;
-		}
-	}
+    li {
+      margin-bottom: 5px;
+    }
+  }
 }

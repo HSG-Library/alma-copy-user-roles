@@ -2,9 +2,17 @@
   <!-- action buttons -->
   <div class="eca-actions">
     <button mat-flat-button color="secondary" (click)="back()">
-      <mat-icon>arrow_back</mat-icon> {{'config.backButton' | translate }}
+      <mat-icon>arrow_back</mat-icon>
     </button>
-    <button mat-flat-button color="primary" (click)="save()" [disabled]="saving || !dirty">{{'config.saveButton' | translate}}</button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="save()"
+      [disabled]="saving || !dirty"
+    >
+      <mat-icon>save</mat-icon>
+      {{ 'config.saveButton' | translate }}
+    </button>
   </div>
   <!-- /action buttons -->
   <section>
@@ -16,56 +24,97 @@
       <h1 translate>config.allowByUser</h1>
       <div *ngIf="allowedUsers.size > 0">
         <div class="cur-allowed-users-title-bar">
-          <p class="bold" translate>
-            config.allowedUsers
-          </p>
-          <button mat-icon-button [disabled]="allowedUsersSelection.length == 0" (click)="removeAllowedUsers()">
+          <p class="bold" translate>config.allowedUsers</p>
+          <button
+            mat-icon-button
+            [disabled]="allowedUsersSelection.length == 0"
+            (click)="removeAllowedUsers()"
+          >
             <mat-icon>delete</mat-icon>
           </button>
         </div>
-        <mat-selection-list class="allowed-users-list"
-                            [multiple]=" true"
-                            [(ngModel)]="allowedUsersSelection"
-                            (ngModelChange)="selectAllowedUsers($event)">
-          <mat-list-option class="list-option"
-                           *ngFor="let allowedUser of allowedUsers"
-                           [value]="allowedUser">
+        <mat-selection-list
+          class="allowed-users-list"
+          [multiple]="true"
+          [(ngModel)]="allowedUsersSelection"
+          (ngModelChange)="selectAllowedUsers($event)"
+        >
+          <mat-list-option
+            class="list-option"
+            *ngFor="let allowedUser of allowedUsers"
+            [value]="allowedUser"
+          >
             <div matLine>
               <span class="uxf-icon uxf-user leading-icon"></span>
-              {{allowedUser.last_name}}, {{allowedUser.first_name}} - {{allowedUser?.user_group?.desc.trim()}}&nbsp;
-              [{{allowedUser?.user_group?.value}}]
+              {{ allowedUser.last_name }}, {{ allowedUser.first_name }} -
+              {{ allowedUser?.user_group?.desc?.trim() }}&nbsp; [{{
+                allowedUser?.user_group?.value
+              }}]
             </div>
           </mat-list-option>
         </mat-selection-list>
       </div>
 
-      <p class="bold" translate>
-        config.searchForUser
-      </p>
-      <app-find-user (selectedUserOutput)="addAllowedUser($event)"></app-find-user>
+      <p class="bold" translate>config.searchForUser</p>
+      <app-find-user
+        (selectedUserOutput)="addAllowedUser($event)"
+      ></app-find-user>
     </section>
     <!-- /allow usage for user -->
     <!-- allow usage for role -->
     <section>
       <h1 translate>config.allowByRole</h1>
-      <p *ngIf="allowedUsers.size > 0"><b translate>config.rolesAndUsersAreExclusive</b></p>
+      <p *ngIf="allowedUsers.size > 0">
+        <b translate>config.rolesAndUsersAreExclusive</b>
+      </p>
       <p translate>config.allowUsersWithRoleText</p>
-      <mat-selection-list [disabled]="allowedUsers.size > 0"
-                          [multiple]=" true"
-                          [(ngModel)]="allowedRolesSelection"
-                          (ngModelChange)="selectAllowedRole($event)">
-        <mat-list-option class="list-option" [value]="0" [disabled]="allowedRolesSelection.length > 0 && !allowedRolesSelection.includes(0)">{{'config.allowAnyRole' | translate }}</mat-list-option>
-        <mat-list-option class="list-option" [value]="26" [disabled]="allowedRolesSelection.includes(0)">{{'config.allowForGeneralAdministrator' | translate }}</mat-list-option>
-        <mat-list-option class="list-option" [value]="50" [disabled]="allowedRolesSelection.includes(0)">{{'config.allowForUserAdministrator' | translate }}</mat-list-option>
+      <mat-selection-list
+        [disabled]="allowedUsers.size > 0"
+        [multiple]="true"
+        [(ngModel)]="allowedRolesSelection"
+        (ngModelChange)="selectAllowedRole($event)"
+      >
+        <mat-list-option
+          class="list-option"
+          [value]="0"
+          [disabled]="
+            allowedRolesSelection.length > 0 &&
+            !allowedRolesSelection.includes(0)
+          "
+          >{{ 'config.allowAnyRole' | translate }}</mat-list-option
+        >
+        <mat-list-option
+          class="list-option"
+          [value]="26"
+          [disabled]="allowedRolesSelection.includes(0)"
+          >{{
+            'config.allowForGeneralAdministrator' | translate
+          }}</mat-list-option
+        >
+        <mat-list-option
+          class="list-option"
+          [value]="50"
+          [disabled]="allowedRolesSelection.includes(0)"
+          >{{ 'config.allowForUserAdministrator' | translate }}</mat-list-option
+        >
       </mat-selection-list>
     </section>
     <!-- /allow usage for role -->
+    <section>
+      <h1 translate>config.enableCheckScope</h1>
+      <p translate>config.enableCheckScopeExplanation</p>
+      <mat-slide-toggle
+        class="toggle"
+        [(ngModel)]="checkScope"
+        (ngModelChange)="setCheckScope($event)"
+        >{{ 'config.enableCheckScopeLabel' | translate }}</mat-slide-toggle
+      >
+    </section>
     <div class="eca-actions">
       <button mat-flat-button color="secondary" (click)="removeConfig()">
-        <mat-icon>delete</mat-icon> {{'config.removeConfig' | translate }}
+        <mat-icon>delete</mat-icon> {{ 'config.removeConfig' | translate }}
       </button>
     </div>
-
   </section>
   <app-loader [loading]="loading"></app-loader>
 </div>

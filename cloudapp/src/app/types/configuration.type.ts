@@ -1,6 +1,7 @@
-import { UserDetailsChecked } from './userDetailsChecked'
+import { UserDetailsChecked } from './userDetailsChecked';
 
 export type Configuration = {
-	allowedRoles: number[]
-	allowedUsers: UserDetailsChecked[]
-}
+  allowedRoles: number[];
+  allowedUsers: UserDetailsChecked[];
+  checkScope: boolean;
+};

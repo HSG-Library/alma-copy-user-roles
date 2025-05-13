@@ -1,17 +1,17 @@
 <h2 mat-dialog-title translate>validationDialog.title</h2>
 <mat-dialog-content>
-  <p translate>
-    validationDialog.introText
-  <p>
-  <p translate>
-    validationDialog.outroText
-  <p>
-</mat-dialog-content>
+  <p translate>validationDialog.introText</p>
+
+  <p></p>
+  <p translate>validationDialog.outroText</p>
+
+  <p></p
+></mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-flat-button color="secondary" (click)="close()">
-    {{'validationDialog.abortButtonLabel' | translate }}
+    {{ 'validationDialog.abortButtonLabel' | translate }}
   </button>
   <button mat-flat-button color="primary" (click)="proceed()" cdkFocusInitial>
-    {{'validationDialog.proceedAnywayButtonLabel' | translate }}
+    {{ 'validationDialog.proceedAnywayButtonLabel' | translate }}
   </button>
 </mat-dialog-actions>

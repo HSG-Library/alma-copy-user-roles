@@ -1,27 +1,15 @@
-name: "CodeQL"
+name: 'CodeQL'
 
 on:
   push:
-    branches: ["main", "develop"]
-    paths:
-    [
-      "package.json",
-      "package-lock.json",
-      "cloudapp/src/**",
-      ".github/workflows/**",
-    ]
+    branches: ['main', 'develop']
+    paths: ['cloudapp/src/**', '.github/workflows/**']
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: ["main"]
-    paths:
-      [
-        "package.json",
-        "package-lock.json",
-        "cloudapp/src/**",
-        ".github/workflows/**",
-      ]
+    branches: ['main']
+    paths: ['cloudapp/src/**', '.github/workflows/**']
   schedule:
-    - cron: "35 10 * * 1" # at 10:53 every Monday
+    - cron: '35 10 * * 1' # at 10:53 every Monday
 
 jobs:
   analyze:
@@ -29,9 +17,9 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
-        language: ["javascript"]
+        language: ['typescript']
 
     steps:
       - name: Checkout repository
@@ -39,13 +27,9 @@ jobs:
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
-          # If you wish to specify custom queries, you can do so here or in a config file.
-          # By default, queries listed here will override any specified in a config file.
-          # Prefix the list here with "+" to use these queries and those in the config file.
-          # queries: ./path/to/local/query, your-org/your-repo/queries@main
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
