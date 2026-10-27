@@ -17,11 +17,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class UserService {
   public constructor(
     private restService: CloudAppRestService,
-    private destroyRef: DestroyRef
+    private destroyRef: DestroyRef,
   ) {}
 
   public findUser(searchTerm: string): Observable<UserListResponse> {
-    let request: Request = {
+    const request: Request = {
       url: '/users',
       method: HttpMethod.GET,
       headers: AppConfig.httpHeader,
@@ -37,7 +37,7 @@ export class UserService {
   }
 
   public getUserDetails(primaryId: string): Observable<UserDetails> {
-    let request: Request = {
+    const request: Request = {
       url: '/users/' + primaryId,
       method: HttpMethod.GET,
       headers: AppConfig.httpHeader,
@@ -53,7 +53,7 @@ export class UserService {
   }
 
   public getUserDetailsFromEntity(userEntity: Entity): Observable<UserDetails> {
-    let request: Request = {
+    const request: Request = {
       url: userEntity.link,
       method: HttpMethod.GET,
       headers: AppConfig.httpHeader,
@@ -69,7 +69,7 @@ export class UserService {
   }
 
   public updateUser(userData: UserDetails): Observable<UserDetails> {
-    let request: Request = {
+    const request: Request = {
       url: '/users/' + userData.primary_id,
       method: HttpMethod.PUT,
       headers: AppConfig.httpHeader,
@@ -81,7 +81,7 @@ export class UserService {
   }
 
   private createPattern(searchTerm: string): string {
-    let cleanSearchTerm = searchTerm.trim().replace(' ', '_');
+    const cleanSearchTerm = searchTerm.trim().replace(' ', '+');
     return `ALL~*${cleanSearchTerm}*`;
   }
 }
