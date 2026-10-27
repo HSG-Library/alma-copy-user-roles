@@ -8,17 +8,17 @@
     "start": "eca start"
   },
   "dependencies": {
-    "@angular/animations": "18.2.13",
+    "@angular/animations": "18.2.14",
     "@angular/cdk": "18.2.14",
-    "@angular/common": "18.2.13",
-    "@angular/compiler": "18.2.13",
-    "@angular/core": "18.2.13",
-    "@angular/forms": "18.2.13",
-    "@angular/language-service": "18.2.13",
+    "@angular/common": "18.2.14",
+    "@angular/compiler": "18.2.14",
+    "@angular/core": "18.2.14",
+    "@angular/forms": "18.2.14",
+    "@angular/language-service": "18.2.14",
     "@angular/material": "18.2.14",
-    "@angular/platform-browser": "18.2.13",
-    "@angular/platform-browser-dynamic": "18.2.13",
-    "@angular/router": "18.2.13",
+    "@angular/platform-browser": "18.2.14",
+    "@angular/platform-browser-dynamic": "18.2.14",
+    "@angular/router": "18.2.14",
     "@biesbjerg/ngx-translate-extract-marker": "1.0.0",
     "@exlibris/eca-components": "^2.1.0",
     "@exlibris/exl-cloudapp-angular-lib": "^2.1.0",
@@ -33,9 +33,9 @@
     "zone.js": "0.14.10"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "18.2.15",
-    "@angular/cli": "18.2.15",
-    "@angular/compiler-cli": "18.2.13",
+    "@angular-devkit/build-angular": "18.2.21",
+    "@angular/cli": "18.2.21",
+    "@angular/compiler-cli": "18.2.14",
     "@types/jasmine": "5.1.7",
     "@types/lodash": "4.17.16",
     "@types/node": "18.19.80",
@@ -49,5 +49,9 @@
     "karma-jasmine-html-reporter": "2.1.0",
     "postcss": "8.4.49",
     "typescript": "5.5.4"
+  },
+  "overrides": {
+    "piscina": "^4.9.4",
+    "tar": "^7.5.22"
   }
 }
